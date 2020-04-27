@@ -28,7 +28,7 @@ p{
 
 .block{
 	float: right;
-	margin-top: 100px;
+	margin-top: 40px;
 	margin-right: 300px;
 	text-align: center;
 	background-color: white;
@@ -57,7 +57,7 @@ input[type=submit] {
 input[type=text]:focus{
 	outline: none;
 	background-color: #f7bcb5;
-	width: 300px;
+	width: 250px;
 }
 
 input[type=submit]:hover{
