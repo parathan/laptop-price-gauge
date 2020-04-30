@@ -8,17 +8,13 @@ body{
     margin:0;
 }
 
-h1{
+.page_title{
+  font-size: 35px;
+  font-weight: bold;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-variant: small-caps;
 	margin-top: 50px;
-        color: white;
-}
-
-h2{
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
         color: white;
 }
 
@@ -30,59 +26,56 @@ p{
         color: white;
 }
 
-#first_laptop_heading{
-  float: left;
-	margin-top: 50px;
-	margin-left: 550px;
-	text-align: center;
-	color: white;
-	width: 300px;
+.laptop_heading{
+  font-size: 20px;
+  width: 300px;
+  text-align: center;
+  color: white;
 }
 
-#second_laptop_heading{
-  float: right;
-	margin-top: 50px;
-	margin-right: 550px;
+#container{
+  margin-top: 60px;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.laptop_form{
+  border-radius: 50px;
+  border: 2px solid #6a0dad;
+  padding: 20px;
+	margin-top: 25px;
 	text-align: center;
-	color: white;
+	background-color: white;
 	width: 300px;
 }
 
 #first_laptop{
-  border-radius: 25px;
-  border: 2px solid #6a0dad;
-  padding: 20px;
-  float: left;
-	margin-top: 25px;
-	margin-left: 550px;
-	text-align: center;
-	background-color: white;
-	width: 250px;
+  margin: 0 auto;
+  float:left;
+  display:inline-block;
+  margin-right: 100;
 }
 
 #second_laptop{
-  border-radius: 25px;
-  border: 2px solid #6a0dad;
-  padding: 20px;
-  float: right;
-	margin-top: 25px;
-	margin-right: 550px;
-	text-align: center;
-	background-color: white;
-	width: 250px;
+  margin: 0 auto;
+  display:inline-block;
+  float:right;
+  margin-left: 100;
 }
+
 
 #submission{
   border-radius: 25px;
   border: 2px solid #B9B9B9;
   padding: 20px;
-  margin: 0 auto;
-  margin-top: 600px;
   text-align: center;
 	background-color: white;
 	width: 250px;
-  height:150px;
+  height:200px;
+  margin: 0 auto;
+  margin-top: 75px;
 }
+
 
 input[type=text], input[type=submit]{
 	width: 200px;
@@ -91,7 +84,7 @@ input[type=text], input[type=submit]{
 	padding:10px;
 	margin: 15px;
 	font-size:15px;
-	transition: width 0.25s ease-in-out;
+	transition: width 0.1s ease;
 }
 
 input[type=submit] {
