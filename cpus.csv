@@ -1,0 +1,174 @@
+cpu,cpubench
+AMD Ryzen 9 4900HS,20303
+AMD Ryzen 7 4800H,19702
+AMD Ryzen 7 4800HS,18741
+Intel Core i9-10980HK ,17037
+Intel Core i7-10750H ,16137
+Intel Core i9-9980HK ,15889
+Intel Xeon E-2286M ,15785
+AMD Ryzen 7 4700U,14327
+Intel Core i9-9880H ,14120
+Intel Core i7-9750HF ,12674
+Intel Core i7-8700B ,12128
+Intel Xeon E-2276M ,12077
+Intel Xeon E-2176M ,11886
+Intel Xeon E-2186M ,11736
+AMD Ryzen 5 4500U,11565
+Intel Core i7-9750H ,11553
+Intel Core i9-8950HK ,11410
+Intel Core i7-9850H ,11347
+Intel Core i7-9700TE ,10954
+Intel Core i7-8850H ,10660
+Intel Core i7-10710U ,10462
+Intel Core i7-8750H ,10286
+Intel Core i5-8500B ,9697
+Intel Core i5-9400F ,9630
+Intel Core i5-10300H ,9501
+Intel Core i7-9850HL ,9216
+Intel Core i7-8559U ,9123
+Intel Core i7-1065G7 ,9110
+Intel Core i7-8809G ,8940
+Intel Core i5-1035G7 ,8805
+Intel Core i5-1035G4 ,8512
+Intel Core i5-8400H ,8486
+AMD Ryzen 7 3750H,8468
+Intel Core i5-9400H ,8464
+Intel Core i5-8259U ,8378
+AMD Ryzen 3 4300U,8364
+Intel Core i5-8257U ,8246
+AMD Ryzen 5 3550H,8178
+Intel Core i7-8706G ,8168
+Intel Core i5-9300H ,8131
+Intel Core i5-8279U ,7983
+AMD Ryzen 5 3580U,7976
+Intel Core i7-8557U ,7885
+Intel Core i5-1035G1 ,7813
+Intel Core i7-8709G ,7794
+AMD Ryzen Embedded V1807B,7764
+Intel Core i5-8300H ,7524
+AMD Ryzen 5 PRO 3500U,7523
+AMD Ryzen 7 PRO 2700U,7486
+AMD Ryzen 7 2800H,7432
+AMD Ryzen 7 3700U,7408
+AMD Ryzen 7 3780U,7392
+Intel Core i7-10510U ,7392
+AMD Ryzen 7 PRO 3700U,7356
+AMD Ryzen 5 2600H,7317
+AMD Ryzen 3 PRO 3200GE,7297
+AMD Ryzen 5 3500U,7234
+Intel Core i7-8705G ,7228
+AMD Ryzen Embedded V1605B,7125
+Intel Core i7-7820EQ ,7087
+Intel Core i5-8305G ,6975
+Intel Core i3-8100B ,6907
+Intel Core i7-5850EQ ,6829
+Intel Core i5-8350U ,6813
+Intel Core i7-8565U ,6692
+Intel Core i7-8665U ,6680
+Intel Xeon E3-1268L v5 ,6680
+Intel Core i5-10210U ,6636
+Intel Core i7-8650U ,6631
+Intel Core i7-8665UE ,6626
+Intel Core i5-8365U ,6595
+AMD Ryzen 5 PRO 2500U,6570
+AMD Ryzen 5 2500U,6545
+AMD Ryzen 7 2700U,6469
+Intel Core i5-8265U ,6364
+Intel Core i5-8250U ,6240
+Intel Xeon E3-1505L v6 ,6112
+Intel Core i5-8365UE ,6079
+Intel Core i7-8550U ,6046
+Intel Core i5-8265UC ,5999
+AMD Ryzen 3 PRO 3300U,5977
+AMD Ryzen 3 PRO 2300U,5788
+Intel Core i5-1030NG7 ,5754
+Intel Core i3-1005G1 ,5208
+AMD Ryzen 3 2300U,5172
+AMD Ryzen 3 3300U,5092
+Intel Core i5-10210Y ,4922
+Intel Core i5-7442EQ ,4853
+Intel Core i5-6442EQ ,4573
+Intel Core i3-8121U ,4492
+AMD Athlon 220GE,4472
+Intel Core i3-8109U ,4443
+Intel Core i7-7660U ,4437
+Intel Core i5-7360U ,4326
+Intel Core i3-10110U ,4276
+AMD Ryzen Embedded R1505G,4194
+AMD Athlon 300U,4163
+AMD Ryzen 3 3200U,4104
+Intel Core i5-7287U ,4029
+Intel Core i3-8130U ,3846
+Intel Core i3-8145U ,3767
+AMD Ryzen Embedded V1202B,3625
+Intel Core i5-7267U ,3579
+AMD A8-7680,3578
+AMD Ryzen 3 2200U,3569
+Intel Core i5-6287U ,3449
+Intel Core i3-7100H ,3397
+Intel Core i3-7167U ,3389
+AMD Embedded R-Series RX-418GD Radeon R6,3365
+Intel Core i5-8200Y ,3070
+Intel Core i5-8210Y ,3011
+Intel Core i3-7130U ,2901
+Intel Core m3-8100Y ,2898
+AMD A12-9730P,2898
+Intel Core i7-8500Y ,2829
+Intel Pentium Silver N5000 ,2768
+AMD A6-9400,2717
+AMD PRO A10-9700B,2703
+AMD A10-9620P,2670
+AMD A12-9720P,2642
+Intel Core i3-7020U ,2579
+Intel Core m3-7Y32 ,2578
+Intel Core i3-7102E ,2531
+Intel Celeron N4100 ,2528
+AMD PRO A12-8830B,2462
+Intel Core i3-6102E ,2455
+Intel Celeron N4120 ,2419
+Intel Pentium Silver N5030 ,2393
+Intel Pentium 5405U ,2339
+Intel Pentium 4417U ,2302
+Intel Pentium G4400TE ,2217
+Intel Atom C2538 ,2086
+Intel Atom T5700 ,2039
+Intel Celeron G3900TE ,1991
+Intel Celeron 4305UE ,1961
+Intel Core i5-4422E ,1931
+Intel Core i5-4230U ,1891
+Intel Atom E3940 ,1868
+Intel Celeron N4020 ,1820
+Intel Celeron 3965U ,1758
+AMD PRO A6-7350B,1681
+Intel Pentium 4415Y ,1625
+AMD Embedded R-Series RX-216GD,1599
+AMD A9-9425,1546
+AMD A9-9420,1530
+Intel Celeron N4000 ,1518
+Intel Celeron N4000C ,1511
+AMD Embedded G-Series GX-420GI Radeon R7E,1495
+Intel Celeron 3867U ,1459
+Intel Celeron 5205U ,1451
+AMD A6-9225,1378
+Intel Pentium 4410Y ,1366
+AMD A4-9125,1357
+AMD A6-9220,1337
+Intel Celeron 4205U ,1334
+Intel Pentium A1020 ,1279
+AMD Embedded G-Series GX-224IJ Radeon R4E,1272
+Intel Celeron 1020M ,1270
+AMD A4-5050 APU,1261
+Intel Celeron 3865U ,1240
+AMD A6-9220C,1229
+AMD R-272F APU,1219
+AMD A9-9420e,1217
+Intel Celeron 3965Y ,1203
+AMD A4-9120,1195
+Intel Celeron 2002E ,1105
+AMD Embedded G-Series GX-215JJ Radeon R2E,1075
+AMD PRO A4-4350B,1028
+AMD E2-9000,990
+AMD A6-9220e,977
+AMD A6-9200,973
+AMD A4-9120C,938
+AMD E2-9000e,868
