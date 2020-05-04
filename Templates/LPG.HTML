@@ -5,9 +5,35 @@
 		<link rel="stylesheet" href="/static/css/style.css">
 		<title>LPG</title>
 	</head>
-	<body>
 
-<div class=page_title>Laptop Price Gauge</div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <img src="https://cdn3.iconfinder.com/data/icons/news-and-media/512/14-512.png" width="30" height="30" class="d-inline-block align-top" alt="">
+	<a class="navbar-brand" href="/">Laptop Price Gauge 					</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
+	    <li class="nav-item">
+	      <a class="nav-link" href="/">Home 					</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="/LPG">LPG Tool 					<span class="sr-only">(current)</span></a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="/LPG_About">About 					</a>
+	    </li>
+	  </ul>
+	</div>
+
+	<div>
+		The greatest tool to help you get the best priced laptop!
+	</div>
+
+	</nav>
+
+	<body>
 
 <div id=container>
 
@@ -16,17 +42,9 @@
 			<div class=laptop_heading>First Laptop's Price</div>
 
 			<div class="laptop_form">
-			<form action="{{url_for('laptop')}}" method = "post">
-
-				<div class="gpu-group">
-					<select class="form-control" name="gpu_id">
-					{% for gpu in gpus %}
-					  <option value="{{gpu.id}}">{{gpu.gpu}}
-					{% endfor %}
-				  </select>
-				</div>
-
+			<form>
 				<input type="text" name="CPU" placeholder="CPU" autocomplete="off"><br>
+				<input type="text" name="GPU" placeholder="GPU" autocomplete="off"><br>
 				<input type="text" name="RAM" placeholder="RAM" autocomplete="off"><br>
 				<input type="text" name="HDD" placeholder="HDD" autocomplete="off"><br>
 				<input type="text" name="SSD" placeholder="SSD" autocomplete="off"><br>
@@ -53,8 +71,6 @@
 
 	</div>
 
-
-
 		<div id="submission">
 			<form action="./LPG_Home.html">
 				<input type="Submit" id="submitButton"><br>
@@ -64,4 +80,5 @@
 
 
 	</body>
+
 </html>
