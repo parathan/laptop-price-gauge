@@ -16,9 +16,17 @@
 			<div class=laptop_heading>First Laptop's Price</div>
 
 			<div class="laptop_form">
-			<form>
+			<form action="{{url_for('laptop')}}" method = "post">
+
+				<div class="gpu-group">
+					<select class="form-control" name="gpu_id">
+					{% for gpu in gpus %}
+					  <option value="{{gpu.id}}">{{gpu.gpu}}
+					{% endfor %}
+				  </select>
+				</div>
+
 				<input type="text" name="CPU" placeholder="CPU" autocomplete="off"><br>
-				<input type="text" name="GPU" placeholder="GPU" autocomplete="off"><br>
 				<input type="text" name="RAM" placeholder="RAM" autocomplete="off"><br>
 				<input type="text" name="HDD" placeholder="HDD" autocomplete="off"><br>
 				<input type="text" name="SSD" placeholder="SSD" autocomplete="off"><br>
