@@ -5,7 +5,19 @@ LPG Home
 {% endblock %}
 
 {% block body %}
-<div class="page_title">
-	Welcome to the Laptop Price Gauge! Please use the specs of the two laptops you would like to compare in the LPG tool!
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h3>Welcome to the Laptop Price Gauge</h3>
+		</div>
+		<div class="col" id=navigator>
+			<form action="{{ url_for('lpg_tool') }}">
+				<input type="submit" value="LPG Tool">
+			</form>
+			<form action="{{ url_for('lpg_about') }}">
+				<input type="submit" value="LPG About">
+			</form>
+		</div>
+	</div>
 </div>
 {% endblock %}

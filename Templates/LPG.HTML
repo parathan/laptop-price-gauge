@@ -1,11 +1,21 @@
 {% extends "Layout.html" %}
 
 {% block title %}
-LPG Tool
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var gpu = [];
+	$(".dropdown").select2({
+		data: gpu
+	});
+});
+</script>
 {% endblock %}
 
-{% block body %}
 
+{% block body %}
 <div id=container>
 
 		<div id="first_laptop">
@@ -13,13 +23,20 @@ LPG Tool
 			<div class=laptop_heading>First Laptop's Price</div>
 
 			<div class="laptop_form">
-			<form>
-				<input type="text" name="CPU" placeholder="CPU" autocomplete="off"><br>
-				<input type="text" name="GPU" placeholder="GPU" autocomplete="off"><br>
-				<input type="text" name="RAM" placeholder="RAM" autocomplete="off"><br>
-				<input type="text" name="HDD" placeholder="HDD" autocomplete="off"><br>
-				<input type="text" name="SSD" placeholder="SSD" autocomplete="off"><br>
+			<form action="{{ url_for('calculation') }}">
+				<select class="dropdown" name="GPU1">
+					{% for gpu in gpus %}
+					<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+					{% endfor %}
+				</select>
+				<input type="text" name="CPU1" placeholder="CPU" autocomplete="off"><br>
+				<input type="text" name="RAM1" placeholder="RAM" autocomplete="off"><br>
+				<input type="text" name="HDD1" placeholder="HDD" autocomplete="off"><br>
+				<input type="text" name="SSD1" placeholder="SSD" autocomplete="off"><br>
 			</form>
+			<div>
+
+		</div>
 
 		</div>
 		</div>
@@ -30,11 +47,15 @@ LPG Tool
 
 			<div class="laptop_form">
 			<form>
-				<input type="text" name="CPU" placeholder="CPU" autocomplete="off"><br>
-				<input type="text" name="GPU" placeholder="GPU" autocomplete="off"><br>
-				<input type="text" name="RAM" placeholder="RAM" autocomplete="off"><br>
-				<input type="text" name="HDD" placeholder="HDD" autocomplete="off"><br>
-				<input type="text" name="SSD" placeholder="SSD" autocomplete="off"><br>
+				<select class="dropdown" name="GPU2">
+					{% for gpu in gpus %}
+					<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+					{% endfor %}
+				</select>
+				<input type="text" name="CPU2" placeholder="CPU" autocomplete="off"><br>
+				<input type="text" name="RAM2" placeholder="RAM" autocomplete="off"><br>
+				<input type="text" name="HDD2" placeholder="HDD" autocomplete="off"><br>
+				<input type="text" name="SSD2" placeholder="SSD" autocomplete="off"><br>
 			</form>
 		</div>
 

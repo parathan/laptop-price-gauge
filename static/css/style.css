@@ -1,5 +1,5 @@
 body{
-    background-image: url('http://i.stack.imgur.com/kx8MT.gif');
+    background-color: #666699;
     background-size: cover;
 
     height: 100vh;
@@ -7,6 +7,9 @@ body{
     margin:0;
 }
 
+#navigator{
+  background-color: #ffffff;
+}
 .page_title{
   font-size: 35px;
   font-weight: bold;
@@ -39,12 +42,10 @@ p{
 }
 
 .laptop_form{
-  border-radius: 50px;
-  border: 2px solid #6a0dad;
   padding: 20px;
 	margin-top: 25px;
 	text-align: center;
-	background-color: white;
+  background-color: #666699;
 	width: 300px;
 }
 
@@ -81,7 +82,7 @@ p{
 input[type=text], input[type=submit]{
 	width: 150px;
 	text-align: center;
-	border: 1px solid red;
+	border: 1px solid #6a0dad;
 	padding:10px;
 	margin: 15px;
 	font-size:15px;
