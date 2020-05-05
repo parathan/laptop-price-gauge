@@ -16,23 +16,51 @@ $(document).ready(function() {
 
 
 {% block body %}
-<div id=container>
-
+<div class="container"id=container>
+	<div class="row"
+		<div class="col"
+	</div>
+	<div class="col">
 		<div id="first_laptop">
 
 			<div class=laptop_heading>First Laptop's Price</div>
 
 			<div class="laptop_form">
 			<form action="{{ url_for('calculation') }}">
-				<select class="dropdown" name="GPU1">
+				<select class="dropdown" placeholder="GPU" name="GPU1">
+					<option value="" selected disabled hidden> GPU </option>
 					{% for gpu in gpus %}
 					<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
 					{% endfor %}
-				</select>
-				<input type="text" name="CPU1" placeholder="CPU" autocomplete="off"><br>
-				<input type="text" name="RAM1" placeholder="RAM" autocomplete="off"><br>
-				<input type="text" name="HDD1" placeholder="HDD" autocomplete="off"><br>
-				<input type="text" name="SSD1" placeholder="SSD" autocomplete="off"><br>
+				</select><br>
+				<select class="dropdown" name="CPU1">
+					<option value="" selected disabled hidden> CPU </option>
+					{% for cpu in cpus %}
+					<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+					{% endfor %}
+				</select><br>
+				<select class="dropdown" name="RAM1">
+					<option value="" selected disabled hidden> RAM </option>
+					<option value="4">4</option>
+					<option value="8">8</option>
+					<option value="16">16</option>
+					<option value="32">32 or more</option>
+				</select><br>
+				<select class="dropdown" name="HDD1">
+					<option value="" selected disabled hidden> HDD </option>
+					<option value="0GB">0GB</option>
+					<option value="500GB">500GB</option>
+					<option value="1TB">1TB</option>
+					<option value="2TB">2TB or more</option>
+				</select><br>
+				<select class="dropdown" name="SSD1">
+					<option value="" selected disabled hidden> SSD </option>
+					<option value="0GB">0GB</option>
+					<option value="128GB">128GB</option>
+					<option value="256GB">256GB</option>
+					<option value="512GB">512GB</option>
+					<option value="1TB">1TB or more</option>
+				</select><br>
 			</form>
 			<div>
 
@@ -40,7 +68,7 @@ $(document).ready(function() {
 
 		</div>
 		</div>
-
+	</div>
 		<div id="second_laptop">
 
 			<div class=laptop_heading>Second Laptop's Price</div>
@@ -48,26 +76,44 @@ $(document).ready(function() {
 			<div class="laptop_form">
 			<form>
 				<select class="dropdown" name="GPU2">
+					<option value="" selected disabled hidden> GPU </option>
 					{% for gpu in gpus %}
 					<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
 					{% endfor %}
-				</select>
-				<input type="text" name="CPU2" placeholder="CPU" autocomplete="off"><br>
-				<input type="text" name="RAM2" placeholder="RAM" autocomplete="off"><br>
-				<input type="text" name="HDD2" placeholder="HDD" autocomplete="off"><br>
-				<input type="text" name="SSD2" placeholder="SSD" autocomplete="off"><br>
+				</select><br>
+				<select class="dropdown" name="CPU2">
+					<option value="" selected disabled hidden> CPU </option>
+					{% for cpu in cpus %}
+					<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+					{% endfor %}
+				</select><br>
+				<select class="dropdown" name="RAM2">
+					<option value="" selected disabled hidden> RAM </option>
+					<option value="4">4</option>
+					<option value="8">8</option>
+					<option value="16">16</option>
+					<option value="32">32 or more</option>
+				</select><br>
+				<select class="dropdown" name="HDD2">
+					<option value="" selected disabled hidden> HDD </option>
+					<option value="0GB">0GB</option>
+					<option value="500GB">500GB</option>
+					<option value="1TB">1TB</option>
+					<option value="2TB">2TB or more</option>
+				</select><br>
+				<select class="dropdown" name="SSD2">
+					<option value="" selected disabled hidden> SSD </option>
+					<option value="0GB">0GB</option>
+					<option value="128GB">128GB</option>
+					<option value="256GB">256GB</option>
+					<option value="512GB">512GB</option>
+					<option value="1TB">1TB or more</option>
+				</select><br>
 			</form>
 		</div>
 
 	</div>
-
-	</div>
-
-		<div id="submission">
-			<form action="./LPG_Home.html">
-				<input type="Submit" id="submitButton"><br>
-				<input type="submit" class="BackButton" value="Back">
-			</form>
-		</div>
+</div>
+</div>
 
 {% endblock %}
