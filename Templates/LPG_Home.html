@@ -1,41 +1,11 @@
-<DOCTYPE! html>
-<html>
-	<head>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-		<link rel="stylesheet" href="/static/css/style.css">
-		<title>LPG Home</title>
-	</head>
+{% extends "layout.html" %}
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <img src="https://cdn3.iconfinder.com/data/icons/news-and-media/512/14-512.png" width="30" height="30" class="d-inline-block align-top" alt="">
-		<a class="navbar-brand" href="/">Laptop Price Gauge 					</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		  <span class="navbar-toggler-icon"></span>
-		</button>
+{% block title %}
+LPG Home
+{% endblock %}
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		  <ul class="navbar-nav mr-auto">
-		    <li class="nav-item active">
-		      <a class="nav-link" href="/">Home 					<span class="sr-only">(current)</span></a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="/LPG">LPG Tool 				 </a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="/LPG_About">About 					</a>
-		    </li>
-		  </ul>
-		</div>
-
-		<div>
-			The greatest tool to help you get the best priced laptop!
-		</div>
-
-		</nav>
-
-	<div class="page_title">
-		Welcome to the Laptop Price Gauge! Please use the specs of the two laptops you would like to compare in the LPG tool!
-	</div>
-
-
-</html>
+{% block body %}
+<div class="page_title">
+	Welcome to the Laptop Price Gauge! Please use the specs of the two laptops you would like to compare in the LPG tool!
+</div>
+{% endblock %}
