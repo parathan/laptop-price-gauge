@@ -1,10 +1,32 @@
 body{
-    background-color: #666699;
+    background-image: url("/static/img/background1.png");
+    width: 100%;
     background-size: cover;
-
-    height: 100vh;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='background1.png',sizingMethod='scale');
+    -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='background1.png',sizingMethod='scale')";
     padding:0;
     margin:0;
+}
+
+h3{
+  color: white;
+}
+
+p{
+  opacity: 1;
+  color: black;
+}
+
+.col-3{
+  opacity: .5;
+  padding: 30px;
+  height: 400px;
+  text-align: center;
+}
+
+.row{
+  margin-top: 200px;
+  margin-left: -100px;
 }
 .subentry{
   width: 50%;
@@ -26,10 +48,6 @@ body{
 
 p{
 	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	font-variant: small-caps;
-	font-size: 16px;
-        color: white;
 }
 
 .laptop_heading{
@@ -87,6 +105,7 @@ input[type=text], input[type=submit]{
 	width: 150px;
 	text-align: center;
 	border: 1px solid #6a0dad;
+  border-radius: 30px;
 	padding:10px;
 	margin: 15px;
 	font-size:15px;
