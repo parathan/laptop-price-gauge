@@ -31,6 +31,7 @@ def calculation():
     hdd2 = request.form.get("HDD2")
     ssd1 = request.form.get("SSD1")
     ssd2 = reqeust.form.get("SSD2")
+<<<<<<< HEAD
     price1 = request.form.get("PRICE1")
     price2 = request.form.get("PRICE2")
     type = request.form.get("type")
@@ -51,6 +52,9 @@ def calculation():
     compare_result = compare(type, max_cpubench, max_gpubench, cpu1, cpu2, gpu1, gpu2, ram1, ram2, hdd1, hdd2, ssd1, ssd2, price1, price2)
 
     return render_template("LPG_Home.html", compare_result)
+=======
+    return render_template("calculation.html", Laptop=laptopvalue, factor=factorvalue)
+>>>>>>> 5182525ce6db4e1e6e4703dcb6d933fd9920e06f
 
 @app.route("/LPG_About")
 def lpg_about():

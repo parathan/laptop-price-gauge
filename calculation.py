@@ -15,11 +15,11 @@ def laptop_video_compare(max_cpubench: int, max_gpubench: float,\
  lvc2 = (laptop_video_percentage(max_cpubench, max_gpubench, cpu2, gpu2, ram2, hdd2, ssd2))/price2
 
  if lvc1 == lvc2:
-     return 0
+     return [0, lvc1]
  elif lvc1 > lvc2:
-     return 1
+     return [1, lvc1/lvc2]
  else lvc1 < lvc2
-     return 2
+     return [2, lvc2/lvc1]
 
 return 3
 
@@ -75,7 +75,7 @@ def laptop_home_compare(max_cpubench: int, max_gpubench: float,\
      return 2
 
 return 3
-    
+
 def laptop_home_percentage(max_cpubench: int, max_gpubench: float,\
  cpu: int, gpu: float, ram: int, hdd: int, ssd: int):
  computer_percentage = (0.65)((cpu/max_cpubench)(0.75) + (gpu/max_gpubench)(0.25))
