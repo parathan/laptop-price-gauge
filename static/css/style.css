@@ -1,5 +1,6 @@
 body{
     background-image: url("/static/img/background1.png");
+    height: 100vh;
     width: 100%;
     background-size: cover;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='background1.png',sizingMethod='scale');
@@ -17,6 +18,8 @@ p{
   color: black;
 }
 
+
+
 .col-3{
   opacity: .5;
   padding: 30px;
@@ -26,11 +29,19 @@ p{
 
 .row{
   margin-top: 200px;
-  margin-left: -100px;
+  margin: 0 auto;
 }
+
+.subentry:hover
+{
+  box-shadow: 0 25px 60px rgba(0,0,0,.8);
+}
+
 .subentry{
-  width: 50%;
-  float: left;
+  width: 80%;
+  height: 800px;
+  margin: 0 auto;
+  top:50%;
 }
 
 #navigator{
@@ -57,34 +68,24 @@ p{
   color: white;
 }
 
-#container{
-  margin-top: 60px;
-  display:flex;
-  flex-wrap:wrap;
+.leftside, .rightside {
+  height:50vh;
+  width:100%;
 }
 
-.laptop_form{
-  padding: 20px;
-	margin-top: 25px;
-	text-align: center;
-  background-color: #666699;
-	width: 300px;
+@media screen and (min-width:768px){
+  .leftside, .rightside{
+    height:100vh;
+  }
 }
-
 
 
 #first_laptop{
-  margin: 0 auto;
-  float:left;
-  display:inline-block;
-  margin-right: 100;
+  margin-top: 40px;
 }
 
 #second_laptop{
-  margin: 0 auto;
-  display:inline-block;
-  float:right;
-  margin-left: 100;
+  margin-top: 40px;
 }
 
 

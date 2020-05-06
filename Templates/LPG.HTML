@@ -1,3 +1,4 @@
+
 {% extends "Layout.html" %}
 
 {% block title %}
@@ -11,130 +12,106 @@ $(document).ready(function() {
 		data: gpu
 	});
 });
+
 </script>
 {% endblock %}
 
 
 {% block body %}
 	<form action="{{ url_for('calculation') }}" method="post">
-		<div class="subentry">
-			<select class="dropdown" placeholder="GPU" name="GPU1">
-				<option value="" selected disabled hidden> GPU </option>
-				{% for gpu in gpus %}
-				<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
-				{% endfor %}
-			</select><br>
-			<select class="dropdown" name="CPU1">
-				<option value="" selected disabled hidden> CPU </option>
-				{% for cpu in cpus %}
-				<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
-				{% endfor %}
-			</select><br>
-			<select class="dropdown" name="RAM1">
-				<option value="" selected disabled hidden> RAM </option>
-				<option value="4">4</option>
-				<option value="8">8</option>
-				<option value="16">16</option>
-				<option value="32">32 or more</option>
-			</select><br>
-			<select class="dropdown" name="HDD1">
-				<option value="" selected disabled hidden> HDD </option>
-				<option value="0GB">0GB</option>
-				<option value="500GB">500GB</option>
-				<option value="1TB">1TB</option>
-				<option value="2TB">2TB or more</option>
-			</select><br>
-			<select class="dropdown" name="SSD1">
-				<option value="" selected disabled hidden> SSD </option>
-				<option value="0GB">0GB</option>
-				<option value="128GB">128GB</option>
-				<option value="256GB">256GB</option>
-				<option value="512GB">512GB</option>
-				<option value="1TB">1TB or more</option>
-			</select><br>
-		</div>
-		<div class="subentry">
-			<select class="dropdown" name="GPU2">
-				<option value="" selected disabled hidden> GPU </option>
-				{% for gpu in gpus %}
-				<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
-				{% endfor %}
-			</select><br>
-			<select class="dropdown" name="CPU2">
-				<option value="" selected disabled hidden> CPU </option>
-				{% for cpu in cpus %}
-				<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
-				{% endfor %}
-			</select><br>
-			<select class="dropdown" name="RAM2">
-				<option value="" selected disabled hidden> RAM </option>
-				<option value="4">4</option>
-				<option value="8">8</option>
-				<option value="16">16</option>
-				<option value="32">32 or more</option>
-			</select><br>
-			<select class="dropdown" name="HDD2">
-				<option value="" selected disabled hidden> HDD </option>
-				<option value="0GB">0GB</option>
-				<option value="500GB">500GB</option>
-				<option value="1TB">1TB</option>
-				<option value="2TB">2TB or more</option>
-			</select><br>
-			<select class="dropdown" name="SSD2">
-				<option value="" selected disabled hidden> SSD </option>
-				<option value="0GB">0GB</option>
-				<option value="128GB">128GB</option>
-				<option value="256GB">256GB</option>
-				<option value="512GB">512GB</option>
-				<option value="1TB">1TB or more</option>
-			</select><br>
-		</div>
-	</div>
-		<div id="second_laptop">
 
-			<div class=laptop_heading>Second Laptop's Price</div>
+		<div class="row no-gutters">
 
-			<div class="laptop_form">
-			<form>
-				<select class="dropdown" name="GPU2">
-					<option value="" selected disabled hidden> GPU </option>
-					{% for gpu in gpus %}
-					<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
-					{% endfor %}
-				</select><br>
-				<select class="dropdown" name="CPU2">
-					<option value="" selected disabled hidden> CPU </option>
-					{% for cpu in cpus %}
-					<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
-					{% endfor %}
-				</select><br>
-				<select class="dropdown" name="RAM2">
-					<option value="" selected disabled hidden> RAM </option>
-					<option value="4">4</option>
-					<option value="8">8</option>
-					<option value="16">16</option>
-					<option value="32">32 or more</option>
-				</select><br>
-				<select class="dropdown" name="HDD2">
-					<option value="" selected disabled hidden> HDD </option>
-					<option value="0">Between 0GB and 500GB</option>
-					<option value="500">Between 500GB and 1TB</option>
-					<option value="1000">Between 1TB and 2TB</option>
-					<option value="2000">2TB or more</option>
-				</select><br>
-				<select class="dropdown" name="SSD2">
-					<option value="" selected disabled hidden> SSD </option>
-					<option value="0">Between 0GB and 128GB</option>
-					<option value="128">Between 128GB and 256GB</option>
-					<option value="256">Between 256GB and 512GB</option>
-					<option value="512">Between 512GB and 1TB</option>
-					<option value="1000">1TB or more</option>
-				</select><br>
-			</form>
+			<div class="col-md-6 no-gutters">
+				<div id=first_laptop>
+						<div class=laptop_heading>
+							First Laptop's Specs
+						</div>
+						<div class=subentry>
+							<select class="dropdown" placeholder="GPU" name="GPU1">
+								<option value="" selected disabled hidden> GPU </option>
+								{% for gpu in gpus %}
+								<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+								{% endfor %}
+							</select><br>
+							<select class="dropdown" name="CPU1">
+								<option value="" selected disabled hidden> CPU </option>
+								{% for cpu in cpus %}
+								<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+								{% endfor %}
+							</select><br>
+							<select class="dropdown" name="RAM1">
+								<option value="" selected disabled hidden> RAM </option>
+								<option value="4">4</option>
+								<option value="8">8</option>
+								<option value="16">16</option>
+								<option value="32">32 or more</option>
+							</select><br>
+							<select class="dropdown" name="HDD1">
+								<option value="" selected disabled hidden> HDD </option>
+								<option value="0GB">0GB</option>
+								<option value="500GB">500GB</option>
+								<option value="1TB">1TB</option>
+								<option value="2TB">2TB or more</option>
+							</select><br>
+							<select class="dropdown" name="SSD1">
+								<option value="" selected disabled hidden> SSD </option>
+								<option value="0GB">0GB</option>
+								<option value="128GB">128GB</option>
+								<option value="256GB">256GB</option>
+								<option value="512GB">512GB</option>
+								<option value="1TB">1TB or more</option>
+							</select><br>
+						</div>
+					</div>
+				</div>
+
+			<div class="col-md-6 no-gutters">
+				<div id=second_laptop>
+						<div class=laptop_heading>
+							Second Laptop's Specs
+						</div>
+						<div class=subentry>
+							<select class="dropdown" name="GPU2">
+								<option value="" selected disabled hidden> GPU </option>
+								{% for gpu in gpus %}
+								<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+								{% endfor %}
+							</select><br>
+							<select class="dropdown" name="CPU2">
+								<option value="" selected disabled hidden> CPU </option>
+								{% for cpu in cpus %}
+								<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+								{% endfor %}
+							</select><br>
+							<select class="dropdown" name="RAM2">
+								<option value="" selected disabled hidden> RAM </option>
+								<option value="4">4</option>
+								<option value="8">8</option>
+								<option value="16">16</option>
+								<option value="32">32 or more</option>
+							</select><br>
+							<select class="dropdown" name="HDD2">
+								<option value="" selected disabled hidden> HDD </option>
+								<option value="0GB">0GB</option>
+								<option value="500GB">500GB</option>
+								<option value="1TB">1TB</option>
+								<option value="2TB">2TB or more</option>
+							</select><br>
+							<select class="dropdown" name="SSD2">
+								<option value="" selected disabled hidden> SSD </option>
+								<option value="0GB">0GB</option>
+								<option value="128GB">128GB</option>
+								<option value="256GB">256GB</option>
+								<option value="512GB">512GB</option>
+								<option value="1TB">1TB or more</option>
+							</select><br>
+						</div>
+				</div>
+			</div>
 		</div>
 
-	</div>
-</div>
-</div>
+
+	</form>
 
 {% endblock %}
