@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 
 {% block body %}
-	<form action="{{ url_for('calculation') }}">
+	<form action="{{ url_for('calculation') }}" method="post">
 		<div class="subentry">
 			<select class="dropdown" placeholder="GPU" name="GPU1">
 				<option value="" selected disabled hidden> GPU </option>
