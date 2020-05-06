@@ -17,8 +17,18 @@ def lpg_tool():
     cpus = CPUs.query.all()
     return render_template("LPG.html", gpus=gpus, cpus=cpus)
 
-@app.route("/Calculation")
+@app.route("/Calculation", methods=["POST"])
 def calculation():
+    cpu1 = request.form.get("CPU1")
+    cpu2 = request.form.get("CPU2")
+    gpu1 = request.form.get("GPU1")
+    gpu2 = request.form.get("GPU2")
+    ram1 = request.form.get("RAM1")
+    ram2 = request.form.get("RAM2")
+    hdd1 = request.form.get("HDD1")
+    hdd2 = request.form.get("HDD2")
+    ssd1 = request.form.get("SSD1")
+    ssd2 = reqeust.form.get("SSD2")
     return render_template("LPG_Home.html")
 
 @app.route("/LPG_About")
