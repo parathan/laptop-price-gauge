@@ -29,7 +29,7 @@ def calculation():
     hdd2 = request.form.get("HDD2")
     ssd1 = request.form.get("SSD1")
     ssd2 = reqeust.form.get("SSD2")
-    return render_template("LPG_Home.html")
+    return render_template("calculation.html", Laptop=laptopvalue, factor=factorvalue)
 
 @app.route("/LPG_About")
 def lpg_about():
