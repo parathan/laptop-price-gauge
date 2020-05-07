@@ -18,15 +18,6 @@ p{
   color: black;
 }
 
-
-
-.col-3{
-  opacity: .5;
-  padding: 30px;
-  height: 400px;
-  text-align: center;
-}
-
 .row{
   margin-top: 200px;
   margin: 0 auto;
@@ -37,24 +28,24 @@ p{
   box-shadow: 0 25px 60px rgba(0,0,0,.8);
 }
 
+.subentry select{
+  padding: 15px 30px;
+  margin: 15px 0px 0px 0px;
+  width:100%
+}
+
+
 .subentry{
   width: 80%;
-  height: 800px;
   margin: 0 auto;
+  text-align: center;
+  padding: 20%;
   top:50%;
 }
 
 #navigator{
   background-color: #ffffff;
-}
-.page_title{
-  font-size: 35px;
-  font-weight: bold;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	font-variant: small-caps;
-	margin-top: 50px;
-        color: red;
+  text-align: center;
 }
 
 p{
@@ -63,28 +54,12 @@ p{
 
 .laptop_heading{
   font-size: 20px;
-  width: 300px;
   text-align: center;
   color: white;
 }
 
-.leftside, .rightside {
-  height:50vh;
-  width:100%;
-}
 
-@media screen and (min-width:768px){
-  .leftside, .rightside{
-    height:100vh;
-  }
-}
-
-
-#first_laptop{
-  margin-top: 40px;
-}
-
-#second_laptop{
+#first_laptop, #second_laptop{
   margin-top: 40px;
 }
 
@@ -102,21 +77,11 @@ p{
 }
 
 
-input[type=text], input[type=submit]{
-	width: 150px;
-	text-align: center;
-	border: 1px solid #6a0dad;
-  border-radius: 30px;
-	padding:10px;
-	margin: 15px;
-	font-size:15px;
-	transition: width 0.1s ease;
-}
-
 input[type=submit] {
 	width: 100px;
 	text-align: center;
 	border: 1px solid green;
+  border-radius: 40px;
 	padding: 10px;
 	margin: 15px;
 	transition: width 0.5s ease-in-out;
@@ -132,10 +97,4 @@ input[type=submit]:hover{
 	outline: none;
 	background-color: #9ff595;
 	width: 150px;
-}
-
-
-#submit{
-	margin: 20px;
-	padding: 15px;
 }
