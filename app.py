@@ -1,13 +1,64 @@
-from flask import Flask, render_template, request
-from sqlalchemy import func
+from flask import Flask, render_template, request, redirect 
+import sqlite3
+import os
+import models
+import calculation
 from models import *
 from calculation import *
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://gzfnsdetfsuvth:13c378d6706b5f1ddb71976728e7ff788ed335f2859e883ae65281eb0ec923af@ec2-52-71-231-180.compute-1.amazonaws.com:5432/d4ao2h63kam1sh"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db.init_app(app)
+DATABASE='./CoreComponents.db'
+app.debug = True
+app.secret_key=os.urandom(12)
+app.secret_key='lpg'
+
+#copypasta
+def get_db():
+    db=getattr(g,'_database',None)
+    if db is None:
+        db=g._database=sqlite3.connect(DATABASE)
+    db.row_factory = make_dicts
+    return db
+
+#copypasta
+def make_dicts(cursor,row):
+    return dict((cursor.description[idx][0], value)
+                for idx,value in enumerate(row))
+
+#copypasta
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+def get_allCpu():
+    return query_db('select Model from CPU')
+
+def get_allGpu():
+    return query_db('select Model from GPU')
+
+def get_GpuBenchMark():
+    return
+
+def get_CpuBenchMark():
+    return 
+
+
+#copypasta
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
+#new function, executes operations that modify the database
+def modify_db(query, args=(), one=False):
+    db = get_db()
+    cur = db.execute(query, args)
+    db.commit()
+    cur.close()
 
 @app.route("/")
 def lpg_home():
@@ -15,8 +66,8 @@ def lpg_home():
 
 @app.route("/LPG")
 def lpg_tool():
-    gpus = GPUs.query.all()
-    cpus = CPUs.query.all()
+    gpus = get_allGpu()
+    cpus = get_allCpu()
     return render_template("LPG.html", gpus=gpus, cpus=cpus)
 
 @app.route("/Calculation", methods=["POST"])
