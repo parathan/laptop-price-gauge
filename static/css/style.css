@@ -183,3 +183,100 @@ input[type=submit]:hover{
   border-style: dashed;
   background-color: rgba(222, 184, 135, 0.712);
 }
+
+#bigtitle{
+  color: white;
+  font-size: 100px;
+  font-weight: bolder;
+  margin-left: 2%;
+}
+
+#resulttitle{
+  width:80%;
+  color: white;
+  background-color: burlywood;
+  margin-top: 5%;
+  padding: 1%;
+  border-radius: 25px;
+  font-size: 30px;
+  margin-left: 5%;
+}
+
+#result{
+  padding: 5%;
+  width:80%;
+  color: white;
+  background-color: rgba(222, 184, 135, 0.767);
+  margin-top: -1%;
+  border-radius: 25px;
+  margin-left: 5%;
+  font-size: 40px;
+}
+
+#maintitle{
+  margin:auto;
+  margin-top: 15%;
+  font-size: 100px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px white;
+  animation-duration: 2s;
+  animation-name: slidein;
+}
+
+#navigator{
+  border-radius: 25%;
+  height: 40%;
+  margin-top: 15%;
+  padding-top: 5%;
+  background-color: rgba(222, 184, 135, 0.753);
+  font-size: 120%;
+  color: white;
+  animation-duration: 2s;
+  animation-name: slideout;
+}
+
+@keyframes slidein {
+  from {
+      margin-top: 0%;
+      font-size: 20px;
+  }
+  to {
+      margin-top: 15%;
+      font-size: 100px;
+  }
+}
+
+@keyframes slideout {
+  from {
+      margin-top: 0%;
+      padding-top: 5%;
+      font-size: 10%;
+  }
+  to {
+      margin-top: 15%;
+      padding-top: 5%;
+      font-size: 120%;
+  }
+}
+
+#about{
+  margin:auto;
+  margin-top: 5%;
+  font-size: 75px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px white;
+  animation-duration: 2s;
+  animation-name: slideinAbout;
+  text-align: center;
+}
+
+@keyframes slideinAbout {
+  from {
+      margin-top: 0%;
+      font-size: 20px;
+  }
+  to {
+      margin-top: 5%;
+      font-size: 75px;
+  }
+}

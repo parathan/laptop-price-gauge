@@ -40,10 +40,16 @@ def get_allGpu():
     return query_db('select Model from GPU')
 
 def get_GpuBenchMark(gpu: str):
-    return query_db('select Benchmark from GPU where Model=?', (gpu,))
+    return query_db('select Benchmark from GPU where Model=?', (gpu,))[0]['Benchmark']
 
 def get_CpuBenchMark(cpu: str):
-    return query_db('select Benchmark from CPU where Model=?', (cpu,))
+    return query_db('select Benchmark from CPU where Model=?', (cpu,))[0]['Benchmark']
+
+def get_MAXcpuBM():
+    return query_db('select MAX(Benchmark) from CPU')[0]['MAX(Benchmark)']
+
+def get_MAXgpuBM():
+    return query_db('select MAX(Benchmark) from GPU')[0]['MAX(Benchmark)']
 
 def fieldChecker(comp: dict):
     missing=""
@@ -106,17 +112,17 @@ def lpg_tool():
 def calculate():
     comp = session['comp']
     print(comp)
-    gpu1=get_GpuBenchMark(comp['GPU1'])[0]['Benchmark']
-    gpu2=get_GpuBenchMark(comp['GPU2'])[0]['Benchmark']
-    cpu1=get_CpuBenchMark(comp['CPU1'])[0]['Benchmark']
-    cpu2=get_CpuBenchMark(comp['CPU2'])[0]['Benchmark']
-    max_cpubench = 200
-    max_gpubench = 1000
+    gpu1=get_GpuBenchMark(comp['GPU1'])
+    gpu2=get_GpuBenchMark(comp['GPU2'])
+    cpu1=get_CpuBenchMark(comp['CPU1'])
+    cpu2=get_CpuBenchMark(comp['CPU2'])
+    max_cpubench = get_MAXcpuBM()
+    max_gpubench = get_MAXgpuBM()
 
     compare_result = compare(max_cpubench, max_gpubench, cpu1, cpu2, gpu1, gpu2, int(comp['RAM1']), int(comp['RAM2']), int(comp['HDD1']), int(comp['HDD2']), int(comp['SSD1']), int(comp['SSD2']))
     print(compare_result)
 
-    return render_template("calculation.html", compare_result=compare_result, factor=10)
+    return render_template("calculation.html", compare_result=compare_result[0], factor=compare_result[1])
 
 @app.route("/LPG_About")
 def lpg_about():

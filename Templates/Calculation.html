@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Your Comparison Results
 {% endblock %}
 
 {% block body %}
-{{ Laptop }} is better than the other laptop by a factor of {{ factor }}
+<div id="bigtitle">Your Comparison results!</div>
+<div id="resulttitle">The Result...</div>
+<div id="result">Computer {{ compare_result }} is better than the other laptop by a {{ factor[:4] }} percent!</div>
+
 {% endblock %}
