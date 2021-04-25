@@ -49,7 +49,7 @@ p{
   border-radius: 25px;
   font-size: 20px;
   color: white;
-  margin-top: 10%;
+  margin-top: 5%;
   background-color:burlywood;
   margin-bottom:-5%;;
 }
@@ -131,11 +131,10 @@ input[type=submit]:hover{
 
 .submit_container{
   margin: auto;
-  margin-top: -12%;
+  margin-top: -15%;
   width: 100%;
   min-height: 10vh;
   text-align: center;
-  
 }
 
 #sub:hover{
@@ -172,4 +171,15 @@ input[type=submit]:hover{
 
 .bg-light {
   background-color: burlywood !important;
+}
+
+.error{
+  color: red;
+  font-size: medium;
+  font-weight: bold;
+  margin: auto;
+  width: 60%;
+  border-color: black;
+  border-style: dashed;
+  background-color: rgba(222, 184, 135, 0.712);
 }

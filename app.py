@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, g 
+from flask import Flask, render_template, request, redirect, g , url_for, session
 import sqlite3
 import os
 import models
@@ -40,37 +40,35 @@ def get_allGpu():
     return query_db('select Model from GPU')
 
 def get_GpuBenchMark(gpu: str):
-    return query_db('select Model from GPU where GPU=?', (gpu,))
+    return query_db('select Benchmark from GPU where Model=?', (gpu,))
 
 def get_CpuBenchMark(cpu: str):
-    return query_db('select Model from CPU where CPU=?', (cpu,))
+    return query_db('select Benchmark from CPU where Model=?', (cpu,))
 
 def fieldChecker(comp: dict):
-    missing = []
+    missing=""
     if 'GPU1' not in comp:
-        missing.append("GPU from first computer")
+        missing=missing + "GPU from first computer, "
     if 'GPU2' not in comp:
-        missing.append("GPU from second computer")
+        missing=missing + "GPU from second computer, "
     if 'CPU1' not in comp:
-        missing.append("CPU from first computer")
+        missing=missing + "CPU from first computer, "
     if 'CPU2' not in comp:
-        missing.append("CPU from second computer")
+        missing=missing + "CPU from second computer, "
     if 'RAM1' not in comp:
-        missing.append("RAM from first computer")
+        missing=missing + "RAM from first computer, "
     if 'RAM2' not in comp:
-        missing.append("RAM from second computer")
+        missing=missing + "RAM from second computer, "
     if 'HDD1' not in comp:
-        missing.append("HDD from first computer")
+        missing=missing + "HDD from first computer, "
     if 'HDD2' not in comp:
-        missing.append("HDD from second computer")
+        missing=missing + "HDD from second computer, "
     if 'SSD1' not in comp:
-        missing.append("SSD from first computer")
+        missing=missing + "SSD from first computer, "
     if 'SSD2' not in comp:
-        missing.append("SSD from second computer")
+        missing=missing + "SSD from second computer, "
     return missing
     
-        
-
 #copypasta
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
@@ -95,44 +93,28 @@ def lpg_tool():
     gpus = get_allGpu()
     cpus = get_allCpu()
     if request.method == "POST":
-        comp = request.form
-        fields = fieldChecker(comp)
-        if(len(fields)==0):
-            return redirect(request.url)
+        session['comp'] = request.form
+        msg = fieldChecker(session['comp'])
+        if(len(msg)==0):
+            return redirect(url_for("calculate"))
         else:
+            msg = "You were missing " + msg[:-2] + ". Please try again and enter all the fields!"
             return render_template("LPG.html", msg=msg, gpus=gpus, cpus=cpus)
     return render_template("LPG.html", msg=msg, gpus=gpus, cpus=cpus)
 
-@app.route("/Calculation", methods=["Get","POST"])
-def calcu():
-    cpu1name = request.form.get("CPU1")
-    cpu2name = request.form.get("CPU2")
-    gpu1name = request.form.get("GPU1")
-    gpu2name = request.form.get("GPU2")
-    ram1 = request.form.get("RAM1")
-    ram2 = request.form.get("RAM2")
-    hdd1 = request.form.get("HDD1")
-    hdd2 = request.form.get("HDD2")
-    ssd1 = request.form.get("SSD1")
-    ssd2 = request.form.get("SSD2")
-    price1 = request.form.get("PRICE1")
-    price2 = request.form.get("PRICE2")
-    type = request.form.get("type")
-
-    cpu1id=CPUs.query.filter_by(cpu=cpu1name).first()
-    cpu1=cpu1id.cpubench
-    cpu2id=CPUs.query.filter_by(cpu=cpu2name).first()
-    cpu2=cpu2id.cpubench
-
-    gpu1id=GPUs.query.filter_by(gpu=gpu1name).first()
-    gpu1=gpu1id.gpubench
-    gpu2id=GPUs.query.filter_by(gpu=gpu2name).first()
-    gpu2=gpu2id.gpubench
-
-    max_cpubench = 1000
+@app.route("/calculation")
+def calculate():
+    comp = session['comp']
+    print(comp)
+    gpu1=get_GpuBenchMark(comp['GPU1'])[0]['Benchmark']
+    gpu2=get_GpuBenchMark(comp['GPU2'])[0]['Benchmark']
+    cpu1=get_CpuBenchMark(comp['CPU1'])[0]['Benchmark']
+    cpu2=get_CpuBenchMark(comp['CPU2'])[0]['Benchmark']
+    max_cpubench = 200
     max_gpubench = 1000
 
-    compare_result = compare(type, max_cpubench, max_gpubench, cpu1, cpu2, gpu1, gpu2, ram1, ram2, hdd1, hdd2, ssd1, ssd2, price1, price2)
+    compare_result = compare(max_cpubench, max_gpubench, cpu1, cpu2, gpu1, gpu2, int(comp['RAM1']), int(comp['RAM2']), int(comp['HDD1']), int(comp['HDD2']), int(comp['SSD1']), int(comp['SSD2']))
+    print(compare_result)
 
     return render_template("calculation.html", compare_result=compare_result, factor=10)
 

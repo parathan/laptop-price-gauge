@@ -48,18 +48,18 @@ $(document).ready(function() {
 								</select><br>
 								<select class="dropdown" name="HDD1">
 									<option value="" selected disabled hidden> HDD </option>
-									<option value="0GB">0GB-500GB</option>
-									<option value="500GB">500GB-1TB</option>
-									<option value="1TB">1TB-2TB</option>
-									<option value="2TB">2TB or more</option>
+									<option value="0">0GB-500GB</option>
+									<option value="500">500GB-1TB</option>
+									<option value="1000">1TB-2TB</option>
+									<option value="2000">2TB or more</option>
 								</select><br>
 								<select class="dropdown" name="SSD1">
 									<option value="" selected disabled hidden> SSD </option>
-									<option value="0GB">0GB-128GB</option>
-									<option value="128GB">128GB-256GB</option>
-									<option value="256GB">256GB-512GB</option>
-									<option value="512GB">512GB-1TB</option>
-									<option value="1TB">1TB or more</option>
+									<option value="0">0GB-128GB</option>
+									<option value="128">128GB-256GB</option>
+									<option value="256">256GB-512GB</option>
+									<option value="512">512GB-1TB</option>
+									<option value="1000">1TB or more</option>
 								</select><br>
 							</div>
                     </div>
@@ -91,18 +91,18 @@ $(document).ready(function() {
 								</select><br>
 								<select class="dropdown" name="HDD2">
 									<option value="" selected disabled hidden> HDD </option>
-									<option value="0GB">0GB-499GB</option>
-									<option value="500GB">500GB-999GB</option>
-									<option value="1TB">1TB-2TB</option>
-									<option value="2TB">2TB or more</option>
+									<option value="0">0GB-499GB</option>
+									<option value="500">500GB-999GB</option>
+									<option value="1000">1TB-2TB</option>
+									<option value="2000">2TB or more</option>
 								</select><br>
 								<select class="dropdown" name="SSD2">
 									<option value="" selected disabled hidden> SSD </option>
-									<option value="0GB">0GB</option>
-									<option value="128GB">128GB</option>
-									<option value="256GB">256GB</option>
-									<option value="512GB">512GB</option>
-									<option value="1TB">1TB or more</option>
+									<option value="0">0GB</option>
+									<option value="128">128GB</option>
+									<option value="256">256GB</option>
+									<option value="512">512GB</option>
+									<option value="1000">1TB or more</option>
 								</select><br>
 							</div>
 					</div>
@@ -111,6 +111,7 @@ $(document).ready(function() {
 		<div class=submit_container>
 			<button type="submit" id="sub" method="POST">Find your optimal Computer!</submit>
 		</div>
+		<div class="error"> {{msg}} </div>
 		
 	</form>
 
