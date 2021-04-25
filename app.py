@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect 
+from flask import Flask, render_template, request, redirect, g 
 import sqlite3
 import os
 import models
@@ -39,12 +39,37 @@ def get_allCpu():
 def get_allGpu():
     return query_db('select Model from GPU')
 
-def get_GpuBenchMark():
-    return
+def get_GpuBenchMark(gpu: str):
+    return query_db('select Model from GPU where GPU=?', (gpu,))
 
-def get_CpuBenchMark():
-    return 
+def get_CpuBenchMark(cpu: str):
+    return query_db('select Model from CPU where CPU=?', (cpu,))
 
+def fieldChecker(comp: dict):
+    missing = []
+    if 'GPU1' not in comp:
+        missing.append("GPU from first computer")
+    if 'GPU2' not in comp:
+        missing.append("GPU from second computer")
+    if 'CPU1' not in comp:
+        missing.append("CPU from first computer")
+    if 'CPU2' not in comp:
+        missing.append("CPU from second computer")
+    if 'RAM1' not in comp:
+        missing.append("RAM from first computer")
+    if 'RAM2' not in comp:
+        missing.append("RAM from second computer")
+    if 'HDD1' not in comp:
+        missing.append("HDD from first computer")
+    if 'HDD2' not in comp:
+        missing.append("HDD from second computer")
+    if 'SSD1' not in comp:
+        missing.append("SSD from first computer")
+    if 'SSD2' not in comp:
+        missing.append("SSD from second computer")
+    return missing
+    
+        
 
 #copypasta
 def query_db(query, args=(), one=False):
@@ -64,14 +89,22 @@ def modify_db(query, args=(), one=False):
 def lpg_home():
     return render_template("LPG_Home.html")
 
-@app.route("/LPG")
+@app.route("/LPG", methods=["GET", "POST"])
 def lpg_tool():
+    msg = ""
     gpus = get_allGpu()
     cpus = get_allCpu()
-    return render_template("LPG.html", gpus=gpus, cpus=cpus)
+    if request.method == "POST":
+        comp = request.form
+        fields = fieldChecker(comp)
+        if(len(fields)==0):
+            return redirect(request.url)
+        else:
+            return render_template("LPG.html", msg=msg, gpus=gpus, cpus=cpus)
+    return render_template("LPG.html", msg=msg, gpus=gpus, cpus=cpus)
 
-@app.route("/Calculation", methods=["POST"])
-def calculation():
+@app.route("/Calculation", methods=["Get","POST"])
+def calcu():
     cpu1name = request.form.get("CPU1")
     cpu2name = request.form.get("CPU2")
     gpu1name = request.form.get("GPU1")
@@ -81,7 +114,7 @@ def calculation():
     hdd1 = request.form.get("HDD1")
     hdd2 = request.form.get("HDD2")
     ssd1 = request.form.get("SSD1")
-    ssd2 = reqeust.form.get("SSD2")
+    ssd2 = request.form.get("SSD2")
     price1 = request.form.get("PRICE1")
     price2 = request.form.get("PRICE2")
     type = request.form.get("type")
@@ -96,12 +129,12 @@ def calculation():
     gpu2id=GPUs.query.filter_by(gpu=gpu2name).first()
     gpu2=gpu2id.gpubench
 
-    max_cpubench = CPUs.query(func.max(CPUs.cpubench)).scalar()
-    max_gpubench = GPUs.query(func.max(GPUs.gpubench)).scalar()
+    max_cpubench = 1000
+    max_gpubench = 1000
 
     compare_result = compare(type, max_cpubench, max_gpubench, cpu1, cpu2, gpu1, gpu2, ram1, ram2, hdd1, hdd2, ssd1, ssd2, price1, price2)
 
-    return render_template("calculation.html", compare_result=compare_result, factor=factorvalue)
+    return render_template("calculation.html", compare_result=compare_result, factor=10)
 
 @app.route("/LPG_About")
 def lpg_about():

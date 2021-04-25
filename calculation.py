@@ -50,7 +50,7 @@ def laptop_video_percentage(max_cpubench: int, max_gpubench: float,\
      ssd = 0
  elif ssd == 128:
      ssd = 2.5
- elif sdd == 256:
+ elif ssd == 256:
      ssd = 5
  elif ssd == 512:
      ssd = 8
@@ -102,7 +102,7 @@ def laptop_home_percentage(max_cpubench: int, max_gpubench: float,\
      ssd = 0
  elif ssd == 128:
      ssd = 4
- elif sdd == 256:
+ elif ssd == 256:
      ssd = 7
  elif ssd == 512:
      ssd = 10

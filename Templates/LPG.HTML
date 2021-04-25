@@ -17,27 +17,26 @@ $(document).ready(function() {
 {% endblock %}
 
 
-{% block body %}
-	<form action="{{ url_for('calculation') }}" method="post">
-		<div class="container"
-			<div class="row">
+{% block body %} 
 
-				<div>
+
+	<form method="POST" class="block" id="components">
+		<div class="container">	
 					<div id=first_laptop>
-							<div class=laptop_heading>
+							<div id=titleheader>
 								First Laptop's Specs
 							</div>
 							<div class=subentry>
 								<select class="dropdown" placeholder="GPU" name="GPU1">
 									<option value="" selected disabled hidden> GPU </option>
 									{% for gpu in gpus %}
-									<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+									<option value="{{ gpu['Model'] }}">{{ gpu['Model'] }}</option>
 									{% endfor %}
 								</select><br>
-								<select class="dropdown" name="CPU1" class="cpu">
+								<select class="dropdown"  name="CPU1">
 									<option value="" selected disabled hidden> CPU </option>
 									{% for cpu in cpus %}
-									<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+									<option value="{{ cpu['Model'] }}">{{ cpu['Model'] }}</option>
 									{% endfor %}
 								</select><br>
 								<select class="dropdown" name="RAM1">
@@ -63,25 +62,24 @@ $(document).ready(function() {
 									<option value="1TB">1TB or more</option>
 								</select><br>
 							</div>
-						</div>
-				</div>
+                    </div>
 
-				<div>
+
 					<div id=second_laptop>
-							<div class=laptop_heading>
+							<div id=titleheader>
 								Second Laptop's Specs
 							</div>
 							<div class=subentry>
 								<select class="dropdown" name="GPU2">
 									<option value="" selected disabled hidden> GPU </option>
 									{% for gpu in gpus %}
-									<option value="{{ gpu.gpu }}">{{ gpu.gpu }}</option>
+									<option value="{{ gpu['Model'] }}">{{ gpu['Model'] }}</option>
 									{% endfor %}
 								</select><br>
-								<select class="dropdown" name="CPU2" class="cpu">
+								<select class="dropdown" name="CPU2">
 									<option value="" selected disabled hidden> CPU </option>
 									{% for cpu in cpus %}
-									<option value="{{ cpu.cpu }}">{{ cpu.cpu }}</option>
+									<option value="{{ cpu['Model'] }}">{{ cpu['Model'] }}</option>
 									{% endfor %}
 								</select><br>
 								<select class="dropdown" name="RAM2">
@@ -108,9 +106,12 @@ $(document).ready(function() {
 								</select><br>
 							</div>
 					</div>
-				</div>
-			</div>
+
 		</div>
+		<div class=submit_container>
+			<button type="submit" id="sub" method="POST">Find your optimal Computer!</submit>
+		</div>
+		
 	</form>
 
 {% endblock %}
