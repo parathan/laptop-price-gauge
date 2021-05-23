@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, redirect, g , url_for, session
 import sqlite3
 import os
-import models
 import calculation
-from models import *
 from calculation import *
 
 app = Flask(__name__)
