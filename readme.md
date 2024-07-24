@@ -2,6 +2,6 @@
 
 # Tech Stack  
 - NextJS -> Frontend
-- Java -> REST API
+- .NET -> REST API
 - PostgreSQL -> Database
 - Python -> data scripts
