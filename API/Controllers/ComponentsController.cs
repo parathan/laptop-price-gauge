@@ -22,10 +22,10 @@ public class ComponentsController : ControllerBase
         return await _context.Components.ToListAsync();
     }
 
-    // dummy method to test the connection
-    [HttpGet("hello")]
-    public string Test()
+    // Get: api/health
+    [HttpGet("health/apicheck")]
+    public IActionResult CheckHealth()
     {
-        return "Hello World!";
+        return Ok(new { Status = "API is running" });
     }
 }
