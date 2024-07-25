@@ -22,10 +22,32 @@ public class ComponentsController : ControllerBase
         return await _context.Components.ToListAsync();
     }
 
-    // Get: api/health
+    // Get: api/health/apicheck
     [HttpGet("health/apicheck")]
-    public IActionResult CheckHealth()
+    public IActionResult CheckAPIHealth()
     {
         return Ok(new { Status = "API is running" });
+    }
+
+    // Get: api/health/dbcheck
+    [HttpGet("health/dbcheck")]
+    public async Task<IActionResult> CheckDatabaseHealth() 
+    {
+        try
+        {
+            var canCon = await _context.Database.CanConnectAsync();
+            if (canCon)
+            {
+                return Ok(new { Status = "Database connection is active" });
+            }
+            else
+            {
+                return StatusCode(500, new { Status = "Couldn't connect to database" });
+            }
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, new { Status = "Database connection check failed", Error = e.Message });
+        }
     }
 }
