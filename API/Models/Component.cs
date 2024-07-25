@@ -8,7 +8,7 @@ namespace Models
         [Column("id")]
         public int Id { get; set; }
         [Column("Type")]
-        public string Type { get; set; }
+        public required string Type { get; set; }
         [Column("Part Number")]
         public string? PartNumber { get; set; }
         [Column("Brand")]
