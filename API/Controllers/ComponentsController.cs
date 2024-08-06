@@ -19,6 +19,8 @@ public class ComponentsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Component>>> GetComponents()
     {
+        //TODO: #3 Have a cache
+        //TODO: #4 Add pagination
         return await _context.Components.ToListAsync();
     }
 

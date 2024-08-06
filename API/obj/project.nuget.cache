@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "siNR/TVdeVA=",
+  "dgSpecHash": "0ld27C4hMbM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Parathan\\Downloads\\laptop-price-gauge\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Parathan\\Downloads\\laptop-price-gauge\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Parathan\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.5\\microsoft.aspnetcore.openapi.8.0.5.nupkg.sha512",
     "C:\\Users\\Parathan\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.4\\microsoft.entityframeworkcore.8.0.4.nupkg.sha512",
