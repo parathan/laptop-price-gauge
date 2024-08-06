@@ -1,9 +1,9 @@
 "use client";
+// TODO: #2 Make button a seperate component so that it will be the client component and the rest of the home page will be a server component.
 
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-
   const router = useRouter();
 
   function formRedirect() {
