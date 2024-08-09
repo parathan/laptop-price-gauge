@@ -40,10 +40,10 @@ async function getData() {
 }
 
 export default async function Form() {
-    const data = await getData()
+    const data: ComponentList = await getData()
 
     return (
-        <div className="grid justify-items-center mx-auto w-1/3 mt-60 space-y-10">
+        <div className="grid justify-items-center mx-auto w-1/2 mt-60 space-y-10">
             <FormComponent data={data}/>
         </div>
     );
