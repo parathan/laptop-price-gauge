@@ -1,6 +1,8 @@
 "use client"
 
-export default function FormComponent() {
+export default function FormComponent({ data }: any) {
+
+    console.log(data)
 
     return (
         <div>
