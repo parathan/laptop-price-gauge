@@ -12,53 +12,59 @@ export default function FormComponent({ data }: any) {
     const [hdds, setHdds] = useState(data.HDD)
     const [rams, setRams] = useState(data.RAM)
 
+    const [selectedCpu, setSelectedCpu] = useState("")
+    const [selectedGpu, setSelectedGpu] = useState("")
+    const [selectedSsd, setSelectedSsd] = useState("")
+    const [selectedHdd, setSelectedHdd] = useState("")
+    const [selectedRam, setSelectedRam] = useState("")
+
     function submit() {
-        console.log("submit")
+        console.log(selectedCpu, selectedGpu, selectedSsd, selectedHdd, selectedRam)
     }
 
     return (
         <div>
             <label className="text-2xl">CPUs</label>
-            <select>
+            <select onChange={(e) => setSelectedCpu(e.target.value)}>
                 <option>Please select a CPU</option>
                 {cpus.map((cpu: any) => (
-                    <option key={cpu.id} value={cpu.model}>{cpu.model}</option>
+                    <option key={cpu.id} value={cpu.brand + " " + cpu.model}>{cpu.brand} {cpu.model}</option>
                 ))}
             </select>
             <br/>
 
             <label className="text-2xl">GPUs</label>
-            <select>
+            <select onChange={(e) => setSelectedGpu(e.target.value)}>
                 <option>Please select a GPU</option>
                 {gpus.map((gpu: any) => (
-                    <option key={gpu.id} value={gpu.model}>{gpu.model}</option>
+                    <option key={gpu.id} value={gpu.brand + " " + gpu.model}>{gpu.brand} {gpu.model}</option>
                 ))}
             </select>
             <br/>
 
             <label className="text-2xl">SSDs</label>
-            <select>
+            <select onChange={(e) => setSelectedSsd(e.target.value)}>
                 <option>Please select a SSD</option>
                 {ssds.map((ssd: any) => (
-                    <option key={ssd.id} value={ssd.model}>{ssd.model}</option>
+                    <option key={ssd.id} value={ssd.brand + " " + ssd.model}>{ssd.brand} {ssd.model}</option>
                 ))}
             </select>
             <br/>
 
             <label className="text-2xl">HDDs</label>
-            <select>
+            <select onChange={(e) => setSelectedHdd(e.target.value)}>
                 <option>Please select a HDD</option>
                 {hdds.map((hdd: any) => (
-                    <option key={hdd.id} value={hdd.model}>{hdd.model}</option>
+                    <option key={hdd.id} value={hdd.brand + " " + hdd.model}>{hdd.brand} {hdd.model}</option>
                 ))}
             </select>
             <br/>
 
             <label className="text-2xl">Rams</label>
-            <select>
+            <select onChange={(e) => setSelectedRam(e.target.value)}>
                 <option>Please select a RAM</option>
                 {rams.map((ram: any) => (
-                    <option key={ram.id} value={ram.model}>{ram.model}</option>
+                    <option key={ram.id} value={ram.brand + " " + ram.model}>{ram.brand} {ram.model}</option>
                 ))}
             </select>
             <br/> 
