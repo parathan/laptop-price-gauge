@@ -4,8 +4,6 @@ import { useState } from "react"
 
 export default function FormComponent({ data }: any) {
 
-    console.log(data)
-
     const [cpus, setCpus] = useState(data.CPU)
     const [gpus, setGpus] = useState(data.GPU)
     const [ssds, setSsds] = useState(data.SSD)
