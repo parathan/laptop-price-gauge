@@ -15,8 +15,8 @@ public class ComponentsController : ControllerBase
         _context = context;
     }
 
-    // GET: api/components
-    [HttpGet]
+    // GET: api/allComponents
+    [HttpGet("allComponents")]
     public async Task<ActionResult<IEnumerable<Component>>> GetComponents()
     {
         //TODO: #3 Have a cache
@@ -51,5 +51,12 @@ public class ComponentsController : ControllerBase
         {
             return StatusCode(500, new { Status = "Database connection check failed", Error = e.Message });
         }
+    }
+
+    // Get: api/computerScore
+    [HttpGet("computerScore")]
+    public IActionResult CalcComputerScore()
+    {
+        return Ok(new { Status = "API is running" });
     }
 }
