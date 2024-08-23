@@ -10,6 +10,7 @@ namespace API.Models
         required public string RAMBrand { get; set; }
         required public string StorageBrand { get; set; }
         required public string StorageModel { get; set; }
-        required public string ScoreType { get; set; }
+        required public string StorageType { get; set; }
+        required public string Category { get; set; }
     }
 }

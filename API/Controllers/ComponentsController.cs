@@ -87,15 +87,23 @@ public class ComponentsController : ControllerBase
             var CPU = FilterComponents(request.CPUModel, request.CPUBrand);
             var RAM = FilterComponents(request.RAMModel, request.RAMBrand);
             var Storage = FilterComponents(request.StorageModel, request.StorageBrand); 
-            
+            var Category = request.Category;
+            var StorageType = request.StorageType;
+
             // Extract benchmarks
             var gpuBenchmarks = GetBenchmarks(GPU);
             var cpuBenchmarks = GetBenchmarks(CPU);
             var ramBenchmarks = GetBenchmarks(RAM);
             var storageBenchmarks = GetBenchmarks(Storage);
 
+            var scaledGPU = BenchmarkScaler.ScaleBenchmark("GPU", gpuBenchmarks);
+            var scaledCPU = BenchmarkScaler.ScaleBenchmark("CPU", cpuBenchmarks);
+            var scaledRAM = BenchmarkScaler.ScaleBenchmark("RAM", ramBenchmarks);
+            var scaledStorage = BenchmarkScaler.ScaleBenchmark(StorageType, storageBenchmarks);
+            var totalBenchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaledCPU, scaledGPU, scaledRAM, scaledStorage, Category);
+
             // Return the filtered components
-            return Ok(new { GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpuBenchmarks), CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpuBenchmarks), RAM = BenchmarkScaler.ScaleBenchmark("RAM", ramBenchmarks), Storage = BenchmarkScaler.ScaleBenchmark("SSD", storageBenchmarks) });
+            return Ok(new { GPU = scaledGPU, CPU = scaledCPU, RAM = scaledRAM, Storage = scaledStorage, totalBenchmark = totalBenchmark});
         }
         catch (HttpRequestException ex)
         {
