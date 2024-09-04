@@ -13,4 +13,14 @@ namespace API.Models
         required public string StorageType { get; set; }
         required public string Category { get; set; }
     }
+
+    public class BenchmarkRequest
+    {
+        required public float GPU { get; set; }
+        required public float CPU { get; set; }
+        required public float RAM { get; set; }
+        required public float Storage { get; set; }
+        required public string StorageType { get; set; }
+        required public string Category { get; set; }
+    }
 }
