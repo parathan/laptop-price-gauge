@@ -1,14 +1,11 @@
 "use client"
 
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 
 export default function FormComponent({ data }: any) {
 
-    const [cpus, setCpus] = useState(data.CPU)
-    const [gpus, setGpus] = useState(data.GPU)
-    const [ssds, setSsds] = useState(data.SSD)
-    const [hdds, setHdds] = useState(data.HDD)
-    const [rams, setRams] = useState(data.RAM)
+    const router = useRouter();
 
     const [selectedCpu, setSelectedCpu] = useState("")
     const [selectedGpu, setSelectedGpu] = useState("")
@@ -18,6 +15,9 @@ export default function FormComponent({ data }: any) {
 
     function submit() {
         console.log(selectedCpu, selectedGpu, selectedSsd, selectedHdd, selectedRam)
+        router.push(
+            '/results'
+        )
     }
 
     return (
@@ -25,8 +25,8 @@ export default function FormComponent({ data }: any) {
             <label className="text-2xl">CPUs</label>
             <select onChange={(e) => setSelectedCpu(e.target.value)}>
                 <option>Please select a CPU</option>
-                {cpus.map((cpu: any) => (
-                    <option key={cpu.id} value={cpu.brand + " " + cpu.model}>{cpu.brand} {cpu.model}</option>
+                {data.CPU.map((cpu: any) => (
+                    <option key={cpu.id} value={cpu.benchmark}>{cpu.brand} {cpu.model}</option>
                 ))}
             </select>
             <br/>
@@ -34,8 +34,8 @@ export default function FormComponent({ data }: any) {
             <label className="text-2xl">GPUs</label>
             <select onChange={(e) => setSelectedGpu(e.target.value)}>
                 <option>Please select a GPU</option>
-                {gpus.map((gpu: any) => (
-                    <option key={gpu.id} value={gpu.brand + " " + gpu.model}>{gpu.brand} {gpu.model}</option>
+                {data.GPU.map((gpu: any) => (
+                    <option key={gpu.id} value={gpu.benchmark}>{gpu.brand} {gpu.model}</option>
                 ))}
             </select>
             <br/>
@@ -43,8 +43,8 @@ export default function FormComponent({ data }: any) {
             <label className="text-2xl">SSDs</label>
             <select onChange={(e) => setSelectedSsd(e.target.value)}>
                 <option>Please select a SSD</option>
-                {ssds.map((ssd: any) => (
-                    <option key={ssd.id} value={ssd.brand + " " + ssd.model}>{ssd.brand} {ssd.model}</option>
+                {data.SSD.map((ssd: any) => (
+                    <option key={ssd.id} value={ssd.benchmark}>{ssd.brand} {ssd.model}</option>
                 ))}
             </select>
             <br/>
@@ -52,8 +52,8 @@ export default function FormComponent({ data }: any) {
             <label className="text-2xl">HDDs</label>
             <select onChange={(e) => setSelectedHdd(e.target.value)}>
                 <option>Please select a HDD</option>
-                {hdds.map((hdd: any) => (
-                    <option key={hdd.id} value={hdd.brand + " " + hdd.model}>{hdd.brand} {hdd.model}</option>
+                {data.HDD.map((hdd: any) => (
+                    <option key={hdd.id} value={hdd.benchmark}>{hdd.brand} {hdd.model}</option>
                 ))}
             </select>
             <br/>
@@ -61,8 +61,8 @@ export default function FormComponent({ data }: any) {
             <label className="text-2xl">Rams</label>
             <select onChange={(e) => setSelectedRam(e.target.value)}>
                 <option>Please select a RAM</option>
-                {rams.map((ram: any) => (
-                    <option key={ram.id} value={ram.brand + " " + ram.model}>{ram.brand} {ram.model}</option>
+                {data.RAM.map((ram: any) => (
+                    <option key={ram.id} value={ram.benchmark}>{ram.brand} {ram.model}</option>
                 ))}
             </select>
             <br/> 
