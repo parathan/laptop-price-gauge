@@ -3,6 +3,14 @@
 
 import { useRouter } from "next/navigation";
 
+/**
+ * A Next.js page that displays the home page of the Laptop Price Gauge application.
+ *
+ * The page displays a heading, a paragraph of text describing the purpose of the application,
+ * and a button that takes the user to the form page.
+ *
+ * @returns {JSX.Element} A JSX element representing the page.
+ */
 export default function Home() {
   const router = useRouter();
 
