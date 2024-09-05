@@ -39,6 +39,14 @@ async function getData() {
     return componentlist
 }
 
+/**
+ * A Next.js page that displays a form to select laptop components.
+ * 
+ * The form is populated with data from the API, and the user's selection is
+ * passed to the FormComponent as a prop.
+ * 
+ * @returns {JSX.Element} A JSX element representing the page.
+ */
 export default async function Form() {
     const data: ComponentList = await getData()
 
