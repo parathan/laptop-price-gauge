@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.Logic;
+using API.Validators;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
 namespace API.Controllers;
@@ -59,9 +60,9 @@ public class ComponentsController : ControllerBase
         }
     }
 
-    // Get: api/computerScore
-    [HttpPost("computerScore")]
-    public async Task<IActionResult> GetComponentValue([FromBody] ComponentRequest request)
+    // Get: api/computerScore/name
+    [HttpPost("computerScore/name")]
+    public async Task<IActionResult> GetComponentValuebyName([FromBody] ComponentRequest request)
     {
         try
         {
@@ -95,6 +96,55 @@ public class ComponentsController : ControllerBase
             var cpuBenchmarks = GetBenchmarks(CPU);
             var ramBenchmarks = GetBenchmarks(RAM);
             var storageBenchmarks = GetBenchmarks(Storage);
+
+            var validator = new RequestValidator();
+            var validationResult = validator.ValidateBenchmark(gpuBenchmarks, cpuBenchmarks, ramBenchmarks, StorageType, storageBenchmarks);
+            if(!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.ErrMessage);
+            }
+
+            var scaledGPU = BenchmarkScaler.ScaleBenchmark("GPU", gpuBenchmarks);
+            var scaledCPU = BenchmarkScaler.ScaleBenchmark("CPU", cpuBenchmarks);
+            var scaledRAM = BenchmarkScaler.ScaleBenchmark("RAM", ramBenchmarks);
+            var scaledStorage = BenchmarkScaler.ScaleBenchmark(StorageType, storageBenchmarks);
+            var totalBenchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaledCPU, scaledGPU, scaledRAM, scaledStorage, Category);
+
+            // Return the filtered components
+            return Ok(new { GPU = scaledGPU, CPU = scaledCPU, RAM = scaledRAM, Storage = scaledStorage, totalBenchmark = totalBenchmark});
+        }
+        catch (HttpRequestException ex)
+        {
+            // Handle the case where the request fails
+            return StatusCode(500, $"Error fetching data: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle other potential errors
+            return StatusCode(500, $"An error occurred: {ex.Message}");
+        }
+    }
+
+    // Post: api/computerScore/benchmark
+    [HttpPost("computerScore/benchmark")]
+    public IActionResult GetComponentValuebyBenchmark([FromBody] BenchmarkRequest request)
+    {
+        try
+        {
+            var validator = new RequestValidator();
+            var validationResult = validator.ValidateBenchmarkRequest(request);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.ErrMessage);
+            }
+            // Extract benchmarks
+            var gpuBenchmarks = request.GPU;
+            var cpuBenchmarks = request.CPU;
+            var ramBenchmarks = request.RAM;
+            var storageBenchmarks = request.Storage;
+
+            var Category = request.Category;
+            var StorageType = request.StorageType;
 
             var scaledGPU = BenchmarkScaler.ScaleBenchmark("GPU", gpuBenchmarks);
             var scaledCPU = BenchmarkScaler.ScaleBenchmark("CPU", cpuBenchmarks);
