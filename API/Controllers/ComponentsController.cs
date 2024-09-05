@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.Logic;
+using API.Validators;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
 namespace API.Controllers;
@@ -96,6 +97,13 @@ public class ComponentsController : ControllerBase
             var ramBenchmarks = GetBenchmarks(RAM);
             var storageBenchmarks = GetBenchmarks(Storage);
 
+            var validator = new RequestValidator();
+            var validationResult = validator.ValidateBenchmark(gpuBenchmarks, cpuBenchmarks, ramBenchmarks, StorageType, storageBenchmarks);
+            if(!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.ErrMessage);
+            }
+
             var scaledGPU = BenchmarkScaler.ScaleBenchmark("GPU", gpuBenchmarks);
             var scaledCPU = BenchmarkScaler.ScaleBenchmark("CPU", cpuBenchmarks);
             var scaledRAM = BenchmarkScaler.ScaleBenchmark("RAM", ramBenchmarks);
@@ -123,6 +131,12 @@ public class ComponentsController : ControllerBase
     {
         try
         {
+            var validator = new RequestValidator();
+            var validationResult = validator.ValidateBenchmarkRequest(request);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.ErrMessage);
+            }
             // Extract benchmarks
             var gpuBenchmarks = request.GPU;
             var cpuBenchmarks = request.CPU;

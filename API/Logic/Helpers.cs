@@ -1,16 +1,10 @@
+using API.Constants;
 namespace API.Logic
 {
     public class BenchmarkScaler
     {
         // Define the max and min values for each component
-        private static readonly Dictionary<string, (double max, double min)> ComponentRanges = new Dictionary<string, (double max, double min)>
-        {
-            { "CPU", (133, 14.7) },
-            { "GPU", (370, 0) },
-            { "RAM", (201, 27.7) },
-            { "HDD", (113, 9.96) },
-            { "SSD", (761, 0) }
-        };
+        private static readonly Dictionary<string, (double max, double min)> ComponentRanges = ComponentConstants.ComponentRanges;
 
         // Function to scale the benchmark value
         public static double ScaleBenchmark(string componentType, double benchmarkValue)
