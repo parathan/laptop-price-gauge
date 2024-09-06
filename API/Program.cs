@@ -12,6 +12,17 @@ builder.Services.AddHttpClient();
 // Register services for controllers
 builder.Services.AddControllers();
 
+// Configure CORS to allow localhost:3000
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Allow this origin
+              .AllowAnyHeader()                    // Allow any headers
+              .AllowAnyMethod();                   // Allow any HTTP methods
+    });
+});
+
 // Configure Swagger/OpenAPI for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,6 +45,9 @@ if (app.Environment.IsDevelopment())
 
 // Use HTTPS redirection
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowLocalhost3000");
 
 // Use authorization middleware
 app.UseAuthorization();
