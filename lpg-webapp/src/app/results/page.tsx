@@ -1,5 +1,38 @@
 "use client"
-import React, { useState } from 'react'
+
+import React, { useEffect, useState } from 'react'
+import { useBenchmarkContext } from '@/context/BenchmarkContext';
+
+async function getScore(
+    cpu: string,
+    gpu: string,
+    ssd: string,
+    hdd: string,
+    ram: string
+) {
+
+    const res = await fetch('http://localhost:5269/api/computerScore/benchmark', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            CPU: cpu,
+            GPU: gpu,
+            RAM: ram,
+            Storage: ssd,
+            StorageType: "SSD",
+            Category: "Gaming"
+        }),
+    })
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    let data = await res.json()
+    console.log(data)
+}
 
 /**
  * Displays the value of the user's laptop.
@@ -10,7 +43,13 @@ import React, { useState } from 'react'
  */
 export default function Results() {
 
-    const [value, setValue] = useState(1000);
+    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark } = useBenchmarkContext();
+
+    useEffect(() => {
+        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark)
+    },[])
+
+    const value = 1000;
 
     return (
         <div className="grid justify-items-center mx-auto w-1/3 mt-60 space-y-10">
