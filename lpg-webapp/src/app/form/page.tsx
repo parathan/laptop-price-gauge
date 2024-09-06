@@ -3,7 +3,7 @@ import { ComponentList } from "@/interfaces/components"
 
 async function getData() {
     // Request data
-    const res = await fetch('http://localhost:5269/api', {cache: 'force-cache'})
+    const res = await fetch('http://localhost:5269/api/allcomponents', {cache: 'force-cache'})
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
