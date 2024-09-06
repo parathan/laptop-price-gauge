@@ -15,9 +15,19 @@ export default function FormComponent({ data }: any) {
 
     function submit() {
         console.log(selectedCpu, selectedGpu, selectedSsd, selectedHdd, selectedRam)
-        router.push(
-            '/results'
-        )
+
+        const query = new URLSearchParams({
+            cpu: selectedCpu,
+            gpu: selectedGpu,
+            ssd: selectedSsd,
+            hdd: selectedHdd,
+            ram: selectedRam,
+          }).toString();
+        
+          // Construct the URL
+          const url = `/results?${query}`;
+
+        router.push(url)
     }
 
     return (
