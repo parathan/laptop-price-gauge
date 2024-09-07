@@ -7,6 +7,7 @@ using API.Logic;
 using API.Validators;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
+using API.Constants;
 namespace API.Controllers;
 
 [ApiController]
@@ -29,6 +30,21 @@ public class ComponentsController : ControllerBase
         //TODO: #3 Have a cache
         //TODO: #4 Add pagination
         return await _context.Components.ToListAsync();
+    }
+
+    [HttpGet("groupedComponents")]
+    public async Task<ActionResult<IEnumerable<ComponentGroup>>> GetGroupedComponents()
+    {
+        var groupedComponents = await _context.Components
+            .GroupBy(c => c.Type)
+            .Select(g => new ComponentGroup
+            {
+                Type = g.Key,
+                Components = g.ToList()
+            })
+            .ToListAsync();
+
+        return Ok(new { components = groupedComponents, categories = Categories.AllCategories });
     }
 
     // Get: api/health/apicheck

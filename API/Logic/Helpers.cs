@@ -33,16 +33,7 @@ namespace API.Logic
     {
         public static double CalculateCategoryBenchmark(double gpuBenchmark, double cpuBenchmark, double ramBenchmark, double storageBenchmark, string category)     
         {
-            var weightings = new Dictionary<string, (double gpu, double cpu, double ram, double storage)>
-            {
-                { "Gaming", (0.50, 0.30, 0.15, 0.05) },
-                { "Content Creation", (0.10, 0.40, 0.30, 0.20) },
-                { "General Productivity", (0.10, 0.35, 0.30, 0.25) },
-                { "Workstation/3D Modeling", (0.35, 0.35, 0.20, 0.10) },
-                { "Data Science/AI", (0.25, 0.35, 0.30, 0.10) },
-                { "Programming/Development", (0.10, 0.40, 0.30, 0.20) },
-                { "Streaming", (0.30, 0.40, 0.20, 0.10) }
-            };
+            var weightings = Categories.Weightings;
 
             // Check if the category exists in the dictionary
             if (!weightings.TryGetValue(category, out var weights))
