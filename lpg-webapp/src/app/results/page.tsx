@@ -111,15 +111,15 @@ export default function Results() {
         )
     }
     return (
-        <div className="grid justify-items-center mx-auto w-1/3 mt-60 space-y-10">
-            <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-                <h1 className="text-2xl font-bold mb-4">Benchmark Results</h1>
+        <div className="grid justify-items-center mx-auto w-1/2 mt-60 space-y-10">
+            <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg ">
+                <h1 className="text-4xl font-bold mb-8">Benchmark Results</h1>
                 <div className="space-y-4">
                     {benchmarkDisplay("CPU", cpuResult, "bg-red-500")}
                     {benchmarkDisplay("GPU", gpuResult, "bg-blue-500")}
                     {benchmarkDisplay("RAM", ramResult, "bg-green-500")}
                     {benchmarkDisplay("Storage", storageResult, "bg-yellow-500")}
-                    {benchmarkDisplay("Total", totalResult, "bg-indigo-500")}
+                    {benchmarkDisplay("Total Benchmark", totalResult, "bg-indigo-500")}
                 </div>
             </div>
         </div>
