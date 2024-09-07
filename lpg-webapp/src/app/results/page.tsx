@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useBenchmarkContext } from '@/context/BenchmarkContext';
 
 async function getScore(
@@ -45,6 +45,7 @@ async function getScore(
 
     let data = await res.json()
     console.log(data)
+    return data
 }
 
 /**
@@ -56,10 +57,33 @@ async function getScore(
  */
 export default function Results() {
 
-    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category } = useBenchmarkContext();
+    const { 
+        cpuBenchmark, 
+        gpuBenchmark, 
+        ssdBenchmark, 
+        hddBenchmark, 
+        ramBenchmark, 
+        ssdStorage, 
+        category 
+    } = useBenchmarkContext();
+
+    const [gpuResult, setGpuResult] = useState(0);
+    const [cpuResult, setCpuResult] = useState(0);
+    const [ramResult, setRamResult] = useState(0);
+    const [storageResult, setStorageResult] = useState(0);
+    const [totalResult, setTotalResult] = useState(0);
 
     useEffect(() => {
-        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
+        const fetchResult = async () => {
+            const data = await getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
+            setCpuResult(data.cpu)
+            setGpuResult(data.gpu)
+            setRamResult(data.ram)
+            setStorageResult(data.storage)
+            setTotalResult(data.totalBenchmark)
+        }
+
+        fetchResult()
     },[])
 
     const value = 1000;
@@ -70,6 +94,13 @@ export default function Results() {
             <p className="text-center">
                 The value of your laptop is ${value}
             </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                Cpu Benchmark: {cpuResult}
+                GPU Benchmark: {gpuResult}
+                Ram Benchmark: {ramResult}
+                Storage Benchmark: {storageResult}
+                Total Benchmark: {totalResult}
+            </div>
         </div>
     );
 }
