@@ -8,7 +8,8 @@ async function getScore(
     gpu: string,
     ssd: string,
     hdd: string,
-    ram: string
+    ram: string,
+    category: string,
 ) {
 
     const res = await fetch('http://localhost:5269/api/computerScore/benchmark', {
@@ -22,7 +23,7 @@ async function getScore(
             RAM: ram,
             Storage: ssd,
             StorageType: "SSD",
-            Category: "Gaming"
+            Category: category
         }),
     })
 
@@ -43,10 +44,10 @@ async function getScore(
  */
 export default function Results() {
 
-    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark } = useBenchmarkContext();
+    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, category } = useBenchmarkContext();
 
     useEffect(() => {
-        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark)
+        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, category)
     },[])
 
     const value = 1000;

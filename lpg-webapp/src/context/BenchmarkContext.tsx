@@ -15,6 +15,7 @@ export const BenchmarkContextProvider = ({
     const [ssdBenchmark, setSsdBenchmark] = useState("");
     const [hddBenchmark, setHddBenchmark] = useState("");
     const [ramBenchmark, setRamBenchmark] = useState("");
+    const [category, setCategory] = useState("");
 
     return (
         <BenchmarkContext.Provider
@@ -29,6 +30,8 @@ export const BenchmarkContextProvider = ({
                 setHddBenchmark,
                 ramBenchmark,
                 setRamBenchmark,
+                category,
+                setCategory
             }}
         >
             {children}

@@ -16,4 +16,5 @@ export interface ComponentList {
     SSD: Component[];
     HDD: Component[];
     RAM: Component[];
+    Categories: String[];
 }

@@ -8,5 +8,7 @@ export interface BenchmarkContextProps {
     hddBenchmark: string,
     setHddBenchmark: (hdd: string) => void,
     ramBenchmark: string,
-    setRamBenchmark: (ram: string) => void
+    setRamBenchmark: (ram: string) => void,
+    category: string,
+    setCategory: (category: string) => void
 } 
