@@ -84,16 +84,11 @@ export default function Results() {
         }
 
         fetchResult()
-    },[])
-
-    const value = 1000;
+    },[category, cpuBenchmark, gpuBenchmark, hddBenchmark, ramBenchmark, ssdBenchmark, ssdStorage])
 
     return (
         <div className="grid justify-items-center mx-auto w-1/3 mt-60 space-y-10">
             <h1 className="text-3xl font-bold">Results</h1>
-            <p className="text-center">
-                The value of your laptop is ${value}
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 Cpu Benchmark: {cpuResult}
                 GPU Benchmark: {gpuResult}
