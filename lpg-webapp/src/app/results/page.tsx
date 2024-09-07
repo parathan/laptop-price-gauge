@@ -73,6 +73,14 @@ export default function Results() {
     const [storageResult, setStorageResult] = useState(0);
     const [totalResult, setTotalResult] = useState(0);
 
+    const data = [
+        { label: "CPU Benchmark", value: 0, color: "bg-red-500" },
+        { label: "GPU Benchmark", value: 100, color: "bg-blue-500" },
+        { label: "RAM Benchmark", value: 31.27524523946913, color: "bg-green-500" },
+        { label: "Storage Benchmark", value: 4.717477003942181, color: "bg-yellow-500" },
+        { label: "Total Benchmark", value: 34.92716063611748, color: "bg-indigo-500" },
+    ];
+
     useEffect(() => {
         const fetchResult = async () => {
             const data = await getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
@@ -86,15 +94,33 @@ export default function Results() {
         fetchResult()
     },[category, cpuBenchmark, gpuBenchmark, hddBenchmark, ramBenchmark, ssdBenchmark, ssdStorage])
 
+    const benchmarkDisplay = (label: string, value: number, color: string) => {
+        return(
+            <div>
+                <div className="flex justify-between mb-1">
+                    <span className="text-sm font-medium text-gray-700">{label}</span>
+                    <span className="text-sm font-medium text-gray-700">{value.toFixed(2)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-5">
+                    <div
+                        className={`${color} h-5 rounded-full`}
+                        style={{ width: `${value}%` }}
+                    ></div>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="grid justify-items-center mx-auto w-1/3 mt-60 space-y-10">
-            <h1 className="text-3xl font-bold">Results</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                Cpu Benchmark: {cpuResult}
-                GPU Benchmark: {gpuResult}
-                Ram Benchmark: {ramResult}
-                Storage Benchmark: {storageResult}
-                Total Benchmark: {totalResult}
+            <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+                <h1 className="text-2xl font-bold mb-4">Benchmark Results</h1>
+                <div className="space-y-4">
+                    {benchmarkDisplay("CPU", cpuResult, "bg-red-500")}
+                    {benchmarkDisplay("GPU", gpuResult, "bg-blue-500")}
+                    {benchmarkDisplay("RAM", ramResult, "bg-green-500")}
+                    {benchmarkDisplay("Storage", storageResult, "bg-yellow-500")}
+                    {benchmarkDisplay("Total", totalResult, "bg-indigo-500")}
+                </div>
             </div>
         </div>
     );
