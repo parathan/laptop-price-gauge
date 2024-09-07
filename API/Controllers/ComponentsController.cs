@@ -106,10 +106,10 @@ public class ComponentsController : ControllerBase
             var StorageType = request.StorageType;
 
             // Extract benchmarks
-            var gpuBenchmarks = GetBenchmarks(GPU);
-            var cpuBenchmarks = GetBenchmarks(CPU);
-            var ramBenchmarks = GetBenchmarks(RAM);
-            var storageBenchmarks = GetBenchmarks(Storage);
+            var gpuBenchmarks = Math.Round(GetBenchmarks(GPU), 1);
+            var cpuBenchmarks = Math.Round(GetBenchmarks(CPU), 1);
+            var ramBenchmarks = Math.Round(GetBenchmarks(RAM), 1);
+            var storageBenchmarks = Math.Round(GetBenchmarks(Storage), 1);
 
             var validator = new RequestValidator();
             var validationResult = validator.ValidateBenchmark(gpuBenchmarks, cpuBenchmarks, ramBenchmarks, StorageType, storageBenchmarks);
@@ -145,17 +145,18 @@ public class ComponentsController : ControllerBase
     {
         try
         {
+            // Extract benchmarks
+            var gpuBenchmarks = Math.Round(request.GPU, 1);
+            var cpuBenchmarks = Math.Round(request.CPU, 1);
+            var ramBenchmarks = Math.Round(request.RAM, 1);
+            var storageBenchmarks = Math.Round(request.Storage, 1);
+
             var validator = new RequestValidator();
-            var validationResult = validator.ValidateBenchmarkRequest(request);
+            var validationResult = validator.ValidateBenchmark(gpuBenchmarks, cpuBenchmarks, ramBenchmarks, request.StorageType, storageBenchmarks);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ErrMessage);
             }
-            // Extract benchmarks
-            var gpuBenchmarks = request.GPU;
-            var cpuBenchmarks = request.CPU;
-            var ramBenchmarks = request.RAM;
-            var storageBenchmarks = request.Storage;
 
             var Category = request.Category;
             var StorageType = request.StorageType;
