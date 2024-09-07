@@ -19,10 +19,25 @@ export default function FormComponent({ data }: any) {
         category, setCategory 
     } = useBenchmarkContext();
 
-    function submit() {
-        console.log(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage,category)
+    const [errors, setErrors] = useState<any>({});
 
-        router.push('/results')
+    const validate = () => {
+        let tempErrors: any = {};
+        if (!cpuBenchmark || cpuBenchmark === `Please select a CPU`) tempErrors.cpu = "CPU is required";
+        if (!gpuBenchmark || gpuBenchmark === `Please select a GPU`) tempErrors.gpu = "GPU is required";
+        if (ssdStorage && (!ssdBenchmark || ssdBenchmark === `Please select a SSD`)) tempErrors.ssd = "SSD is required";
+        if (!ssdStorage && (!hddBenchmark || hddBenchmark === `Please select a HDD`)) tempErrors.hdd = "HDD is required";
+        if (!ramBenchmark || ramBenchmark === `Please select a RAM`) tempErrors.ram = "RAM is required";
+        if (!category || category === `Please select a Category`) tempErrors.category = "Category is required";
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+    };
+
+    function submit() {
+        if (validate()) {
+            console.log(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category);
+            router.push("/results");
+        }
     }
 
     const renderSelect = (label: string, options: Component[], set: any, disabled: boolean = false) => (
@@ -40,6 +55,7 @@ export default function FormComponent({ data }: any) {
                 </option>
             ))}
             </select>
+            {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
         </div>
     );
 
@@ -57,6 +73,7 @@ export default function FormComponent({ data }: any) {
                 </option>
             ))}
             </select>
+            {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
         </div>
     );
 
