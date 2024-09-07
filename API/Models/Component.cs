@@ -26,10 +26,4 @@ namespace Models
 
     }
 
-    public class ComponentGroup
-    {
-        public string? Type { get; set; }
-        public List<Component>? Components { get; set; }
-    }
-
 }
