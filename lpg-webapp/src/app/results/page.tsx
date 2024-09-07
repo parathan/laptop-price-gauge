@@ -9,8 +9,20 @@ async function getScore(
     ssd: string,
     hdd: string,
     ram: string,
+    ssdStorage: boolean,
     category: string,
 ) {
+
+    var storage;
+    var storageType;
+
+    if (ssdStorage) {
+        storageType = "SSD";
+        storage = ssd;
+    } else {
+        storageType = "HDD";
+        storage = hdd;
+    }
 
     const res = await fetch('http://localhost:5269/api/computerScore/benchmark', {
         method: 'POST',
@@ -21,8 +33,8 @@ async function getScore(
             CPU: cpu,
             GPU: gpu,
             RAM: ram,
-            Storage: ssd,
-            StorageType: "SSD",
+            Storage: storage,
+            StorageType: storageType,
             Category: category
         }),
     })
@@ -44,10 +56,10 @@ async function getScore(
  */
 export default function Results() {
 
-    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, category } = useBenchmarkContext();
+    const { cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category } = useBenchmarkContext();
 
     useEffect(() => {
-        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, category)
+        getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
     },[])
 
     const value = 1000;
