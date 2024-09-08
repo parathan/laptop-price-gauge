@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { useBenchmarkContext } from '@/context/BenchmarkContext';
+import { useRouter } from "next/navigation";
+
 
 async function getScore(
     cpu: string,
@@ -57,6 +59,8 @@ async function getScore(
  */
 export default function Results() {
 
+    const router = useRouter();
+
     const { 
         cpuBenchmark, 
         gpuBenchmark, 
@@ -94,6 +98,10 @@ export default function Results() {
         fetchResult()
     },[category, cpuBenchmark, gpuBenchmark, hddBenchmark, ramBenchmark, ssdBenchmark, ssdStorage])
 
+    function goBack() {
+        router.back();
+    }
+
     const benchmarkDisplay = (label: string, value: number, color: string) => {
         return(
             <div>
@@ -122,6 +130,12 @@ export default function Results() {
                     {benchmarkDisplay("Total Benchmark", totalResult, "bg-indigo-500")}
                 </div>
             </div>
+            <button 
+                className="max-w-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+                onClick={goBack}
+            >
+                Go Back
+            </button>
         </div>
     );
 }
