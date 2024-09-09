@@ -18,6 +18,13 @@ export const BenchmarkContextProvider = ({
     const [ssdStorage, setSsdStorage] = useState(false);
     const [category, setCategory] = useState("");
 
+    const [cpuKey, setCpuKey] = useState("");
+    const [gpuKey, setGpuKey] = useState("");
+    const [ssdKey, setSsdKey] = useState("");
+    const [hddKey, setHddKey] = useState("");
+    const [ramKey, setRamKey] = useState("");
+    const [categoryKey, setCategoryKey] = useState("");
+
     return (
         <BenchmarkContext.Provider
             value={{
@@ -34,7 +41,19 @@ export const BenchmarkContextProvider = ({
                 ssdStorage,
                 setSsdStorage,
                 category,
-                setCategory
+                setCategory,
+                cpuKey,
+                setCpuKey,
+                gpuKey,
+                setGpuKey,
+                ssdKey,
+                setSsdKey,
+                hddKey,
+                setHddKey,
+                ramKey,
+                setRamKey,
+                categoryKey,
+                setCategoryKey
             }}
         >
             {children}

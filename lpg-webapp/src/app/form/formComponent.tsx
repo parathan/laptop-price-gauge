@@ -16,7 +16,13 @@ export default function FormComponent({ data }: any) {
         hddBenchmark, setHddBenchmark, 
         ramBenchmark, setRamBenchmark,
         ssdStorage, setSsdStorage, 
-        category, setCategory 
+        category, setCategory,
+        cpuKey, setCpuKey,
+        gpuKey, setGpuKey,
+        ssdKey, setSsdKey,
+        hddKey, setHddKey,
+        ramKey, setRamKey,
+        categoryKey, setCategoryKey 
     } = useBenchmarkContext();
 
     const [errors, setErrors] = useState<any>({});
@@ -40,31 +46,46 @@ export default function FormComponent({ data }: any) {
         }
     }
 
-    const renderSelect = (label: string, options: Component[], set: any, disabled: boolean = false) => (
+    function setOption(setBenchmark: any, setKey: any, e: any) {
+        setBenchmark(e.target.value); // Set the selected benchmark value
+        setKey(e.target.options[e.target.selectedIndex].key); // Set the key separately
+    }
+
+    const renderSelect = (
+        label: string, 
+        options: Component[], 
+        benchmark: string, 
+        setBenchmark: any, 
+        setKey: any, 
+        key: string, 
+        disabled: boolean = false
+      ) => (
         <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-            <select
-                onChange={(e) => set(e.target.value)}
-                className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                disabled={disabled}
-            >
+          <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+          <select
+            onChange={(e) => setOption(setBenchmark, setKey, e)}
+            className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            disabled={disabled}
+            value={benchmark}
+          >
             <option>Please select a {label}</option>
             {options.map((option) => (
-                <option key={option.id} value={option.benchmark}>
+              <option key={option.id} value={option.benchmark}>
                 {option.brand} {option.model}
-                </option>
+              </option>
             ))}
-            </select>
-            {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
+          </select>
+          {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
         </div>
-    );
+      );
 
-    const renderCategory = (label: string, options: string[], set: any) => (
+    const renderCategory = (label: string, options: string[], category: string, setCategory: any, setKey: any, key: string) => (
         <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <select
-            onChange={(e) => set(e.target.value)}
-            className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                onChange={(e) => setOption(setCategory, setKey, e)}
+                className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                value={category}
             >
             <option>Please select a {label}</option>
             {options.map((option) => (
@@ -90,8 +111,8 @@ export default function FormComponent({ data }: any) {
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">PC Parts Selection</h2>
             
-            {renderSelect("CPU", data.CPU, setCpuBenchmark)}
-            {renderSelect("GPU", data.GPU, setGpuBenchmark)}
+            {renderSelect("CPU", data.CPU, cpuBenchmark,setCpuBenchmark, setCpuKey, cpuKey)}
+            {renderSelect("GPU", data.GPU, gpuBenchmark, setGpuBenchmark, setGpuKey, gpuKey)}
 
             <div className="mb-4">
                 <label className="flex items-center">
@@ -105,10 +126,10 @@ export default function FormComponent({ data }: any) {
                 </label>
             </div>
 
-            {renderSelect("SSD", data.SSD, setSsdBenchmark, !ssdStorage)}
-            {renderSelect("HDD", data.HDD, setHddBenchmark, ssdStorage)}
-            {renderSelect("RAM", data.RAM, setRamBenchmark)}
-            {renderCategory("Category", data.Categories, setCategory)}
+            {renderSelect("SSD", data.SSD, ssdBenchmark, setSsdBenchmark, setSsdKey, ssdKey, !ssdStorage)}
+            {renderSelect("HDD", data.HDD, hddBenchmark, setHddBenchmark, setHddKey, hddKey, ssdStorage)}
+            {renderSelect("RAM", data.RAM, ramBenchmark, setRamBenchmark, setRamKey, ramKey)}
+            {renderCategory("Category", data.Categories, category, setCategory, setCategoryKey, categoryKey)}
 
             <button 
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
