@@ -77,14 +77,6 @@ export default function Results() {
     const [storageResult, setStorageResult] = useState(0);
     const [totalResult, setTotalResult] = useState(0);
 
-    const data = [
-        { label: "CPU Benchmark", value: 0, color: "bg-red-500" },
-        { label: "GPU Benchmark", value: 100, color: "bg-blue-500" },
-        { label: "RAM Benchmark", value: 31.27524523946913, color: "bg-green-500" },
-        { label: "Storage Benchmark", value: 4.717477003942181, color: "bg-yellow-500" },
-        { label: "Total Benchmark", value: 34.92716063611748, color: "bg-indigo-500" },
-    ];
-
     useEffect(() => {
         const fetchResult = async () => {
             const data = await getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
@@ -107,7 +99,7 @@ export default function Results() {
             <div>
                 <div className="flex justify-between mb-1">
                     <span className="text-sm font-medium text-gray-700">{label}</span>
-                    <span className="text-sm font-medium text-gray-700">{value.toFixed(2)}%</span>
+                    <span className="text-sm font-medium text-gray-700">{value.toFixed(0)}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-5">
                     <div
