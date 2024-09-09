@@ -1,4 +1,4 @@
-import FormComponent from "./formComponent"
+import FormComponent from "@/components/formComponent"
 import { ComponentList } from "@/interfaces/components"
 
 async function getData() {
