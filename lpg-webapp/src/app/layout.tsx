@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { BenchmarkContextProvider } from "@/context/BenchmarkContext";
 
+import Navbar from "@/components/navbar";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <BenchmarkContextProvider>
+          <Navbar />
           {children}
         </BenchmarkContextProvider>
       </body>
