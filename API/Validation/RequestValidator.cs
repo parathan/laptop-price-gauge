@@ -48,6 +48,37 @@ namespace API.Validators
             return new ValidationResult { IsValid = true };
         }
 
+        public ValidationResult ValidateTwoBenchmark(double gpu1, double cpu1, double ram1, double storage1, double gpu2, double cpu2, double ram2, double storage2, string storageType)
+        {
+            // Validate each component's benchmark and return any specific errors
+            var cpu1Validation = ValidateComponentBenchmark("CPU", cpu1);
+            if (!cpu1Validation.IsValid) return cpu1Validation;
+
+            var gpu1Validation = ValidateComponentBenchmark("GPU", gpu1);
+            if (!gpu1Validation.IsValid) return gpu1Validation;
+
+            var ram1Validation = ValidateComponentBenchmark("RAM", ram1);
+            if (!ram1Validation.IsValid) return ram1Validation;
+
+            var storage1Validation = ValidateComponentBenchmark(storageType, storage1);
+            if (!storage1Validation.IsValid) return storage1Validation;
+
+            var cpu2Validation = ValidateComponentBenchmark("CPU", cpu2);
+            if (!cpu2Validation.IsValid) return cpu2Validation;
+
+            var gpu2Validation = ValidateComponentBenchmark("GPU", gpu2);
+            if (!gpu2Validation.IsValid) return gpu2Validation;
+
+            var ram2Validation = ValidateComponentBenchmark("RAM", ram2);
+            if (!ram2Validation.IsValid) return ram2Validation;
+
+            var storage2Validation = ValidateComponentBenchmark(storageType, storage2);
+            if (!storage2Validation.IsValid) return storage2Validation;
+
+            // If all validations pass
+            return new ValidationResult { IsValid = true };
+        }
+
         private ValidationResult ValidateComponentBenchmark(string componentType, double benchmarkValue)
         {
             // Check if the componentType is in the dictionary and validate the value
