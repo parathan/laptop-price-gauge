@@ -192,12 +192,12 @@ public class ComponentsController : ControllerBase
             var gpu1Benchmarks = Math.Round(request.GPU_1, 1);
             var cpu1Benchmarks = Math.Round(request.CPU_1, 1);
             var ram1Benchmarks = Math.Round(request.RAM_1, 1);
-            var storage1Benchmarks = Math.Round(request.Storage_1[0], 1);
+            var storage1Benchmarks = Math.Round(request.Storage_1[0].Item1, 1);
 
             var gpu2Benchmarks = Math.Round(request.GPU_2, 1);
             var cpu2Benchmarks = Math.Round(request.CPU_2, 1);
             var ram2Benchmarks = Math.Round(request.RAM_2, 1);
-            var storage2Benchmarks = Math.Round(request.Storage_2[0], 1);
+            var storage2Benchmarks = Math.Round(request.Storage_2[0].Item1, 1);
 
             var Category = request.Category;
             var StorageType = request.StorageType;
