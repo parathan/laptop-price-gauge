@@ -51,4 +51,22 @@ namespace API.Logic
             return weightedBenchmark;
         }
     }
+
+    public class StorageCalculator
+    {
+        public static double CalculateStorageBenchmark(List<(float, float)> storageList, double benchmarkWeight = 0.5, double sizeWeight = 0.5)
+        {
+            double totalScore = 0;
+
+            foreach (var storage in storageList)
+            {
+                double scaledBenchmark = BenchmarkScaler.ScaleBenchmark("Storage", storage.Item1);
+                double scaledSize = BenchmarkScaler.ScaleBenchmark("StorageSize", storage.Item2);
+                double storageScore = (scaledBenchmark * benchmarkWeight) + (scaledSize * sizeWeight);
+                totalScore += storageScore;
+            }
+
+            return totalScore;
+        }
+    }
 }

@@ -9,7 +9,8 @@ namespace API.Constants
             { "RAM", (201, 27.7) },
             { "HDD", (113, 9.96) },
             { "SSD", (761, 0) },
-            { "Storage", (761, 0)}
+            { "Storage", (761, 0)},
+            { "StorageSize", (12000, 31)}
         };
     }
 }
