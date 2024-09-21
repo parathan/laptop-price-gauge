@@ -5,7 +5,7 @@ namespace API.Validators
 {
     public class ValidationResult
     {
-        public bool IsValid { get; set; }
+        required public bool IsValid { get; set; }
         public string? ErrMessage { get; set; }
     }
     public class RequestValidator
@@ -48,7 +48,7 @@ namespace API.Validators
             return new ValidationResult { IsValid = true };
         }
 
-        public ValidationResult ValidateTwoBenchmark(double gpu1, double cpu1, double ram1, double storage1, double gpu2, double cpu2, double ram2, double storage2, string storageType)
+        public ValidationResult ValidateTwoBenchmark(double gpu1, double cpu1, double ram1, List<Storage> storage1, double gpu2, double cpu2, double ram2, List<Storage> storage2, string storageType)
         {
             // Validate each component's benchmark and return any specific errors
             var cpu1Validation = ValidateComponentBenchmark("CPU", cpu1);
@@ -60,7 +60,7 @@ namespace API.Validators
             var ram1Validation = ValidateComponentBenchmark("RAM", ram1);
             if (!ram1Validation.IsValid) return ram1Validation;
 
-            var storage1Validation = ValidateComponentBenchmark(storageType, storage1);
+            var storage1Validation = ValidateStorageBenchmark(storage1);
             if (!storage1Validation.IsValid) return storage1Validation;
 
             var cpu2Validation = ValidateComponentBenchmark("CPU", cpu2);
@@ -72,7 +72,7 @@ namespace API.Validators
             var ram2Validation = ValidateComponentBenchmark("RAM", ram2);
             if (!ram2Validation.IsValid) return ram2Validation;
 
-            var storage2Validation = ValidateComponentBenchmark(storageType, storage2);
+            var storage2Validation = ValidateStorageBenchmark(storage2);
             if (!storage2Validation.IsValid) return storage2Validation;
 
             // If all validations pass
@@ -102,6 +102,38 @@ namespace API.Validators
                 IsValid = false,
                 ErrMessage = $"{componentType} is not a valid component type."
             };
+        }
+
+        private ValidationResult ValidateStorageBenchmark(List<Storage> storages)
+        {
+            foreach (var storage in storages)
+            {
+
+            }
+
+            for (int i = 0; i < storages.Count; i++)
+            {
+                ComponentConstants.ComponentRanges.TryGetValue("Storage", out var benchmarkRange);
+                ComponentConstants.ComponentRanges.TryGetValue("StorageSize", out var sizeRange);
+
+                if (storages[i].Benchmark < benchmarkRange.min || storages[i].Benchmark > benchmarkRange.max)
+                {
+                    return new ValidationResult
+                    {
+                        IsValid = false,
+                        ErrMessage = $"Storage benchmark value {storages[i].Benchmark} is out of range. Allowed range: {benchmarkRange.min} - {benchmarkRange.max}."
+                    };
+                }
+                if (storages[i].Size < sizeRange.min || storages[i].Size > sizeRange.max)
+                {
+                    return new ValidationResult
+                    {
+                        IsValid = false,
+                        ErrMessage = $"Storage size value {storages[i].Size} is out of range. Allowed range: {sizeRange.min} - {sizeRange.max}."
+                    };
+                }
+            }
+            return new ValidationResult { IsValid = true };
         }
     }
 }

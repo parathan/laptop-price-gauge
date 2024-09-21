@@ -202,12 +202,12 @@ public class ComponentsController : ControllerBase
             var Category = request.Category;
             var StorageType = request.StorageType;
 
-            // var validator = new RequestValidator();
-            // var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks, StorageType);
-            // if (!validationResult.IsValid)
-            // {
-            //     return BadRequest(validationResult.ErrMessage);
-            // }
+            var validator = new RequestValidator();
+            var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks, StorageType);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.ErrMessage);
+            }
 
             var scaled1GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpu1Benchmarks);
             var scaled1CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpu1Benchmarks);
