@@ -56,17 +56,25 @@ namespace API.Logic
     {
         public static double CalculateStorageBenchmark(List<(float, float)> storageList, double benchmarkWeight = 0.5, double sizeWeight = 0.5)
         {
-            double totalScore = 0;
+            
+            // One option is to just take the highest storage score, which is a combined score of an individual storage's benchmark and size,
 
+            // The weights for benchmark and storage itself will differ based on the category.
+
+            double maxStorage =  0;
             foreach (var storage in storageList)
             {
                 double scaledBenchmark = BenchmarkScaler.ScaleBenchmark("Storage", storage.Item1);
                 double scaledSize = BenchmarkScaler.ScaleBenchmark("StorageSize", storage.Item2);
                 double storageScore = (scaledBenchmark * benchmarkWeight) + (scaledSize * sizeWeight);
-                totalScore += storageScore;
+                if (storageScore > maxStorage)
+                {
+                    maxStorage = storageScore;
+                }
+
             }
 
-            return totalScore;
+            return maxStorage;
         }
     }
 }

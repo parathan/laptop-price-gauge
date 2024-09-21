@@ -192,33 +192,33 @@ public class ComponentsController : ControllerBase
             var gpu1Benchmarks = Math.Round(request.GPU_1, 1);
             var cpu1Benchmarks = Math.Round(request.CPU_1, 1);
             var ram1Benchmarks = Math.Round(request.RAM_1, 1);
-            var storage1Benchmarks = Math.Round(request.Storage_1[0].Item1, 1);
+            var storage1Benchmarks = request.Storage_1;
 
             var gpu2Benchmarks = Math.Round(request.GPU_2, 1);
             var cpu2Benchmarks = Math.Round(request.CPU_2, 1);
             var ram2Benchmarks = Math.Round(request.RAM_2, 1);
-            var storage2Benchmarks = Math.Round(request.Storage_2[0].Item1, 1);
+            var storage2Benchmarks = request.Storage_2;
 
             var Category = request.Category;
             var StorageType = request.StorageType;
 
-            var validator = new RequestValidator();
-            var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks, StorageType);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.ErrMessage);
-            }
+            // var validator = new RequestValidator();
+            // var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks, StorageType);
+            // if (!validationResult.IsValid)
+            // {
+            //     return BadRequest(validationResult.ErrMessage);
+            // }
 
             var scaled1GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpu1Benchmarks);
             var scaled1CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpu1Benchmarks);
             var scaled1RAM = BenchmarkScaler.ScaleBenchmark("RAM", ram1Benchmarks);
-            var scaled1Storage = BenchmarkScaler.ScaleBenchmark(StorageType, storage1Benchmarks);
+            var scaled1Storage = StorageCalculator.CalculateStorageBenchmark(storage1Benchmarks);
             var total1Benchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaled1CPU, scaled1GPU, scaled1RAM, scaled1Storage, Category);
 
             var scaled2GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpu2Benchmarks);
             var scaled2CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpu2Benchmarks);
             var scaled2RAM = BenchmarkScaler.ScaleBenchmark("RAM", ram2Benchmarks);
-            var scaled2Storage = BenchmarkScaler.ScaleBenchmark(StorageType, storage2Benchmarks);
+            var scaled2Storage = StorageCalculator.CalculateStorageBenchmark(storage2Benchmarks);
             var total2Benchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaled2CPU, scaled2GPU, scaled2RAM, scaled2Storage, Category);
 
             // Return the filtered components
