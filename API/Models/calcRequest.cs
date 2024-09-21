@@ -31,12 +31,18 @@ namespace API.Models
         required public float GPU_1 { get; set; }
         required public float CPU_1 { get; set; }
         required public float RAM_1 { get; set; }
-        required public List<(float, float)> Storage_1 { get; set; } // List of tuples (benchmark, storage space)
+        required public List<Storage> Storage_1 { get; set; }
         required public float GPU_2 { get; set; }
         required public float CPU_2 { get; set; }
         required public float RAM_2 { get; set; }
-        required public List<(float, float)> Storage_2 { get; set; } // List of tuples (benchmark, storage space
+        required public List<Storage> Storage_2 { get; set; }
         required public string StorageType { get; set; }
         required public string Category { get; set; }
+    }
+
+    public class Storage
+    {
+        required public float Benchmark { get; set; }
+        required public float Size { get; set; }
     }
 }

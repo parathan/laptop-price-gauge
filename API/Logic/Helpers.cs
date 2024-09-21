@@ -1,4 +1,5 @@
 using API.Constants;
+using API.Models;
 namespace API.Logic
 {
     public class BenchmarkScaler
@@ -54,7 +55,7 @@ namespace API.Logic
 
     public class StorageCalculator
     {
-        public static double CalculateStorageBenchmark(List<(float, float)> storageList, double benchmarkWeight = 0.5, double sizeWeight = 0.5)
+        public static double CalculateStorageBenchmark(List<Storage> storageList, double benchmarkWeight = 0.5, double sizeWeight = 0.5)
         {
             
             // One option is to just take the highest storage score, which is a combined score of an individual storage's benchmark and size,
@@ -64,8 +65,8 @@ namespace API.Logic
             double maxStorage =  0;
             foreach (var storage in storageList)
             {
-                double scaledBenchmark = BenchmarkScaler.ScaleBenchmark("Storage", storage.Item1);
-                double scaledSize = BenchmarkScaler.ScaleBenchmark("StorageSize", storage.Item2);
+                double scaledBenchmark = BenchmarkScaler.ScaleBenchmark("Storage", storage.Benchmark);
+                double scaledSize = BenchmarkScaler.ScaleBenchmark("StorageSize", storage.Size);
                 double storageScore = (scaledBenchmark * benchmarkWeight) + (scaledSize * sizeWeight);
                 if (storageScore > maxStorage)
                 {
