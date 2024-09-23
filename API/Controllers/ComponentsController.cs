@@ -212,13 +212,13 @@ public class ComponentsController : ControllerBase
             var scaled1GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpu1Benchmarks);
             var scaled1CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpu1Benchmarks);
             var scaled1RAM = BenchmarkScaler.ScaleBenchmark("RAM", ram1Benchmarks);
-            var scaled1Storage = StorageCalculator.CalculateStorageBenchmark(storage1Benchmarks);
+            var scaled1Storage = StorageCalculator.CalculateStorageBenchmark(storage1Benchmarks, Category);
             var total1Benchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaled1CPU, scaled1GPU, scaled1RAM, scaled1Storage, Category);
 
             var scaled2GPU = BenchmarkScaler.ScaleBenchmark("GPU", gpu2Benchmarks);
             var scaled2CPU = BenchmarkScaler.ScaleBenchmark("CPU", cpu2Benchmarks);
             var scaled2RAM = BenchmarkScaler.ScaleBenchmark("RAM", ram2Benchmarks);
-            var scaled2Storage = StorageCalculator.CalculateStorageBenchmark(storage2Benchmarks);
+            var scaled2Storage = StorageCalculator.CalculateStorageBenchmark(storage2Benchmarks, Category);
             var total2Benchmark = CategoryBenchmarkCalculator.CalculateCategoryBenchmark(scaled2CPU, scaled2GPU, scaled2RAM, scaled2Storage, Category);
 
             // Return the filtered components

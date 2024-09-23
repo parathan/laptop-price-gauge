@@ -55,19 +55,26 @@ namespace API.Logic
 
     public class StorageCalculator
     {
-        public static double CalculateStorageBenchmark(List<Storage> storageList, double benchmarkWeight = 0.5, double sizeWeight = 0.5)
+        public static double CalculateStorageBenchmark(List<Storage> storageList, string category)
         {
             
             // One option is to just take the highest storage score, which is a combined score of an individual storage's benchmark and size,
 
             // The weights for benchmark and storage itself will differ based on the category.
 
+            var weightings = Categories.StorageWeightings;
+            // Check if the category exists in the dictionary
+            if (!weightings.TryGetValue(category, out var weights))
+            {
+                throw new ArgumentException("Invalid category");
+            }
+
             double maxStorage =  0;
             foreach (var storage in storageList)
             {
                 double scaledBenchmark = BenchmarkScaler.ScaleBenchmark("Storage", storage.Benchmark);
                 double scaledSize = BenchmarkScaler.ScaleBenchmark("StorageSize", storage.Size);
-                double storageScore = (scaledBenchmark * benchmarkWeight) + (scaledSize * sizeWeight);
+                double storageScore = (scaledBenchmark * weights.benchmark) + (scaledSize * weights.size);
                 if (storageScore > maxStorage)
                 {
                     maxStorage = storageScore;
