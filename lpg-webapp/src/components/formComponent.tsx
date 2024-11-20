@@ -62,6 +62,10 @@ export default function FormComponent({ data }: any) {
         setBenchmark(e.target.value); // Set the selected benchmark value
     }
 
+    function addStorageInput(num: number) {
+        console.log(num)
+    }
+
     const renderSelect = (
         label: string, 
         options: Component[], 
@@ -116,6 +120,12 @@ export default function FormComponent({ data }: any) {
                     {renderSelect("CPU", data.CPU, cpuBenchmark, setCpuBenchmark)}
                     {renderSelect("GPU", data.GPU, gpuBenchmark, setGpuBenchmark)}
                     {renderSelect("Storage", [...data.SSD, ...data.HDD], ssdBenchmark, setSsdBenchmark)}
+                    <button
+                        className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
+                        onClick={() => addStorageInput(1)}
+                    >
+                        Add Additional Storage
+                    </button>
                     {renderSelect("RAM", data.RAM, ramBenchmark, setRamBenchmark)}
                 </div>
 
@@ -126,6 +136,12 @@ export default function FormComponent({ data }: any) {
                     {renderSelect("CPU", data.CPU, cpuBenchmark2, setCpuBenchmark2)}
                     {renderSelect("GPU", data.GPU, gpuBenchmark2, setGpuBenchmark2)}
                     {renderSelect("Storage", [...data.SSD, ...data.HDD], ssdBenchmark2, setSsdBenchmark2)}
+                    <button
+                        className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
+                        onClick={() => addStorageInput(2)}
+                    >
+                        Add Additional Storage
+                    </button>
                     {renderSelect("RAM", data.RAM, ramBenchmark2, setRamBenchmark2)}
                 </div>
             </div>
