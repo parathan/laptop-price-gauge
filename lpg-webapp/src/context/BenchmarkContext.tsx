@@ -15,6 +15,8 @@ export const BenchmarkContextProvider = ({
     const [gpuBenchmark, setGpuBenchmark] = useState("");
     const [ssdBenchmark, setSsdBenchmark] = useState("");
     const [hddBenchmark, setHddBenchmark] = useState("");
+    const [storageBenchmark, setStorageBenchmark] = useState([""]);
+    const [storageCount, setStorageCount] = useState(1);
     const [ramBenchmark, setRamBenchmark] = useState("");
     const [ssdStorage, setSsdStorage] = useState(false);
     const [category, setCategory] = useState("");
@@ -24,6 +26,8 @@ export const BenchmarkContextProvider = ({
     const [gpuBenchmark2, setGpuBenchmark2] = useState("");
     const [ssdBenchmark2, setSsdBenchmark2] = useState("");
     const [hddBenchmark2, setHddBenchmark2] = useState("");
+    const [storageBenchmark2, setStorageBenchmark2] = useState([""]);
+    const [storageCount2, setStorageCount2] = useState(1);
     const [ramBenchmark2, setRamBenchmark2] = useState("");
     const [ssdStorage2, setSsdStorage2] = useState(false);
 
