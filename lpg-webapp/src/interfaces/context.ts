@@ -11,6 +11,10 @@ export interface BenchmarkContextProps {
     setRamBenchmark: (value: string) => void;
     ssdStorage: boolean;
     setSsdStorage: (value: boolean) => void;
+    storageBenchmark: string[];
+    setStorageBenchmark: (value: string[]) => void;
+    storageCount: number;
+    setStorageCount: (value: number) => void;
     category: string;
     setCategory: (value: string) => void;
     cpuBenchmark2: string;
@@ -25,4 +29,8 @@ export interface BenchmarkContextProps {
     setRamBenchmark2: (value: string) => void;
     ssdStorage2: boolean;
     setSsdStorage2: (value: boolean) => void;
+    storageBenchmark2: string[];
+    setStorageBenchmark2: (value: string[]) => void;
+    storageCount2: number;
+    setStorageCount2: (value: number) => void;
 } 

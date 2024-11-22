@@ -46,6 +46,10 @@ export const BenchmarkContextProvider = ({
                 setRamBenchmark,
                 ssdStorage,
                 setSsdStorage,
+                storageBenchmark,
+                setStorageBenchmark,
+                storageCount,
+                setStorageCount,
                 category,
                 setCategory,
                 cpuBenchmark2,
@@ -60,6 +64,10 @@ export const BenchmarkContextProvider = ({
                 setRamBenchmark2,
                 ssdStorage2,
                 setSsdStorage2,
+                storageBenchmark2,
+                setStorageBenchmark2,
+                storageCount2,
+                setStorageCount2
             }}
         >
             {children}
