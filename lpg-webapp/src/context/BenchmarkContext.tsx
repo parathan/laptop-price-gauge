@@ -5,6 +5,14 @@ import { BenchmarkContextProps } from "@/interfaces/context";
 
 const BenchmarkContext = createContext<BenchmarkContextProps | null>(null);
 
+/**
+ * Provides the state and functions to update the state for the benchmark results.
+ * The state includes the benchmark for the CPU, GPU, SSD, HDD, RAM, and category for the first and second PC.
+ * The storage benchmark is an array of strings, and the storage count is the number of items in the array.
+ * The ssdStorage is a boolean that indicates whether the storage benchmark is for an SSD or HDD.
+ * The functions to update the state include setCpuBenchmark, setGpuBenchmark, setSsdBenchmark, setHddBenchmark, setRamBenchmark, setSsdStorage, setStorageBenchmark, setStorageCount, and setCategory.
+ * The children of this component are the components that will use the state and functions provided by this context.
+ */
 export const BenchmarkContextProvider = ({
     children,
 }: {
