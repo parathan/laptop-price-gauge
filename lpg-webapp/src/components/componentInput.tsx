@@ -1,14 +1,21 @@
 "use client"
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Component } from "@/interfaces/components";
 
-const ComponentInput = (
-    label: string, 
-    options: Component[], 
-    benchmark: string, 
-    setBenchmark: any, 
-) => {
+interface ComponentInputProps {
+  label: string;
+  options: Component[];
+  benchmark: string;
+  setBenchmark: any;
+}
+
+const ComponentInput: React.FC<ComponentInputProps> = ({
+  label,
+  options,
+  benchmark,
+  setBenchmark,
+}) => {
 
     const [errors, setErrors] = useState<any>({});
 
