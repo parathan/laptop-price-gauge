@@ -36,7 +36,7 @@ public class ComponentsController : ControllerBase
     public async Task<ActionResult> GetGroupedComponents()
     {
         var groupedComponents = await _context.Components
-            .GroupBy(c => c.Type)
+            .GroupBy(c => c.Type == "HDD" || c.Type == "SSD" ? "Storage" : c.Type)
             .ToDictionaryAsync(
                 g => g.Key,
                 g => g.ToList()
