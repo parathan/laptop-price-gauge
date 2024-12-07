@@ -120,7 +120,7 @@ export default function FormComponent({ data }: any) {
                     
                     {renderSelect("CPU", data.CPU, cpuBenchmark, setCpuBenchmark)}
                     {renderSelect("GPU", data.GPU, gpuBenchmark, setGpuBenchmark)}
-                    {renderSelect("Storage", [...data.SSD, ...data.HDD], ssdBenchmark, setSsdBenchmark)}
+                    {renderSelect("Storage", data.Storage, ssdBenchmark, setSsdBenchmark)}
                     <button
                         className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
                         onClick={() => addStorageInput(1)}
@@ -136,8 +136,8 @@ export default function FormComponent({ data }: any) {
                     
                     {renderSelect("CPU", data.CPU, cpuBenchmark2, setCpuBenchmark2)}
                     {renderSelect("GPU", data.GPU, gpuBenchmark2, setGpuBenchmark2)}
-                    <ComponentInput label="StorageTest" options={ [...data.SSD, ...data.HDD]} benchmark={ssdBenchmark2} setBenchmark={setSsdBenchmark2} />
-                    {renderSelect("Storage", [...data.SSD, ...data.HDD], ssdBenchmark2, setSsdBenchmark2)}
+                    <ComponentInput label="StorageTest" options={data.Storage} benchmark={ssdBenchmark2} setBenchmark={setSsdBenchmark2} />
+                    {renderSelect("Storage", data.Storage, ssdBenchmark2, setSsdBenchmark2)}
                     <button
                         className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
                         onClick={() => addStorageInput(2)}

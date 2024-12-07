@@ -3,7 +3,7 @@ import { ComponentList } from "@/interfaces/components"
 
 async function getData() {
     // Request data
-    const res = await fetch('http://localhost:5269/api/groupedComponents', {cache: 'force-cache'})
+    const res = await fetch('http://localhost:5269/api/groupedComponents', {cache: 'default'})
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -13,13 +13,12 @@ async function getData() {
     var componentlist: ComponentList = {
         CPU: data.components.CPU,
         GPU: data.components.GPU,
-        SSD: data.components.SSD,
-        HDD: data.components.HDD,
+        Storage: data.components.Storage,
         RAM: data.components.RAM,
         Categories: data.categories
     }
 
-    return componentlist;
+    return componentlist;   
 }
 
 /**

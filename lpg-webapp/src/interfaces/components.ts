@@ -13,8 +13,7 @@ export interface Component {
 export interface ComponentList {
     CPU: Component[];
     GPU: Component[];
-    SSD: Component[];
-    HDD: Component[];
+    Storage: Component[];
     RAM: Component[];
     Categories: String[];
 }
