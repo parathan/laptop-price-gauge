@@ -13,15 +13,15 @@ export default function FormComponent({ data }: any) {
 
     const {
         cpuBenchmark, setCpuBenchmark, 
-        gpuBenchmark, setGpuBenchmark, 
-        ssdBenchmark, setSsdBenchmark, 
-        hddBenchmark, setHddBenchmark, 
+        gpuBenchmark, setGpuBenchmark,
+        storageBenchmark, setStorageBenchmark,
+        storageCount, setStorageCount, 
         ramBenchmark, setRamBenchmark,
         category, setCategory,
         cpuBenchmark2, setCpuBenchmark2,
         gpuBenchmark2, setGpuBenchmark2,
-        ssdBenchmark2, setSsdBenchmark2,
-        hddBenchmark2, setHddBenchmark2,
+        storageBenchmark2, setStorageBenchmark2,
+        storageCount2, setStorageCount2,
         ramBenchmark2, setRamBenchmark2,
     } = useBenchmarkContext();
 
@@ -32,16 +32,12 @@ export default function FormComponent({ data }: any) {
         // First PC validation
         if (!cpuBenchmark || cpuBenchmark === `Please select a CPU`) tempErrors.cpu = "CPU is required";
         if (!gpuBenchmark || gpuBenchmark === `Please select a GPU`) tempErrors.gpu = "GPU is required";
-        if (!ssdBenchmark || ssdBenchmark === `Please select a SSD`) tempErrors.ssd = "SSD is required";
-        if (!hddBenchmark || hddBenchmark === `Please select a HDD`) tempErrors.hdd = "HDD is required";
         if (!ramBenchmark || ramBenchmark === `Please select a RAM`) tempErrors.ram = "RAM is required";
         if (!category || category === `Please select a Category`) tempErrors.category = "Category is required";
         
         // Second PC validation
         if (!cpuBenchmark2 || cpuBenchmark2 === `Please select a CPU`) tempErrors.cpu2 = "CPU for PC 2 is required";
         if (!gpuBenchmark2 || gpuBenchmark2 === `Please select a GPU`) tempErrors.gpu2 = "GPU for PC 2 is required";
-        if (!ssdBenchmark2 || ssdBenchmark2 === `Please select a SSD`) tempErrors.ssd2 = "SSD for PC 2 is required";
-        if (!hddBenchmark2 || hddBenchmark2 === `Please select a HDD`) tempErrors.hdd2 = "HDD for PC 2 is required";
         if (!ramBenchmark2 || ramBenchmark2 === `Please select a RAM`) tempErrors.ram2 = "RAM for PC 2 is required";
         
         setErrors(tempErrors);
@@ -50,8 +46,9 @@ export default function FormComponent({ data }: any) {
 
     function submit() {
         if (validate()) {
-            console.log("PC 1:", cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, category);
-            console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ssdBenchmark2, hddBenchmark2, ramBenchmark2);
+            console.log("PC 1:", cpuBenchmark, gpuBenchmark, ramBenchmark);
+            console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ramBenchmark2);
+            console.log("Category:", category);
             router.push("/results");
         }
         else {
@@ -118,33 +115,32 @@ export default function FormComponent({ data }: any) {
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 mr-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 1 Parts Selection</h2>
                     
-                    {renderSelect("CPU", data.CPU, cpuBenchmark, setCpuBenchmark)}
-                    {renderSelect("GPU", data.GPU, gpuBenchmark, setGpuBenchmark)}
-                    {renderSelect("Storage", data.Storage, ssdBenchmark, setSsdBenchmark)}
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} />
+                    {/* {renderSelect("Storage", data.Storage, ssdBenchmark, setSsdBenchmark)} */}
                     <button
                         className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
                         onClick={() => addStorageInput(1)}
                     >
                         Add Additional Storage
                     </button>
-                    {renderSelect("RAM", data.RAM, ramBenchmark, setRamBenchmark)}
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} />
                 </div>
 
                 {/* PC 2 Section */}
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 ml-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 2 Parts Selection</h2>
                     
-                    {renderSelect("CPU", data.CPU, cpuBenchmark2, setCpuBenchmark2)}
-                    {renderSelect("GPU", data.GPU, gpuBenchmark2, setGpuBenchmark2)}
-                    <ComponentInput label="StorageTest" options={data.Storage} benchmark={ssdBenchmark2} setBenchmark={setSsdBenchmark2} />
-                    {renderSelect("Storage", data.Storage, ssdBenchmark2, setSsdBenchmark2)}
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} />
+                    {/* <ComponentInput label="StorageTest" options={data.Storage} benchmark={ssdBenchmark2} setBenchmark={setSsdBenchmark2} /> */}
                     <button
                         className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
                         onClick={() => addStorageInput(2)}
                     >
                         Add Additional Storage
                     </button>
-                    {renderSelect("RAM", data.RAM, ramBenchmark2, setRamBenchmark2)}
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} />
                 </div>
             </div>
 

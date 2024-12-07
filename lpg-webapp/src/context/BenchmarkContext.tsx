@@ -21,23 +21,19 @@ export const BenchmarkContextProvider = ({
     // First PC state
     const [cpuBenchmark, setCpuBenchmark] = useState("");
     const [gpuBenchmark, setGpuBenchmark] = useState("");
-    const [ssdBenchmark, setSsdBenchmark] = useState("");
-    const [hddBenchmark, setHddBenchmark] = useState("");
     const [storageBenchmark, setStorageBenchmark] = useState([""]);
     const [storageCount, setStorageCount] = useState(1);
     const [ramBenchmark, setRamBenchmark] = useState("");
-    const [ssdStorage, setSsdStorage] = useState(false);
+
+    // Category state
     const [category, setCategory] = useState("");
 
     // Second PC state
     const [cpuBenchmark2, setCpuBenchmark2] = useState("");
     const [gpuBenchmark2, setGpuBenchmark2] = useState("");
-    const [ssdBenchmark2, setSsdBenchmark2] = useState("");
-    const [hddBenchmark2, setHddBenchmark2] = useState("");
     const [storageBenchmark2, setStorageBenchmark2] = useState([""]);
     const [storageCount2, setStorageCount2] = useState(1);
     const [ramBenchmark2, setRamBenchmark2] = useState("");
-    const [ssdStorage2, setSsdStorage2] = useState(false);
 
     return (
         <BenchmarkContext.Provider
@@ -46,14 +42,8 @@ export const BenchmarkContextProvider = ({
                 setCpuBenchmark,
                 gpuBenchmark,
                 setGpuBenchmark,
-                ssdBenchmark,
-                setSsdBenchmark,
-                hddBenchmark,
-                setHddBenchmark,
                 ramBenchmark,
                 setRamBenchmark,
-                ssdStorage,
-                setSsdStorage,
                 storageBenchmark,
                 setStorageBenchmark,
                 storageCount,
@@ -64,14 +54,8 @@ export const BenchmarkContextProvider = ({
                 setCpuBenchmark2,
                 gpuBenchmark2,
                 setGpuBenchmark2,
-                ssdBenchmark2,
-                setSsdBenchmark2,
-                hddBenchmark2,
-                setHddBenchmark2,
                 ramBenchmark2,
                 setRamBenchmark2,
-                ssdStorage2,
-                setSsdStorage2,
                 storageBenchmark2,
                 setStorageBenchmark2,
                 storageCount2,
