@@ -82,17 +82,14 @@ export default function FormComponent({ data }: any) {
     }
 
     function updateItem(index: number, newValue: string) {
-        const updatedItems = storageBenchmark
-        console.log(updatedItems)
-        console.log(index)
-        console.log(newValue)
+        const updatedItems = [...storageBenchmark]
         updatedItems[index].value = newValue;
         setStorageBenchmark(updatedItems);
         console.log(storageBenchmark)
     };
     
     function updateItem2(index: number, newValue: string) {
-        const updatedItems = storageBenchmark2
+        const updatedItems = [...storageBenchmark2]
         updatedItems[index].value = newValue;
         setStorageBenchmark2(updatedItems);
         console.log(storageBenchmark2)
@@ -164,7 +161,7 @@ export default function FormComponent({ data }: any) {
                                 label={`Storage ${index + 1}`} 
                                 options={data.Storage} 
                                 benchmark={storage.value} 
-                                setBenchmark={() => updateItem2(index, storage.value)} 
+                                setBenchmark={(value: string) => updateItem(index, value)} 
                             />
                         </div>
                     ))}
