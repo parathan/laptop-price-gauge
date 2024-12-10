@@ -3,6 +3,8 @@
 import { createContext, useContext, useState } from "react";
 import { BenchmarkContextProps } from "@/interfaces/context";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const BenchmarkContext = createContext<BenchmarkContextProps | null>(null);
 
 /**
@@ -21,7 +23,12 @@ export const BenchmarkContextProvider = ({
     // First PC state
     const [cpuBenchmark, setCpuBenchmark] = useState("");
     const [gpuBenchmark, setGpuBenchmark] = useState("");
-    const [storageBenchmark, setStorageBenchmark] = useState([""]);
+    const [storageBenchmark, setStorageBenchmark] = useState([
+        {
+            id: uuidv4(),
+            value: "",
+        }
+    ]);
     const [storageCount, setStorageCount] = useState(1);
     const [ramBenchmark, setRamBenchmark] = useState("");
 
@@ -31,7 +38,12 @@ export const BenchmarkContextProvider = ({
     // Second PC state
     const [cpuBenchmark2, setCpuBenchmark2] = useState("");
     const [gpuBenchmark2, setGpuBenchmark2] = useState("");
-    const [storageBenchmark2, setStorageBenchmark2] = useState([""]);
+    const [storageBenchmark2, setStorageBenchmark2] = useState([
+        {
+            id: uuidv4(),
+            value: "",
+        }
+    ]);
     const [storageCount2, setStorageCount2] = useState(1);
     const [ramBenchmark2, setRamBenchmark2] = useState("");
 

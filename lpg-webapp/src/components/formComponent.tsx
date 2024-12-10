@@ -6,6 +6,7 @@ import { Component } from "@/interfaces/components";
 import ComponentInput from "./componentInput";
 import { useState } from "react";
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function FormComponent({ data }: any) {
 
@@ -62,15 +63,40 @@ export default function FormComponent({ data }: any) {
 
     function addStorageInput(num: number) {
         if (num == 1) {
-            setStorageBenchmark([...storageBenchmark, ""]);
+            setStorageBenchmark([
+                ...storageBenchmark, 
+                {
+                    id: uuidv4(),
+                    value: ""
+                }
+            ]);
         } else if (num == 2) {
-            setStorageBenchmark2([...storageBenchmark2, ""]);
+            setStorageBenchmark2([
+                ...storageBenchmark2, 
+                {
+                    id: uuidv4(),
+                    value: ""
+                }
+            ]);
         }
     }
 
-    function updateStorage(index: number, value: string) {
-        
-    }
+    function updateItem(index: number, newValue: string) {
+        const updatedItems = storageBenchmark
+        console.log(updatedItems)
+        console.log(index)
+        console.log(newValue)
+        updatedItems[index].value = newValue;
+        setStorageBenchmark(updatedItems);
+        console.log(storageBenchmark)
+    };
+    
+    function updateItem2(index: number, newValue: string) {
+        const updatedItems = storageBenchmark2
+        updatedItems[index].value = newValue;
+        setStorageBenchmark2(updatedItems);
+        console.log(storageBenchmark2)
+    };
 
     const renderCategory = (
         label: string, 
@@ -108,8 +134,13 @@ export default function FormComponent({ data }: any) {
                     <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} />
                     <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} />
                     {storageBenchmark.map((storage, index) => (
-                        <div key={storage}>
-                            <ComponentInput label={`Storage ${index + 1}`} options={data.Storage} benchmark={storage} setBenchmark={setStorageBenchmark} />
+                        <div key={storage.id}>
+                            <ComponentInput 
+                                label={`Storage ${index + 1}`} 
+                                options={data.Storage} 
+                                benchmark={storage.value} 
+                                setBenchmark={(value: string) => updateItem(index, value)} 
+                            />
                         </div>
                     ))}
                     <button
@@ -128,8 +159,13 @@ export default function FormComponent({ data }: any) {
                     <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} />
                     <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} />
                     {storageBenchmark2.map((storage, index) => (
-                        <div key={storage}>
-                            <ComponentInput label={`Storage ${index + 1}`} options={data.Storage} benchmark={storage} setBenchmark={setStorageBenchmark2} />
+                        <div key={storage.id}>
+                            <ComponentInput 
+                                label={`Storage ${index + 1}`} 
+                                options={data.Storage} 
+                                benchmark={storage.value} 
+                                setBenchmark={() => updateItem2(index, storage.value)} 
+                            />
                         </div>
                     ))}
                     
