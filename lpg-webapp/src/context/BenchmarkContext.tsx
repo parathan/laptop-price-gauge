@@ -29,7 +29,6 @@ export const BenchmarkContextProvider = ({
             value: "",
         }
     ]);
-    const [storageCount, setStorageCount] = useState(1);
     const [ramBenchmark, setRamBenchmark] = useState("");
 
     // Category state
@@ -44,7 +43,6 @@ export const BenchmarkContextProvider = ({
             value: "",
         }
     ]);
-    const [storageCount2, setStorageCount2] = useState(1);
     const [ramBenchmark2, setRamBenchmark2] = useState("");
 
     return (
@@ -58,8 +56,6 @@ export const BenchmarkContextProvider = ({
                 setRamBenchmark,
                 storageBenchmark,
                 setStorageBenchmark,
-                storageCount,
-                setStorageCount,
                 category,
                 setCategory,
                 cpuBenchmark2,
@@ -69,9 +65,7 @@ export const BenchmarkContextProvider = ({
                 ramBenchmark2,
                 setRamBenchmark2,
                 storageBenchmark2,
-                setStorageBenchmark2,
-                storageCount2,
-                setStorageCount2
+                setStorageBenchmark2
             }}
         >
             {children}

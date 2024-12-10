@@ -16,13 +16,11 @@ export default function FormComponent({ data }: any) {
         cpuBenchmark, setCpuBenchmark, 
         gpuBenchmark, setGpuBenchmark,
         storageBenchmark, setStorageBenchmark,
-        storageCount, setStorageCount, 
         ramBenchmark, setRamBenchmark,
         category, setCategory,
         cpuBenchmark2, setCpuBenchmark2,
         gpuBenchmark2, setGpuBenchmark2,
         storageBenchmark2, setStorageBenchmark2,
-        storageCount2, setStorageCount2,
         ramBenchmark2, setRamBenchmark2,
     } = useBenchmarkContext();
 

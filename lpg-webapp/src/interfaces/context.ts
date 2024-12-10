@@ -7,8 +7,6 @@ export interface BenchmarkContextProps {
     setRamBenchmark: (value: string) => void;
     storageBenchmark: StorageContext[];
     setStorageBenchmark: (value: StorageContext[]) => void;
-    storageCount: number;
-    setStorageCount: (value: number) => void;
     category: string;
     setCategory: (value: string) => void;
     cpuBenchmark2: string;
@@ -19,8 +17,6 @@ export interface BenchmarkContextProps {
     setRamBenchmark2: (value: string) => void;
     storageBenchmark2: StorageContext[];
     setStorageBenchmark2: (value: StorageContext[]) => void;
-    storageCount2: number;
-    setStorageCount2: (value: number) => void;
 } 
 
 export interface StorageContext {
