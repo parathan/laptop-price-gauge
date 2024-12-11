@@ -159,7 +159,7 @@ export default function FormComponent({ data }: any) {
                                 label={`Storage ${index + 1}`} 
                                 options={data.Storage} 
                                 benchmark={storage.value} 
-                                setBenchmark={(value: string) => updateItem(index, value)} 
+                                setBenchmark={(value: string) => updateItem2(index, value)} 
                             />
                         </div>
                     ))}
