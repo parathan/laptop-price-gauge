@@ -33,7 +33,7 @@ const ComponentInput: React.FC<ComponentInputProps> = ({
           >
             <option>Please select a {label}</option>
             {options.map((option) => (
-              <option key={option.id} value={option.benchmark}>
+              <option key={option.id} value={`${option.id}-${option.benchmark}`}>
                 {option.brand} {option.model}
               </option>
             ))}
