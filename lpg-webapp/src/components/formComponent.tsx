@@ -30,15 +30,28 @@ export default function FormComponent({ data }: any) {
         cpu: "",
         gpu: "",
         ram: "",
-        storage: "",
+        storage: [],
         category: "",
         cpu2: "",
         gpu2: "",
         ram2: "",
-        storage2: "",
+        storage2: [],
     });
 
     const validate = () => {
+
+        const storageErrors = storageBenchmark.map(storage =>
+            storage.value && storage.value !== "Please select a Storage"
+                ? ""
+                : "Storage is required"
+        );
+    
+        const storageErrors2 = storageBenchmark2.map(storage =>
+            storage.value && storage.value !== "Please select a Storage"
+                ? ""
+                : "Storage is required"
+        );
+        
         const newErrors: Errors = {
             status: false,
             cpu: cpuBenchmark && cpuBenchmark !== "Please select a CPU" ? "" : "CPU is required",
@@ -48,12 +61,15 @@ export default function FormComponent({ data }: any) {
             cpu2: cpuBenchmark2 && cpuBenchmark2 !== "Please select a CPU" ? "" : "CPU is required",
             gpu2: gpuBenchmark2 && gpuBenchmark2 !== "Please select a GPU" ? "" : "GPU is required",
             ram2: ramBenchmark2 && ramBenchmark2 !== "Please select a RAM" ? "" : "RAM is required",
-            storage: "", // Placeholder if needed
-            storage2: "", // Placeholder if needed
+            storage: storageErrors,
+            storage2: storageErrors2,
         };
     
         // Set the status flag based on whether any errors exist
-        newErrors.status = Object.values(newErrors).some((error) => error !== "");
+        newErrors.status =
+        Object.values(newErrors).some(error =>
+            Array.isArray(error) ? error.some(e => e !== "") : error !== ""
+        );
     
         setErrors(newErrors);
     
@@ -153,7 +169,7 @@ export default function FormComponent({ data }: any) {
                                 options={data.Storage} 
                                 benchmark={storage.value} 
                                 setBenchmark={(value: string) => updateItem(index, value)}
-                                error={errors.storage} 
+                                error={errors.storage[index] || ""}
                             />
                         </div>
                     ))}
@@ -179,7 +195,7 @@ export default function FormComponent({ data }: any) {
                                 options={data.Storage} 
                                 benchmark={storage.value} 
                                 setBenchmark={(value: string) => updateItem2(index, value)}
-                                error={errors.storage2} 
+                                error={errors.storage2[index] || ""}
                             />
                         </div>
                     ))}

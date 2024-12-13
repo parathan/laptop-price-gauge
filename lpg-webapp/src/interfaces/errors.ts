@@ -3,10 +3,10 @@ export interface Errors {
     cpu: string;
     gpu: string;
     ram: string;
-    storage: string;
+    storage: string[];
     category: string;
     cpu2: string;
     gpu2: string;
     ram2: string;
-    storage2: string;
+    storage2: string[];
 }
