@@ -66,10 +66,24 @@ export default function FormComponent({ data }: any) {
         };
     
         // Set the status flag based on whether any errors exist
-        newErrors.status =
-        Object.values(newErrors).some(error =>
-            Array.isArray(error) ? error.some(e => e !== "") : error !== ""
-        );
+
+        for (const key in newErrors) {
+            if (key === "status") continue; // Skip the status key directly
+        
+            const value = newErrors[key as keyof Errors];
+            
+            if (typeof value === "string" && value !== "") {
+                newErrors.status = true;
+                break; // Exit early once a non-empty string is found
+            }
+            
+            if (Array.isArray(value) && value.some(error => error !== "")) {
+                newErrors.status = true;
+                break; // Exit early once a non-empty array item is found
+            }
+        }
+
+        console.log("Validation Errors:", newErrors);
     
         setErrors(newErrors);
     
@@ -79,8 +93,8 @@ export default function FormComponent({ data }: any) {
 
     function submit() {
         if (validate()) {
-            console.log("PC 1:", cpuBenchmark, gpuBenchmark, ramBenchmark);
-            console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ramBenchmark2);
+            console.log("PC 1:", cpuBenchmark, gpuBenchmark, ramBenchmark, storageBenchmark);
+            console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ramBenchmark2, storageBenchmark2);
             console.log("Category:", category);
             router.push("/results");
         }
@@ -117,14 +131,12 @@ export default function FormComponent({ data }: any) {
         const updatedItems = [...storageBenchmark]
         updatedItems[index].value = newValue;
         setStorageBenchmark(updatedItems);
-        console.log(storageBenchmark)
     };
     
     function updateItem2(index: number, newValue: string) {
         const updatedItems = [...storageBenchmark2]
         updatedItems[index].value = newValue;
         setStorageBenchmark2(updatedItems);
-        console.log(storageBenchmark2)
     };
 
     const renderCategory = (
