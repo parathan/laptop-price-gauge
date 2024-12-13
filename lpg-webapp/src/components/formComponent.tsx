@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useBenchmarkContext } from "@/context/BenchmarkContext";
 import { Component } from "@/interfaces/components";
 import ComponentInput from "./componentInput";
+import { Errors } from "@/interfaces/errors";
 import { useState } from "react";
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,23 +25,40 @@ export default function FormComponent({ data }: any) {
         ramBenchmark2, setRamBenchmark2,
     } = useBenchmarkContext();
 
-    const [errors, setErrors] = useState<any>({});
+    const [errors, setErrors] = useState<Errors>({
+        status: false,
+        cpu: "",
+        gpu: "",
+        ram: "",
+        storage: "",
+        category: "",
+        cpu2: "",
+        gpu2: "",
+        ram2: "",
+        storage2: "",
+    });
 
     const validate = () => {
-        let tempErrors: any = {};
-        // First PC validation
-        if (!cpuBenchmark || cpuBenchmark === `Please select a CPU`) tempErrors.cpu = "CPU is required";
-        if (!gpuBenchmark || gpuBenchmark === `Please select a GPU`) tempErrors.gpu = "GPU is required";
-        if (!ramBenchmark || ramBenchmark === `Please select a RAM`) tempErrors.ram = "RAM is required";
-        if (!category || category === `Please select a Category`) tempErrors.category = "Category is required";
-        
-        // Second PC validation
-        if (!cpuBenchmark2 || cpuBenchmark2 === `Please select a CPU`) tempErrors.cpu2 = "CPU for PC 2 is required";
-        if (!gpuBenchmark2 || gpuBenchmark2 === `Please select a GPU`) tempErrors.gpu2 = "GPU for PC 2 is required";
-        if (!ramBenchmark2 || ramBenchmark2 === `Please select a RAM`) tempErrors.ram2 = "RAM for PC 2 is required";
-        
-        setErrors(tempErrors);
-        return Object.keys(tempErrors).length === 0;
+        const newErrors: Errors = {
+            status: false,
+            cpu: cpuBenchmark && cpuBenchmark !== "Please select a CPU" ? "" : "CPU is required",
+            gpu: gpuBenchmark && gpuBenchmark !== "Please select a GPU" ? "" : "GPU is required",
+            ram: ramBenchmark && ramBenchmark !== "Please select a RAM" ? "" : "RAM is required",
+            category: category && category !== "Please select a Category" ? "" : "Category is required",
+            cpu2: cpuBenchmark2 && cpuBenchmark2 !== "Please select a CPU" ? "" : "CPU is required",
+            gpu2: gpuBenchmark2 && gpuBenchmark2 !== "Please select a GPU" ? "" : "GPU is required",
+            ram2: ramBenchmark2 && ramBenchmark2 !== "Please select a RAM" ? "" : "RAM is required",
+            storage: "", // Placeholder if needed
+            storage2: "", // Placeholder if needed
+        };
+    
+        // Set the status flag based on whether any errors exist
+        newErrors.status = Object.values(newErrors).some((error) => error !== "");
+    
+        setErrors(newErrors);
+    
+        // Validation passes if no errors
+        return !newErrors.status;
     };
 
     function submit() {
@@ -113,7 +131,7 @@ export default function FormComponent({ data }: any) {
                 </option>
             ))}
             </select>
-            {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
+            {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
         </div>
     );
 
@@ -125,16 +143,17 @@ export default function FormComponent({ data }: any) {
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 mr-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 1 Parts Selection</h2>
                     
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} />
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} error={errors.cpu} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} error={errors.gpu} />
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} error={errors.ram} />
                     {storageBenchmark.map((storage, index) => (
                         <div key={storage.id}>
                             <ComponentInput 
                                 label={`Storage ${index + 1}`} 
                                 options={data.Storage} 
                                 benchmark={storage.value} 
-                                setBenchmark={(value: string) => updateItem(index, value)} 
+                                setBenchmark={(value: string) => updateItem(index, value)}
+                                error={errors.storage} 
                             />
                         </div>
                     ))}
@@ -150,16 +169,17 @@ export default function FormComponent({ data }: any) {
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 ml-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 2 Parts Selection</h2>
                     
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} />
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} error={errors.cpu2} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} error={errors.gpu2} />
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} error={errors.ram2} />
                     {storageBenchmark2.map((storage, index) => (
                         <div key={storage.id}>
                             <ComponentInput 
                                 label={`Storage ${index + 1}`} 
                                 options={data.Storage} 
                                 benchmark={storage.value} 
-                                setBenchmark={(value: string) => updateItem2(index, value)} 
+                                setBenchmark={(value: string) => updateItem2(index, value)}
+                                error={errors.storage2} 
                             />
                         </div>
                     ))}

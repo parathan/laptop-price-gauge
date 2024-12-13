@@ -8,6 +8,7 @@ interface ComponentInputProps {
   options: Component[];
   benchmark: string;
   setBenchmark: any;
+  error: string;
 }
 
 const ComponentInput: React.FC<ComponentInputProps> = ({
@@ -15,6 +16,7 @@ const ComponentInput: React.FC<ComponentInputProps> = ({
   options,
   benchmark,
   setBenchmark,
+  error,
 }) => {
 
     const [errors, setErrors] = useState<any>({});
@@ -38,7 +40,7 @@ const ComponentInput: React.FC<ComponentInputProps> = ({
               </option>
             ))}
           </select>
-          {errors[label.toLowerCase()] && <p className="text-red-500 text-xs mt-1">{errors[label.toLowerCase()]}</p>}
+          {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
         </div>
     )
 }
