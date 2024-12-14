@@ -139,6 +139,18 @@ export default function FormComponent({ data }: any) {
         setStorageBenchmark2(updatedItems);
     };
 
+    function removeItem(index: number) {
+        const updatedItems = [...storageBenchmark];
+        updatedItems.splice(index, 1);
+        setStorageBenchmark(updatedItems);
+    };
+
+    function removeItem2(index: number) {
+        const updatedItems = [...storageBenchmark2];
+        updatedItems.splice(index, 1);
+        setStorageBenchmark2(updatedItems);
+    };
+
     const renderCategory = (
         label: string, 
         options: string[], 
@@ -171,9 +183,9 @@ export default function FormComponent({ data }: any) {
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 mr-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 1 Parts Selection</h2>
                     
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} error={errors.cpu} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} error={errors.gpu} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} error={errors.ram} />
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} error={errors.cpu} removable={false} removeFunction={() => {}} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} error={errors.gpu} removable={false} removeFunction={() => {}} />
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} error={errors.ram} removable={false} removeFunction={() => {}} />
                     {storageBenchmark.map((storage, index) => (
                         <div key={storage.id}>
                             <ComponentInput 
@@ -182,6 +194,8 @@ export default function FormComponent({ data }: any) {
                                 benchmark={storage.value} 
                                 setBenchmark={(value: string) => updateItem(index, value)}
                                 error={errors.storage[index] || ""}
+                                removable={index > 0 ? true : false}
+                                removeFunction={() => removeItem(index)}
                             />
                         </div>
                     ))}
@@ -197,9 +211,9 @@ export default function FormComponent({ data }: any) {
                 <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 ml-4">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 2 Parts Selection</h2>
                     
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} error={errors.cpu2} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} error={errors.gpu2} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} error={errors.ram2} />
+                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} error={errors.cpu2} removable={false} removeFunction={() => {}} />
+                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} error={errors.gpu2} removable={false} removeFunction={() => {}} />
+                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} error={errors.ram2} removable={false} removeFunction={() => {}} />
                     {storageBenchmark2.map((storage, index) => (
                         <div key={storage.id}>
                             <ComponentInput 
@@ -208,6 +222,8 @@ export default function FormComponent({ data }: any) {
                                 benchmark={storage.value} 
                                 setBenchmark={(value: string) => updateItem2(index, value)}
                                 error={errors.storage2[index] || ""}
+                                removable={index > 0 ? true : false}
+                                removeFunction={() => removeItem2(index)}
                             />
                         </div>
                     ))}
