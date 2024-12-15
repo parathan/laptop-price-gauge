@@ -36,7 +36,6 @@ namespace API.Models
         required public float CPU_2 { get; set; }
         required public float RAM_2 { get; set; }
         required public List<Storage> Storage_2 { get; set; }
-        required public string StorageType { get; set; }
         required public string Category { get; set; }
     }
 

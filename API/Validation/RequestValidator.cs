@@ -48,7 +48,7 @@ namespace API.Validators
             return new ValidationResult { IsValid = true };
         }
 
-        public ValidationResult ValidateTwoBenchmark(double gpu1, double cpu1, double ram1, List<Storage> storage1, double gpu2, double cpu2, double ram2, List<Storage> storage2, string storageType)
+        public ValidationResult ValidateTwoBenchmark(double gpu1, double cpu1, double ram1, List<Storage> storage1, double gpu2, double cpu2, double ram2, List<Storage> storage2)
         {
             // Validate each component's benchmark and return any specific errors
             var cpu1Validation = ValidateComponentBenchmark("CPU", cpu1);

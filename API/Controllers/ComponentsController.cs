@@ -200,10 +200,9 @@ public class ComponentsController : ControllerBase
             var storage2Benchmarks = request.Storage_2;
 
             var Category = request.Category;
-            var StorageType = request.StorageType;
 
             var validator = new RequestValidator();
-            var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks, StorageType);
+            var validationResult = validator.ValidateTwoBenchmark(gpu1Benchmarks, cpu1Benchmarks, ram1Benchmarks, storage1Benchmarks, gpu2Benchmarks, cpu2Benchmarks, ram2Benchmarks, storage2Benchmarks);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ErrMessage);
