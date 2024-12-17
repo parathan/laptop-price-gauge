@@ -1,22 +1,19 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useBenchmarkContext } from "@/context/BenchmarkContext";
-import { Component } from "@/interfaces/components";
 import ComponentInput from "./componentInput";
 import { Errors } from "@/interfaces/errors";
 import { useState } from "react";
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { getAfterHyphen, getBeforeHyphen, getStorageValue } from "@/util/util";
 import { APIStorageContext } from "@/interfaces/context";
 
 export default function FormComponent({ data }: any) {
-
     const router = useRouter();
 
     const {
-        cpuBenchmark, setCpuBenchmark, 
+        cpuBenchmark, setCpuBenchmark,
         gpuBenchmark, setGpuBenchmark,
         storageBenchmark, setStorageBenchmark,
         ramBenchmark, setRamBenchmark,
@@ -25,7 +22,7 @@ export default function FormComponent({ data }: any) {
         gpuBenchmark2, setGpuBenchmark2,
         storageBenchmark2, setStorageBenchmark2,
         ramBenchmark2, setRamBenchmark2,
-        apiRequest, setApiRequest
+        setApiRequest
     } = useBenchmarkContext();
 
     const [errors, setErrors] = useState<Errors>({
@@ -41,180 +38,121 @@ export default function FormComponent({ data }: any) {
         storage2: [],
     });
 
-    const validate = () => {
+    const validateFields = (benchmark: string, label: string) =>
+        benchmark && benchmark !== `Please select a ${label}` ? "" : `${label} is required`;
 
-        const storageErrors = storageBenchmark.map(storage =>
+    const validateStorage = (storageList: any[]) =>
+        storageList.map(storage =>
             storage.value && storage.value !== "Please select a Storage"
                 ? ""
                 : "Storage is required"
         );
-    
-        const storageErrors2 = storageBenchmark2.map(storage =>
-            storage.value && storage.value !== "Please select a Storage"
-                ? ""
-                : "Storage is required"
-        );
-        
+
+    const validate = () => {
         const newErrors: Errors = {
             status: false,
-            cpu: cpuBenchmark && cpuBenchmark !== "Please select a CPU" ? "" : "CPU is required",
-            gpu: gpuBenchmark && gpuBenchmark !== "Please select a GPU" ? "" : "GPU is required",
-            ram: ramBenchmark && ramBenchmark !== "Please select a RAM" ? "" : "RAM is required",
-            category: category && category !== "Please select a Category" ? "" : "Category is required",
-            cpu2: cpuBenchmark2 && cpuBenchmark2 !== "Please select a CPU" ? "" : "CPU is required",
-            gpu2: gpuBenchmark2 && gpuBenchmark2 !== "Please select a GPU" ? "" : "GPU is required",
-            ram2: ramBenchmark2 && ramBenchmark2 !== "Please select a RAM" ? "" : "RAM is required",
-            storage: storageErrors,
-            storage2: storageErrors2,
+            cpu: validateFields(cpuBenchmark, "CPU"),
+            gpu: validateFields(gpuBenchmark, "GPU"),
+            ram: validateFields(ramBenchmark, "RAM"),
+            category: validateFields(category, "Category"),
+            cpu2: validateFields(cpuBenchmark2, "CPU"),
+            gpu2: validateFields(gpuBenchmark2, "GPU"),
+            ram2: validateFields(ramBenchmark2, "RAM"),
+            storage: validateStorage(storageBenchmark),
+            storage2: validateStorage(storageBenchmark2),
         };
-    
-        // Set the status flag based on whether any errors exist
 
-        for (const key in newErrors) {
-            if (key === "status") continue; // Skip the status key directly
-        
-            const value = newErrors[key as keyof Errors];
-            
-            if (typeof value === "string" && value !== "") {
-                newErrors.status = true;
-                break; // Exit early once a non-empty string is found
-            }
-            
-            if (Array.isArray(value) && value.some(error => error !== "")) {
-                newErrors.status = true;
-                break; // Exit early once a non-empty array item is found
-            }
-        }
+        newErrors.status = Object.values(newErrors).some(
+            error =>
+                (typeof error === "string" && error) ||
+                (Array.isArray(error) && error.some(e => e))
+        );
 
-    
         setErrors(newErrors);
-    
-        // Validation passes if no errors
         return !newErrors.status;
     };
 
-    function submit() {
+    const handleSubmit = () => {
         if (validate()) {
-            console.log("PC 1:", cpuBenchmark, gpuBenchmark, ramBenchmark, storageBenchmark);
-            console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ramBenchmark2, storageBenchmark2);
-            console.log("Category:", category);
             populateApiRequest();
             router.push("/results");
+        } else {
+            console.error("Validation failed", errors);
         }
-        else {
-            console.log("not valid");
-        }
-    }
+    };
 
-    function populateApiRequest() {
-        let storage1Temp: APIStorageContext[] = [];
-        let storage2Temp: APIStorageContext[] = [];
-
-        let storageList = data.Storage;
-
-        for (const storage of storageBenchmark) {
-            let id = parseInt(getBeforeHyphen(storage.value)); // get id from first half of value
-            let storageObj = storageList.find((s: any) => s.id === id); // map it to name of storage
-            let storageSize = getStorageValue(storageObj.model);
-            let storageBenchmark = getAfterHyphen(storage.value);
-            storage1Temp.push({
-                benchmark: storageBenchmark,
-                size: String(storageSize)
-            })
-        }
-
-        for (const storage of storageBenchmark2) {
-            let id = parseInt(getBeforeHyphen(storage.value)); // get id from first half of value
-            let storageObj = storageList.find((s: any) => s.id === id); // map it to name of storage
-            let storageSize = getStorageValue(storageObj.model);
-            let storageBenchmark = getAfterHyphen(storage.value);
-            storage2Temp.push({
-                benchmark: storageBenchmark,
-                size: String(storageSize)
-            })
-        }
-            
+    const populateApiRequest = () => {
+        const mapStorage = (storageList: any[]) =>
+            storageList.map(storage => {
+                const id = parseInt(getBeforeHyphen(storage.value));
+                const storageObj = data.Storage.find((s: any) => s.id === id);
+                return {
+                    benchmark: getAfterHyphen(storage.value),
+                    size: String(getStorageValue(storageObj?.model)),
+                };
+            });
 
         setApiRequest({
             cpu1: getAfterHyphen(cpuBenchmark),
             gpu1: getAfterHyphen(gpuBenchmark),
             ram1: getAfterHyphen(ramBenchmark),
-            storage1: storage1Temp,
+            storage1: mapStorage(storageBenchmark),
             cpu2: getAfterHyphen(cpuBenchmark2),
             gpu2: getAfterHyphen(gpuBenchmark2),
             ram2: getAfterHyphen(ramBenchmark2),
-            storage2: storage2Temp,
-            category: category
-        })
-    }
-
-    function setOption(setBenchmark: any, e: any) {
-        setBenchmark(e.target.value); // Set the selected benchmark value
-    }
-
-    function addStorageInput(num: number) {
-        if (num == 1) {
-            setStorageBenchmark([
-                ...storageBenchmark, 
-                {
-                    id: uuidv4(),
-                    value: ""
-                }
-            ]);
-        } else if (num == 2) {
-            setStorageBenchmark2([
-                ...storageBenchmark2, 
-                {
-                    id: uuidv4(),
-                    value: ""
-                }
-            ]);
-        }
-    }
-
-    function updateItem(index: number, newValue: string) {
-        const updatedItems = [...storageBenchmark]
-        updatedItems[index].value = newValue;
-        setStorageBenchmark(updatedItems);
-    };
-    
-    function updateItem2(index: number, newValue: string) {
-        const updatedItems = [...storageBenchmark2]
-        updatedItems[index].value = newValue;
-        setStorageBenchmark2(updatedItems);
+            storage2: mapStorage(storageBenchmark2),
+            category,
+        });
     };
 
-    function removeItem(index: number) {
-        const updatedItems = [...storageBenchmark];
-        updatedItems.splice(index, 1);
-        setStorageBenchmark(updatedItems);
+    const addStorageInput = (setStorage: any) => {
+        setStorage((prev: any) => [...prev, { id: uuidv4(), value: "" }]);
     };
 
-    function removeItem2(index: number) {
-        const updatedItems = [...storageBenchmark2];
-        updatedItems.splice(index, 1);
-        setStorageBenchmark2(updatedItems);
+    const updateStorageItem = (setStorage: any, index: number, newValue: string) => {
+        setStorage((prev: any) => {
+            const updated = [...prev];
+            updated[index].value = newValue;
+            return updated;
+        });
     };
 
-    const renderCategory = (
-        label: string, 
-        options: string[], 
-        category: string, 
-        setCategory: any
-    ) => (
+    const removeStorageItem = (setStorage: any, index: number) => {
+        setStorage((prev: any) => prev.filter((_: any, i: any) => i !== index));
+    };
+
+    const renderStorageInputs = (
+        storageList: any[],
+        setStorage: any,
+        errorList: string[]
+    ) =>
+        storageList.map((storage, index) => (
+            <ComponentInput
+                key={storage.id}
+                label={`Storage ${index + 1}`}
+                options={data.Storage}
+                benchmark={storage.value}
+                setBenchmark={(value: string) => updateStorageItem(setStorage, index, value)}
+                error={errorList[index] || ""}
+                removable={index > 0}
+                removeFunction={() => removeStorageItem(setStorage, index)}
+            />
+        ));
+
+    const renderCategory = () => (
         <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select
-                onChange={(e) => setOption(setCategory, e)}
+                onChange={e => setCategory(e.target.value)}
                 className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={category}
             >
-            <option>Please select a {label}</option>
-            {options.map((option) => (
-                <option key={option} value={option}>
-                {option}
-                </option>
-            ))}
+                <option>Please select a Category</option>
+                {data.Categories.map((option: string) => (
+                    <option key={option} value={option}>
+                        {option}
+                    </option>
+                ))}
             </select>
             {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
         </div>
@@ -222,75 +160,64 @@ export default function FormComponent({ data }: any) {
 
     return (
         <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
-            {/* Flex container for PC sections */}
             <div className="flex justify-between">
-                {/* PC 1 Section */}
-                <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 mr-4">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 1 Parts Selection</h2>
-                    
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark} setBenchmark={setCpuBenchmark} error={errors.cpu} removable={false} removeFunction={() => {}} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark} setBenchmark={setGpuBenchmark} error={errors.gpu} removable={false} removeFunction={() => {}} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark} setBenchmark={setRamBenchmark} error={errors.ram} removable={false} removeFunction={() => {}} />
-                    {storageBenchmark.map((storage, index) => (
-                        <div key={storage.id}>
-                            <ComponentInput 
-                                label={`Storage ${index + 1}`} 
-                                options={data.Storage} 
-                                benchmark={storage.value} 
-                                setBenchmark={(value: string) => updateItem(index, value)}
-                                error={errors.storage[index] || ""}
-                                removable={index > 0 ? true : false}
-                                removeFunction={() => removeItem(index)}
-                            />
-                        </div>
-                    ))}
-                    <button
-                        className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
-                        onClick={() => addStorageInput(1)}
+                {[1, 2].map(num => (
+                    <div
+                        key={num}
+                        className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 mx-4"
                     >
-                        Add Additional Storage
-                    </button>
-                </div>
-
-                {/* PC 2 Section */}
-                <div className="w-1/2 bg-gray-100 shadow-md rounded-lg overflow-hidden p-6 ml-4">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">PC 2 Parts Selection</h2>
-                    
-                    <ComponentInput label="CPU" options={data.CPU} benchmark={cpuBenchmark2} setBenchmark={setCpuBenchmark2} error={errors.cpu2} removable={false} removeFunction={() => {}} />
-                    <ComponentInput label="GPU" options={data.GPU} benchmark={gpuBenchmark2} setBenchmark={setGpuBenchmark2} error={errors.gpu2} removable={false} removeFunction={() => {}} />
-                    <ComponentInput label="RAM" options={data.RAM} benchmark={ramBenchmark2} setBenchmark={setRamBenchmark2} error={errors.ram2} removable={false} removeFunction={() => {}} />
-                    {storageBenchmark2.map((storage, index) => (
-                        <div key={storage.id}>
-                            <ComponentInput 
-                                label={`Storage ${index + 1}`} 
-                                options={data.Storage} 
-                                benchmark={storage.value} 
-                                setBenchmark={(value: string) => updateItem2(index, value)}
-                                error={errors.storage2[index] || ""}
-                                removable={index > 0 ? true : false}
-                                removeFunction={() => removeItem2(index)}
-                            />
-                        </div>
-                    ))}
-                    
-                    <button
-                        className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
-                        onClick={() => addStorageInput(2)}
-                    >
-                        Add Additional Storage
-                    </button>
-                </div>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                            PC {num} Parts Selection
+                        </h2>
+                        <ComponentInput
+                            label="CPU"
+                            options={data.CPU}
+                            benchmark={num === 1 ? cpuBenchmark : cpuBenchmark2}
+                            setBenchmark={num === 1 ? setCpuBenchmark : setCpuBenchmark2}
+                            error={num === 1 ? errors.cpu : errors.cpu2}
+                            removable={false}
+                            removeFunction={() => {}}
+                        />
+                        <ComponentInput
+                            label="GPU"
+                            options={data.GPU}
+                            benchmark={num === 1 ? gpuBenchmark : gpuBenchmark2}
+                            setBenchmark={num === 1 ? setGpuBenchmark : setGpuBenchmark2}
+                            error={num === 1 ? errors.gpu : errors.gpu2}
+                            removable={false}
+                            removeFunction={() => {}}
+                        />
+                        <ComponentInput
+                            label="RAM"
+                            options={data.RAM}
+                            benchmark={num === 1 ? ramBenchmark : ramBenchmark2}
+                            setBenchmark={num === 1 ? setRamBenchmark : setRamBenchmark2}
+                            error={num === 1 ? errors.ram : errors.ram2}
+                            removable={false}
+                            removeFunction={() => {}}
+                        />
+                        {renderStorageInputs(
+                            num === 1 ? storageBenchmark : storageBenchmark2,
+                            num === 1 ? setStorageBenchmark : setStorageBenchmark2,
+                            num === 1 ? errors.storage : errors.storage2
+                        )}
+                        <button
+                            className="mt-2 text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center space-x-1 mb-4"
+                            onClick={() => addStorageInput(num === 1 ? setStorageBenchmark : setStorageBenchmark2)}
+                        >
+                            Add Additional Storage
+                        </button>
+                    </div>
+                ))}
             </div>
 
-            {/* Category selection and submit button at the bottom */}
             <div className="mt-8">
-                {renderCategory("Category", data.Categories, category, setCategory)}
-
-                <button 
+                {renderCategory()}
+                <button
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300"
-                    onClick={submit}
+                    onClick={handleSubmit}
                 >
-                    Check Value
+                    Submit
                 </button>
             </div>
         </div>

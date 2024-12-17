@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { useBenchmarkContext } from '@/context/BenchmarkContext';
 import { useRouter } from "next/navigation";
-import { ApiContext } from '@reduxjs/toolkit/query';
 import { APIContext } from '@/interfaces/context';
 
 
@@ -87,22 +86,6 @@ export default function Results() {
         router.back();
     }
 
-    const benchmarkDisplay = (label: string, value: number, color: string) => {
-        return(
-            <div>
-                <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-700">{label}</span>
-                    <span className="text-sm font-medium text-gray-700">{value.toFixed(0)}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-5">
-                    <div
-                        className={`${color} h-5 rounded-full`}
-                        style={{ width: `${value}%` }}
-                    ></div>
-                </div>
-            </div>
-        )
-    }
     return (
         <div className="flex flex-col items-center mx-auto w-full mt-20 space-y-10 px-4">
             <h1 className="text-5xl font-extrabold text-gray-800 mb-8">Benchmark Results Comparison</h1>
