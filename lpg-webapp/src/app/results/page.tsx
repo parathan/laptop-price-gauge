@@ -105,32 +105,49 @@ export default function Results() {
     }
     return (
         <div className="flex flex-col items-center mx-auto w-full mt-20 space-y-10">
-            <h1 className="text-4xl font-bold mb-8">Benchmark Results</h1>
+            <h1 className="text-4xl font-bold mb-8">Benchmark Results Comparison</h1>
 
-            <div className="flex flex-row justify-center gap-8 w-1/2 px-4">
-                {/* PC 1 Results */}
-                <div className="w-1/2 p-6 bg-white shadow-lg rounded-lg">
-                    <h2 className="text-2xl font-semibold mb-4 text-center">PC 1</h2>
-                    <div className="space-y-4">
-                        {benchmarkDisplay("CPU", cpuResult, "bg-red-500")}
-                        {benchmarkDisplay("GPU", gpuResult, "bg-blue-500")}
-                        {benchmarkDisplay("RAM", ramResult, "bg-green-500")}
-                        {benchmarkDisplay("Storage", storageResult, "bg-yellow-500")}
-                        {benchmarkDisplay("Total Benchmark", totalResult, "bg-indigo-500")}
-                    </div>
-                </div>
+            {/* Comparison Table */}
+            <div className="w-2/3 bg-white shadow-lg rounded-lg p-6">
+                <table className="w-full table-auto text-center">
+                    <thead>
+                        <tr>
+                            <th className="text-xl font-semibold py-2">Component</th>
+                            <th className="text-xl font-semibold py-2">PC 1</th>
+                            <th className="text-xl font-semibold py-2">Difference</th>
+                            <th className="text-xl font-semibold py-2">PC 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {[
+                            { name: "Total Benchmark", value1: totalResult, value2: totalResult2 },
+                            { name: "CPU", value1: cpuResult, value2: cpuResult2 },
+                            { name: "GPU", value1: gpuResult, value2: gpuResult2 },
+                            { name: "RAM", value1: ramResult, value2: ramResult2 },
+                            { name: "Storage", value1: storageResult, value2: storageResult2 },
+                        ].map((item) => {
+                            const roundedValue1 = Math.round(item.value1);
+                            const roundedValue2 = Math.round(item.value2);
+                            const difference = roundedValue1 - roundedValue2;
+                            const isPositive = difference >= 0;
 
-                {/* PC 2 Results */}
-                <div className="w-1/2 p-6 bg-white shadow-lg rounded-lg">
-                    <h2 className="text-2xl font-semibold mb-4 text-center">PC 2</h2>
-                    <div className="space-y-4">
-                        {benchmarkDisplay("CPU", cpuResult2, "bg-red-500")}
-                        {benchmarkDisplay("GPU", gpuResult2, "bg-blue-500")}
-                        {benchmarkDisplay("RAM", ramResult2, "bg-green-500")}
-                        {benchmarkDisplay("Storage", storageResult2, "bg-yellow-500")}
-                        {benchmarkDisplay("Total Benchmark", totalResult2, "bg-indigo-500")}
-                    </div>
-                </div>
+                            return (
+                                <tr key={item.name} className="border-t">
+                                    <td className="py-4 text-lg font-medium">{item.name}</td>
+                                    <td className="py-4 text-lg">{roundedValue1}</td>
+                                    <td
+                                        className={`py-4 text-lg font-semibold ${
+                                            isPositive ? "text-green-500" : "text-red-500"
+                                        }`}
+                                    >
+                                        {difference > 0 ? `+${difference}` : difference}%
+                                    </td>
+                                    <td className="py-4 text-lg">{roundedValue2}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
 
             {/* Go Back Button */}
@@ -141,5 +158,7 @@ export default function Results() {
                 Go Back
             </button>
         </div>
+
+
     );
 }
