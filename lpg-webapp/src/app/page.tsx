@@ -14,7 +14,7 @@ export default function Home() {
         and give you more information when looking at a laptop to buy.
       </p>
       <Link href="/form">
-        <p className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+        <p className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300">
           Go to Laptop Price Gauge
         </p>
       </Link>
