@@ -8,6 +8,8 @@ import { Errors } from "@/interfaces/errors";
 import { useState } from "react";
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { getAfterHyphen, getBeforeHyphen, getStorageValue } from "@/util/util";
+import { APIStorageContext } from "@/interfaces/context";
 
 export default function FormComponent({ data }: any) {
 
@@ -23,6 +25,7 @@ export default function FormComponent({ data }: any) {
         gpuBenchmark2, setGpuBenchmark2,
         storageBenchmark2, setStorageBenchmark2,
         ramBenchmark2, setRamBenchmark2,
+        apiRequest, setApiRequest
     } = useBenchmarkContext();
 
     const [errors, setErrors] = useState<Errors>({
@@ -96,11 +99,55 @@ export default function FormComponent({ data }: any) {
             console.log("PC 1:", cpuBenchmark, gpuBenchmark, ramBenchmark, storageBenchmark);
             console.log("PC 2:", cpuBenchmark2, gpuBenchmark2, ramBenchmark2, storageBenchmark2);
             console.log("Category:", category);
+            populateApiRequest();
             router.push("/results");
         }
         else {
             console.log("not valid");
         }
+    }
+
+    function populateApiRequest() {
+        let storage1Temp: APIStorageContext[] = [];
+        let storage2Temp: APIStorageContext[] = [];
+
+        let storageList = data.Storage;
+        console.log(storageList);
+
+        for (const storage of storageBenchmark) {
+            let id = parseInt(getBeforeHyphen(storage.value)); // get id from first half of value
+            let storageObj = storageList.find((s: any) => s.id === id); // map it to name of storage
+            let storageSize = getStorageValue(storageObj.model);
+            let storageBenchmark = getAfterHyphen(storage.value);
+            storage1Temp.push({
+                benchmark: storageBenchmark,
+                size: String(storageSize)
+            })
+        }
+
+        for (const storage of storageBenchmark2) {
+            let id = parseInt(getBeforeHyphen(storage.value)); // get id from first half of value
+            let storageObj = storageList.find((s: any) => s.id === id); // map it to name of storage
+            let storageSize = getStorageValue(storageObj.model);
+            let storageBenchmark = getAfterHyphen(storage.value);
+            storage2Temp.push({
+                benchmark: storageBenchmark,
+                size: String(storageSize)
+            })
+        }
+            
+
+        setApiRequest({
+            cpu1: getAfterHyphen(cpuBenchmark),
+            gpu1: getAfterHyphen(gpuBenchmark),
+            ram1: getAfterHyphen(ramBenchmark),
+            storage1: storage1Temp,
+            cpu2: getAfterHyphen(cpuBenchmark2),
+            gpu2: getAfterHyphen(gpuBenchmark2),
+            ram2: getAfterHyphen(ramBenchmark2),
+            storage2: storage2Temp,
+            category: category
+        })
     }
 
     function setOption(setBenchmark: any, e: any) {

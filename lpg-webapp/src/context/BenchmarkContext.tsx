@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { BenchmarkContextProps } from "@/interfaces/context";
+import { APIContext, BenchmarkContextProps } from "@/interfaces/context";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -45,6 +45,18 @@ export const BenchmarkContextProvider = ({
     ]);
     const [ramBenchmark2, setRamBenchmark2] = useState("");
 
+    const [apiRequest, setApiRequest] = useState<APIContext>({
+        cpu1: "",
+        gpu1: "",
+        ram1: "",
+        storage1: [],
+        cpu2: "",
+        gpu2: "",
+        ram2: "",
+        storage2: [],
+        category: "",
+    });
+
     return (
         <BenchmarkContext.Provider
             value={{
@@ -65,7 +77,9 @@ export const BenchmarkContextProvider = ({
                 ramBenchmark2,
                 setRamBenchmark2,
                 storageBenchmark2,
-                setStorageBenchmark2
+                setStorageBenchmark2,
+                apiRequest,
+                setApiRequest
             }}
         >
             {children}

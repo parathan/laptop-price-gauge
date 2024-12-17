@@ -3,50 +3,44 @@
 import React, { useEffect, useState } from 'react'
 import { useBenchmarkContext } from '@/context/BenchmarkContext';
 import { useRouter } from "next/navigation";
+import { ApiContext } from '@reduxjs/toolkit/query';
+import { APIContext } from '@/interfaces/context';
 
 
 async function getScore(
-    cpu: string,
-    gpu: string,
-    ssd: string,
-    hdd: string,
-    ram: string,
-    ssdStorage: boolean,
-    category: string,
+    request: APIContext
 ) {
 
-    var storage;
-    var storageType;
+    let body = JSON.stringify({
+        CPU_1: request.cpu1,
+        GPU_1: request.gpu1,
+        RAM_1: request.ram1,
+        Storage_1: request.storage1,
+        CPU_2: request.cpu2,
+        GPU_2: request.gpu2,
+        RAM_2: request.ram2,
+        Storage_2: request.storage2,
+        Category: request.category
+    })
+    console.log(body);
 
-    if (ssdStorage) {
-        storageType = "SSD";
-        storage = ssd;
-    } else {
-        storageType = "HDD";
-        storage = hdd;
-    }
-
-    const res = await fetch('http://localhost:5269/api/computerScore/benchmark', {
+    const res = await fetch('http://localhost:5269/api/computerScore/benchmark/two', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            CPU: cpu,
-            GPU: gpu,
-            RAM: ram,
-            Storage: storage,
-            StorageType: storageType,
-            Category: category
-        }),
+        body: body,
     })
 
     if (!res.ok) {
+        const errorBody = await res.text();
+        console.log(errorBody);
+        console.log(res);
         throw new Error('Failed to fetch data')
     }
 
     let data = await res.json()
-    console.log(data)
+    console.log(data);
     return data
 }
 
@@ -61,15 +55,7 @@ export default function Results() {
 
     const router = useRouter();
 
-    const { 
-        cpuBenchmark, 
-        gpuBenchmark, 
-        ssdBenchmark, 
-        hddBenchmark, 
-        ramBenchmark, 
-        ssdStorage, 
-        category 
-    } = useBenchmarkContext();
+    const { apiRequest } = useBenchmarkContext();
 
     const [gpuResult, setGpuResult] = useState(0);
     const [cpuResult, setCpuResult] = useState(0);
@@ -77,18 +63,24 @@ export default function Results() {
     const [storageResult, setStorageResult] = useState(0);
     const [totalResult, setTotalResult] = useState(0);
 
+    const [gpuResult2, setGpuResult2] = useState(0);
+    const [cpuResult2, setCpuResult2] = useState(0);
+    const [ramResult2, setRamResult2] = useState(0);
+    const [storageResult2, setStorageResult2] = useState(0);
+    const [totalResult2, setTotalResult2] = useState(0);
+
     useEffect(() => {
         const fetchResult = async () => {
-            const data = await getScore(cpuBenchmark, gpuBenchmark, ssdBenchmark, hddBenchmark, ramBenchmark, ssdStorage, category)
-            setCpuResult(data.cpu)
-            setGpuResult(data.gpu)
-            setRamResult(data.ram)
-            setStorageResult(data.storage)
-            setTotalResult(data.totalBenchmark)
+            const data = await getScore(apiRequest)
+            setCpuResult(data.cpU_1)
+            setGpuResult(data.gpU_1)
+            setRamResult(data.raM_1)
+            setStorageResult(data.storage_1)
+            setTotalResult(data.totalBenchmark_1)
         }
 
         fetchResult()
-    },[category, cpuBenchmark, gpuBenchmark, hddBenchmark, ramBenchmark, ssdBenchmark, ssdStorage])
+    },[apiRequest])
 
     function goBack() {
         router.back();

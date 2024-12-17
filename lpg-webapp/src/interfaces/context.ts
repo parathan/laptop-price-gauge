@@ -17,9 +17,30 @@ export interface BenchmarkContextProps {
     setRamBenchmark2: (value: string) => void;
     storageBenchmark2: StorageContext[];
     setStorageBenchmark2: (value: StorageContext[]) => void;
+    apiRequest: APIContext;
+    setApiRequest: (value: APIContext) => void;
 } 
 
 export interface StorageContext {
     id: string;
     value: string;
+}
+
+export interface APIContext {
+    cpu1: string;
+    gpu1: string;
+    ram1: string;
+    storage1: APIStorageContext[];
+    
+    cpu2: string;
+    gpu2: string;
+    ram2: string;
+    storage2: APIStorageContext[];
+
+    category: string;
+}
+
+export interface APIStorageContext {
+    benchmark: string;
+    size: string;
 }
