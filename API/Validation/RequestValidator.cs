@@ -124,14 +124,14 @@ namespace API.Validators
                         ErrMessage = $"Storage benchmark value {storages[i].Benchmark} is out of range. Allowed range: {benchmarkRange.min} - {benchmarkRange.max}."
                     };
                 }
-                if (storages[i].Size < sizeRange.min || storages[i].Size > sizeRange.max)
-                {
-                    return new ValidationResult
-                    {
-                        IsValid = false,
-                        ErrMessage = $"Storage size value {storages[i].Size} is out of range. Allowed range: {sizeRange.min} - {sizeRange.max}."
-                    };
-                }
+                // if (storages[i].Size < sizeRange.min || storages[i].Size > sizeRange.max)
+                // {
+                //     return new ValidationResult
+                //     {
+                //         IsValid = false,
+                //         ErrMessage = $"Storage size value {storages[i].Size} is out of range. Allowed range: {sizeRange.min} - {sizeRange.max}."
+                //     };
+                // }
             }
             return new ValidationResult { IsValid = true };
         }
