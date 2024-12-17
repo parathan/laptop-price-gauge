@@ -86,7 +86,6 @@ export default function FormComponent({ data }: any) {
             }
         }
 
-        console.log("Validation Errors:", newErrors);
     
         setErrors(newErrors);
     
@@ -112,7 +111,6 @@ export default function FormComponent({ data }: any) {
         let storage2Temp: APIStorageContext[] = [];
 
         let storageList = data.Storage;
-        console.log(storageList);
 
         for (const storage of storageBenchmark) {
             let id = parseInt(getBeforeHyphen(storage.value)); // get id from first half of value
