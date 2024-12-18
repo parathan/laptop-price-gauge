@@ -7,7 +7,6 @@ import { Errors } from "@/interfaces/errors";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getAfterHyphen, getBeforeHyphen, getStorageValue } from "@/util/util";
-import { APIStorageContext } from "@/interfaces/context";
 
 export default function FormComponent({ data }: any) {
     const router = useRouter();
@@ -76,8 +75,6 @@ export default function FormComponent({ data }: any) {
         if (validate()) {
             populateApiRequest();
             router.push("/results");
-        } else {
-            console.error("Validation failed", errors);
         }
     };
 
