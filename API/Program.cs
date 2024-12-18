@@ -12,6 +12,19 @@ builder.Services.AddHttpClient();
 // Register services for controllers
 builder.Services.AddControllers();
 
+// Load environment variables
+builder.Configuration.AddEnvironmentVariables();
+
+// Build the connection string from environment variables
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+var dbDatabase = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "Components";
+var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+var dbPass = Environment.GetEnvironmentVariable("DB_PASS") ?? "testpassword";
+
+var connectionString = $"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUser};Password={dbPass}";
+builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
+
 // Configure CORS to allow localhost:3000
 builder.Services.AddCors(options =>
 {
