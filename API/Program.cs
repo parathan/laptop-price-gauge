@@ -16,11 +16,12 @@ builder.Services.AddControllers();
 builder.Configuration.AddEnvironmentVariables();
 
 // Build the connection string from environment variables
-var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-var dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
-var dbDatabase = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "Components";
-var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-var dbPass = Environment.GetEnvironmentVariable("DB_PASS") ?? "testpassword";
+var dbHost = Environment.GetEnvironmentVariable("PROD_DB_HOST") ?? "localhost";
+var dbPort = Environment.GetEnvironmentVariable("PROD_DB_PORT") ?? "5432";
+var dbDatabase = Environment.GetEnvironmentVariable("PROD_DB_DATABASE") ?? "Components";
+var dbUser = Environment.GetEnvironmentVariable("PROD_DB_USER") ?? "postgres";
+var dbPass = Environment.GetEnvironmentVariable("PROD_DB_PASS") ?? "testpassword";
+var ssl = Environment.GetEnvironmentVariable("PROD_DB_SSL") ?? "";
 
 var connectionString = $"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUser};Password={dbPass}";
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
