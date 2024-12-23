@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Data;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,17 +14,39 @@ builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
 // Load environment variables
-builder.Configuration.AddEnvironmentVariables();
+Env.Load();
 
-// Build the connection string from environment variables
-var dbHost = Environment.GetEnvironmentVariable("PROD_DB_HOST") ?? "localhost";
-var dbPort = Environment.GetEnvironmentVariable("PROD_DB_PORT") ?? "5432";
-var dbDatabase = Environment.GetEnvironmentVariable("PROD_DB_DATABASE") ?? "Components";
-var dbUser = Environment.GetEnvironmentVariable("PROD_DB_USER") ?? "postgres";
-var dbPass = Environment.GetEnvironmentVariable("PROD_DB_PASS") ?? "testpassword";
-var ssl = Environment.GetEnvironmentVariable("PROD_DB_SSL") ?? "";
+var envProdBool = Environment.GetEnvironmentVariable("DATABASE") ?? "dev";
+var useProdDb = envProdBool.Equals("prod");
 
-var connectionString = $"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUser};Password={dbPass}";
+string connectionString;
+
+
+if (useProdDb) {
+    Console.WriteLine("Using production database");
+    
+    var dbHost = Environment.GetEnvironmentVariable("PROD_DB_HOST") ?? "localhost";
+    var dbPort = Environment.GetEnvironmentVariable("PROD_DB_PORT") ?? "5432";
+    var dbDatabase = Environment.GetEnvironmentVariable("PROD_DB_DATABASE") ?? "Components";
+    var dbUser = Environment.GetEnvironmentVariable("PROD_DB_USER") ?? "postgres";
+    var dbPass = Environment.GetEnvironmentVariable("PROD_DB_PASS") ?? "testpassword";
+    var ssl = Environment.GetEnvironmentVariable("PROD_DB_SSL") ?? "";
+
+    connectionString = $"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUser};Password={dbPass}";
+} 
+else 
+{
+    Console.WriteLine("Using local database");
+    var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
+    var dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+    var dbDatabase = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "Components";
+    var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+    var dbPass = Environment.GetEnvironmentVariable("DB_PASS") ?? "testpassword";
+    
+    connectionString = $"Host={dbHost};Port={dbPort};Database={dbDatabase};Username={dbUser};Password={dbPass}";
+}
+
+
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
 
 // Configure CORS to allow localhost:3000
