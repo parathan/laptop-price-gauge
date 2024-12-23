@@ -8,6 +8,8 @@ using API.Validators;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
 using API.Constants;
+using Microsoft.Extensions.Caching.Memory;
+
 namespace API.Controllers;
 
 [ApiController]
@@ -16,11 +18,15 @@ public class ComponentsController : ControllerBase
 {
     private readonly ComponentContext _context;
     private readonly HttpClient _httpClient;
+    private readonly IMemoryCache _cache;
+    private const string GroupedComponentsCacheKey = "GroupedComponents";
 
-    public ComponentsController(ComponentContext context, HttpClient httpClient) 
+
+    public ComponentsController(ComponentContext context, HttpClient httpClient, IMemoryCache cache) 
     {
         _context = context;
         _httpClient = httpClient;
+        _cache = cache;
     }
 
     // GET: api/allComponents
@@ -35,14 +41,30 @@ public class ComponentsController : ControllerBase
     [HttpGet("groupedComponents")]
     public async Task<ActionResult> GetGroupedComponents()
     {
-        var groupedComponents = await _context.Components
-            .GroupBy(c => c.Type == "HDD" || c.Type == "SSD" ? "Storage" : c.Type)
-            .ToDictionaryAsync(
-                g => g.Key,
-                g => g.ToList()
-            );
+         // Try to get the data from cache
+        if (!_cache.TryGetValue(GroupedComponentsCacheKey, out object? groupedComponents))
+        {
+            // Data not in cache, query the database
+            groupedComponents = await _context.Components
+                .GroupBy(c => c.Type == "HDD" || c.Type == "SSD" ? "Storage" : c.Type)
+                .ToDictionaryAsync(
+                    g => g.Key,
+                    g => g.ToList()
+                );
+
+            // Store the data in the cache
+            _cache.Set(GroupedComponentsCacheKey, groupedComponents);
+        }
 
         return Ok(new { components = groupedComponents, categories = Categories.AllCategories });
+    }
+
+    [HttpDelete("clearGroupedComponentsCache")]
+    public IActionResult ClearGroupedComponentsCache()
+    {
+        // Remove the cache entry
+        _cache.Remove(GroupedComponentsCacheKey);
+        return Ok(new { message = "Cache cleared successfully." });
     }
 
     // Get: api/health/apicheck

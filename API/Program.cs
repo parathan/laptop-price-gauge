@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using DotNetEnv;
+using Microsoft.AspNetCore.Components.RenderTree;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddHttpClient();
 
 // Register services for controllers
 builder.Services.AddControllers();
+
+builder.Services.AddMemoryCache();
 
 // Load environment variables
 Env.Load();
