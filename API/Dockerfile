@@ -1,27 +1,22 @@
-# Use the official ASP.NET Core runtime as the base image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+# https://hub.docker.com/_/microsoft-dotnet
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /source
 
-# Use the .NET SDK for building the application
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+# Copy solution file and csproj files
+COPY ../*.sln .  
+COPY *.csproj ./
 
-# Copy the project file and restore dependencies
-COPY ["API.csproj", "./"]
+# Restore dependencies
 RUN dotnet restore
 
-# Copy the entire project and build it
+# Copy everything else and build the app
 COPY . .
-RUN dotnet build -c Release -o /app/build
+RUN dotnet publish -c release -o /app --no-restore
 
-# Publish the app
-FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish
-
-# Use the runtime image to run the app
-FROM base AS final
+# Final stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+EXPOSE 5269
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app ./
+COPY .env .env
 ENTRYPOINT ["dotnet", "API.dll"]

@@ -72,6 +72,11 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<ComponentContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5269); // Bind to 0.0.0.0:5269
+});
+
 // Build the application
 var app = builder.Build();
 
