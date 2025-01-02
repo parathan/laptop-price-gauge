@@ -18,5 +18,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 EXPOSE 5269
 WORKDIR /app
 COPY --from=build /app ./
-COPY .env .env
 ENTRYPOINT ["dotnet", "API.dll"]
