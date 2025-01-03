@@ -14,7 +14,7 @@ export default function Form() {
         const fetchData = async () => {
             try {
                 const res = await fetch(
-                    process.env.NEXT_PUBLIC_API_LOCAL + "/api/groupedComponents",
+                    process.env.NEXT_PUBLIC_API_PROD + "/api/groupedComponents",
                     { cache: "default" }
                 );
 

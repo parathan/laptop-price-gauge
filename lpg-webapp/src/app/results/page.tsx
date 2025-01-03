@@ -21,7 +21,7 @@ async function getScore(request: APIContext) {
   });
 
   const res = await fetch(
-    process.env.NEXT_PUBLIC_API_LOCAL + "/api/computerScore/benchmark/two",
+    process.env.NEXT_PUBLIC_API_PROD + "/api/computerScore/benchmark/two",
     {
       method: "POST",
       headers: {
