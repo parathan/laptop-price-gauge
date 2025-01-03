@@ -1,40 +1,68 @@
-import FormComponent from "@/components/formComponent"
-import { ComponentList } from "@/interfaces/components"
+"use client";
 
-async function getData() {
-    // Request data
-    const res = await fetch('http://localhost:5269/api/groupedComponents', {cache: 'default'})
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
+import React, { useState, useEffect } from "react";
+import FormComponent from "@/components/formComponent";
+import { ComponentList } from "@/interfaces/components";
+import { CircularProgress } from "@mui/material";
+
+export default function Form() {
+    const [data, setData] = useState<ComponentList | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(
+                    process.env.NEXT_PUBLIC_API_LOCAL + "/api/groupedComponents",
+                    { cache: "default" }
+                );
+
+                if (!res.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+
+                const rawData = await res.json();
+
+                // Separate data by type
+                const componentlist: ComponentList = {
+                    CPU: rawData.components.CPU,
+                    GPU: rawData.components.GPU,
+                    Storage: rawData.components.Storage,
+                    RAM: rawData.components.RAM,
+                    Categories: rawData.categories,
+                };
+
+                setData(componentlist);
+            } catch (err: any) {
+                setError(err.message || "Something went wrong");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="grid justify-items-center mx-auto w-1/2 mt-60">
+                <CircularProgress />
+            </div>
+        );
     }
-    let data = await res.json()
-    
-    // Seperate data by type
-    var componentlist: ComponentList = {
-        CPU: data.components.CPU,
-        GPU: data.components.GPU,
-        Storage: data.components.Storage,
-        RAM: data.components.RAM,
-        Categories: data.categories
+
+    if (error) {
+        return (
+            <div className="grid justify-items-center mx-auto w-1/2 mt-60">
+                <p>Error: {error}</p>
+            </div>
+        );
     }
-
-    return componentlist;   
-}
-
-/**
- * A Next.js page that displays a form to select laptop components.
- * 
- * The form is populated with data from the API, and the user's selection is
- * passed to the FormComponent as a prop.
- * 
- * @returns {JSX.Element} A JSX element representing the page.
- */
-export default async function Form() {
-    const data: ComponentList = await getData()
 
     return (
         <div className="grid justify-items-center mx-auto w-1/2 mt-60 space-y-10">
-            <FormComponent data={data}/>
+            {data && <FormComponent data={data} />}
         </div>
     );
 }

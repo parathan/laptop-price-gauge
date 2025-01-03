@@ -22,7 +22,7 @@ async function getScore(
         Category: request.category
     })
 
-    const res = await fetch('http://localhost:5269/api/computerScore/benchmark/two', {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_LOCAL + '/api/computerScore/benchmark/two', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
