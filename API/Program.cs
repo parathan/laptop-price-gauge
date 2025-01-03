@@ -57,7 +57,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost3000", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") // Allow this origin
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "https://laptop-price-gauge.vercel.app",
+            "https://laptop-price-gauge-git-master-parathans-projects.vercel.app/",
+            "https://laptop-price-gauge-ghp5hrmmm-parathans-projects.vercel.app/"
+            ) // Allow this origin
               .AllowAnyHeader()                    // Allow any headers
               .AllowAnyMethod();                   // Allow any HTTP methods
     });
