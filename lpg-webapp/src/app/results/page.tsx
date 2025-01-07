@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { APIContext } from "@/interfaces/context";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import apiUrl from "@/util/api";
 
 async function getScore(request: APIContext) {
   const body = JSON.stringify({
@@ -21,7 +22,7 @@ async function getScore(request: APIContext) {
   });
 
   const res = await fetch(
-    process.env.NEXT_PUBLIC_API_PROD + "/api/computerScore/benchmark/two",
+    apiUrl() + "/api/computerScore/benchmark/two",
     {
       method: "POST",
       headers: {

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import FormComponent from "@/components/formComponent";
 import { ComponentList } from "@/interfaces/components";
 import { CircularProgress } from "@mui/material";
+import apiUrl from "@/util/api";
 
 export default function Form() {
     const [data, setData] = useState<ComponentList | null>(null);
@@ -13,8 +14,9 @@ export default function Form() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(apiUrl());
                 const res = await fetch(
-                    process.env.NEXT_PUBLIC_API_PROD + "/api/groupedComponents",
+                    apiUrl() + "/api/groupedComponents",
                     { cache: "default" }
                 );
 
